@@ -2,2797 +2,1487 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>STRIKE:SONY — Stage 5 · AAA</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f7f4ec'/%3E%3Ccircle cx='8' cy='8' r='3' fill='%232d8a4e'/%3E%3C/svg%3E" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>STRIKE:SONY — Arcade Sweet Zone</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%230b0f1a'/%3E%3Ccircle cx='8' cy='8' r='4' fill='%2300e5a8'/%3E%3C/svg%3E" />
 <style>
-
   :root {
-    --paper: #f7f4ec;
-    --paper-dot: #d9d4c8;
-    --graphite: #2a2a28;
-    --graphite-mid: #5a5a56;
-    --graphite-light: #9a968c;
-    --green: #2d8a4e;
-    --green-soft: #c8e6d0;
-    --orange: #d97706;
-    --orange-soft: #fde8c8;
-    --red-ink: #b54a3a;
-    --white: #fffef9;
-    --shadow: rgba(42,42,40,0.12);
-    --font: "IBM Plex Mono", "SF Mono", "Consolas", ui-monospace, monospace;
-    --thumb: 52px;
-    --pill-min: 44px;
-    --grade-delay: 400;
-    /* Measured stamp budget (sheet ≤420px; stamp stays inside frame) */
-    --stamp-max-w: 280px;
-    --stamp-font: 26px;
-    /* ≥4.5:1 on paper (#f7f4ec): graphite-mid ≈ 6.3:1 */
-    --disclaimer-ink: #5a5a56;
+    --bg: #0b0f1a;
+    --cabinet: #12182a;
+    --panel: #1a2238;
+    --ink: #e8eefc;
+    --muted: #8b97b8;
+    --neon: #00e5a8;
+    --neon-dim: #00e5a855;
+    --gold: #ffc857;
+    --hot: #ff4d6d;
+    --blue: #4cc9f0;
+    --extrinsic: #ffc857;
+    --intrinsic: #00e5a8;
+    --zone: #7b61ff;
+    --zone-glow: #7b61ff88;
+    --paper-dot: #1e2740;
+    --thumb: 56px;
+    --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+    --mono: "SF Mono", "Consolas", ui-monospace, monospace;
   }
-
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
     margin: 0; height: 100%;
-    background: #e8e4d8;
-    color: var(--graphite);
+    background: #05070e;
+    color: var(--ink);
     font-family: var(--font);
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.35;
     user-select: none;
-    touch-action: none;
+    touch-action: manipulation;
   }
   body {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100dvh;
-    padding: 10px;
+    padding: 8px;
   }
-
-  .sheet {
+  .cabinet {
     width: min(100%, 420px);
+    min-height: min(92dvh, 760px);
     background:
-      radial-gradient(circle, var(--paper-dot) 0.7px, transparent 0.8px) 0 0 / 14px 14px,
-      var(--paper);
-    border-radius: 4px;
+      radial-gradient(circle, var(--paper-dot) 0.8px, transparent 0.9px) 0 0 / 16px 16px,
+      linear-gradient(180deg, #151c30 0%, var(--cabinet) 40%, #0e1424 100%);
+    border-radius: 18px;
+    border: 3px solid #2a3558;
     box-shadow:
-      0 1px 0 rgba(255,255,255,0.7) inset,
-      0 12px 36px var(--shadow),
-      0 0 0 1px #cfc9b8;
-    min-height: 640px;
+      0 0 0 2px #0a0e18,
+      0 0 40px #00e5a822,
+      0 18px 48px #000000aa,
+      inset 0 1px 0 #3a4670;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     position: relative;
   }
-
-  .mast {
+  .marquee {
+    padding: 12px 16px 8px;
+    text-align: center;
+    border-bottom: 1px solid #2a3558;
+    background: linear-gradient(180deg, #1c2540, transparent);
+  }
+  .marquee h1 {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--neon);
+    text-shadow: 0 0 12px var(--neon-dim);
+  }
+  .marquee .sub {
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px 12px;
+    gap: 12px;
+    min-height: 0;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid #2f3c62;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: inset 0 1px 0 #3a4a78;
+  }
+  .story-big {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+  .story-mid {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .ticker {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 8px;
-    padding: 12px 14px 8px;
-    border-bottom: 1.5px dashed var(--graphite-light);
+    gap: 10px;
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #0d1324;
+    border: 1px solid #2a3558;
   }
-  .title {
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    font-weight: 600;
-  }
-  .title span { color: var(--orange); }
-  .phase-tag {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    color: var(--graphite-mid);
-    text-transform: uppercase;
-  }
-  .toggles {
-    display: flex;
-    gap: 6px;
-  }
-  .pill {
-    font-size: 10px;
+  .ticker .sym {
+    font-family: var(--mono);
+    font-weight: 700;
     letter-spacing: 0.08em;
-    border: 1.5px solid var(--graphite-light);
-    border-radius: 999px;
-    padding: 8px 12px;
-    background: var(--white);
-    color: var(--graphite-mid);
-    cursor: pointer;
-    min-height: var(--pill-min);
-    min-width: var(--pill-min);
-    font-family: inherit;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--blue);
   }
-  .pill:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
+  .ticker .px {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 800;
   }
-  .pill.on {
-    border-color: var(--orange);
-    color: var(--orange);
-  }
-
-  .board-wrap {
-    flex: 1;
-    position: relative;
-    padding: 8px 10px 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  #board {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 360 / 320;
-    display: block;
-    touch-action: none;
-  }
-
-  .readout {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
-    padding: 8px 4px 4px;
-  }
-  .stat {
-    border: 1.5px solid var(--graphite-light);
-    border-radius: 3px;
-    padding: 6px 8px;
-    background: rgba(255,254,249,0.65);
-  }
-  .stat .lbl {
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: var(--graphite-light);
-    text-transform: uppercase;
-  }
-  .stat .val {
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 2px;
-  }
-  .stat .val.green { color: var(--green); }
-  .stat .val.orange { color: var(--orange); }
-
-  .narr {
-    padding: 6px 14px 4px;
-    min-height: 48px;
-  }
-  .narr h2 {
-    margin: 0 0 2px;
+  .ticker .chg {
+    font-family: var(--mono);
     font-size: 13px;
-    letter-spacing: 0.06em;
-    font-weight: 600;
-  }
-  .narr p {
-    margin: 0;
-    font-size: 12px;
-    color: var(--graphite-mid);
-  }
-
-  .thumb {
-    padding: 8px 12px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-top: 1.5px dashed var(--graphite-light);
-    background: rgba(255,254,249,0.5);
-  }
-  .thumb-row {
-    display: flex;
-    gap: 8px;
+    color: var(--hot);
   }
   .btn {
-    flex: 1;
+    appearance: none;
+    border: none;
+    border-radius: 14px;
     min-height: var(--thumb);
-    border: 2px solid var(--graphite);
-    border-radius: 4px;
-    background: var(--white);
-    color: var(--graphite);
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    cursor: pointer;
-    position: relative;
-  }
-  .btn:disabled {
-    opacity: 0.35;
-    cursor: default;
-  }
-  .btn.primary {
-    background: var(--graphite);
-    color: var(--paper);
-  }
-  .btn.accent {
-    border-color: var(--green);
-    color: var(--green);
-  }
-  .btn.hold {
-    border-style: dashed;
-  }
-  .btn.hold.charging {
-    background: var(--green-soft);
-    border-color: var(--green);
-    border-style: solid;
-  }
-  .hold-fill {
-    position: absolute;
-    left: 0; bottom: 0;
-    height: 4px;
-    width: 0%;
-    background: var(--green);
-    border-radius: 0 0 2px 2px;
-    pointer-events: none;
-  }
-
-  .disclaimer {
-    font-size: 9px;
-    color: var(--disclaimer-ink);
-    text-align: center;
-    padding: 0 12px 10px;
-    letter-spacing: 0.02em;
-  }
-  /* Production: path toggle + bench chrome hidden unless .bench */
-  #pathBtn { display: none; }
-  .sheet.bench #pathBtn { display: inline-flex; }
-  .bench-hint {
-    display: none;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--graphite-mid);
-    text-transform: uppercase;
-  }
-  .sheet.bench .bench-hint { display: inline; }
-
-  /* Overlays */
-  .overlay {
-    position: absolute;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    background: rgba(247,244,236,0.82);
-    padding: 20px;
-  }
-  .overlay.show { display: flex; }
-  .stamp {
-    text-align: center;
-    max-width: var(--stamp-max-w);
-    transform: scale(0.6) rotate(-6deg);
-    opacity: 0;
-    transition: none;
-  }
-  .stamp.in {
-    opacity: 1;
-    transform: scale(1) rotate(-4deg);
-    transition: transform 180ms cubic-bezier(0.2,1.4,0.4,1), opacity 120ms ease;
-  }
-  .sheet.no-juice .stamp.in,
-  .sheet.reduce .stamp.in {
-    transition: none;
-    transform: none;
-  }
-  .stamp .mark {
-    display: inline-block;
-    border: 4px solid var(--graphite);
-    padding: 10px 18px;
-    font-size: var(--stamp-font);
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    border-radius: 4px;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  /* Quiet raw P/L during REVEAL — never competes with stamp */
-  .quiet-pl {
-    position: absolute;
-    left: 14px;
-    bottom: 12px;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: var(--graphite-mid);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 21;
-    transition: opacity 160ms ease;
-  }
-  .quiet-pl.show { opacity: 0.85; }
-  .quiet-pl.up { color: var(--green); }
-  .quiet-pl.down { color: var(--red-ink); }
-  .sheet.no-juice .quiet-pl,
-  .sheet.reduce .quiet-pl { transition: none; }
-
-  /* PLAN one-hero foci */
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .thumb-row#rungRow,
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnPrimary {
-    opacity: 0.38;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="arm"] #dragHint {
-    opacity: 0.25 !important;
-    animation: none !important;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="arm"] #btnPrimary {
-    opacity: 0.38;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="arm"] .thumb-row#rungRow .btn {
-    box-shadow: 0 0 0 2px var(--orange-soft);
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #dragHint {
-    opacity: 0 !important;
-    animation: none !important;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="lock"] .thumb-row#rungRow {
-    opacity: 0.55;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary:not(:disabled) {
-    animation: pulse 1.1s ease-in-out infinite;
-  }
-  .sheet.no-juice[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary,
-  .sheet.reduce[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary {
-    animation: none;
-    outline: 2px dashed var(--green);
-  }
-
-  /* Hang vignette — drip harvest chrome */
-  .hang-veil {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 12;
-    opacity: 0;
-    background: radial-gradient(ellipse at center, transparent 35%, rgba(42,42,40,0.28) 100%);
-    transition: opacity 80ms linear;
-  }
-  .sheet.reduce .hang-veil,
-  .sheet.no-juice .hang-veil { display: none; }
-
-  /* Paper jitter on stamp (board paper, not chrome) */
-  @keyframes paperShake {
-    0%,100% { transform: translate(0,0); }
-    25% { transform: translate(0.6px, -0.4px); }
-    50% { transform: translate(-0.5px, 0.5px); }
-    75% { transform: translate(0.3px, 0.2px); }
-  }
-  .sheet.paper-jitter #board {
-    animation: paperShake 90ms linear 3;
-  }
-  .sheet.no-juice.paper-jitter #board,
-  .sheet.reduce.paper-jitter #board { animation: none; }
-
-  .fill-cap {
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    fill: #2d8a4e;
-  }
-  .stamp[data-g="CORRECT"] .mark { border-color: var(--green); color: var(--green); }
-  .stamp[data-g="LUCKY"] .mark { border-color: var(--orange); color: var(--orange); }
-  .stamp[data-g="UNLUCKY"] .mark { border-color: var(--graphite-mid); color: var(--graphite-mid); }
-  .stamp[data-g="WRONG"] .mark { border-color: var(--red-ink); color: var(--red-ink); }
-  .stamp .sub {
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--graphite-mid);
-  }
-
-  .card {
-    background: var(--white);
-    border: 2px solid var(--graphite);
-    border-radius: 4px;
-    padding: 16px;
-    width: 100%;
-    max-width: 320px;
-    box-shadow: 4px 4px 0 var(--shadow);
-  }
-  .card h3 {
-    margin: 0 0 8px;
-    font-size: 14px;
-    letter-spacing: 0.08em;
-  }
-  .card .pl {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 4px 0 10px;
-  }
-  .card .pl.up { color: var(--green); }
-  .card .pl.down { color: var(--red-ink); }
-  .card .meta {
-    font-size: 11px;
-    color: var(--graphite-mid);
-    margin-bottom: 10px;
-  }
-  .card .card-plain {
-    margin: 0 0 10px;
-    font-size: 12px;
-    color: var(--graphite);
-    line-height: 1.4;
-  }
-  .card .share {
-    font-size: 11px;
-    border: 1.5px dashed var(--graphite-light);
-    padding: 8px;
-    border-radius: 3px;
-    color: var(--graphite-mid);
-    word-break: break-word;
-    cursor: pointer;
-    position: relative;
-  }
-  .card .share:hover, .card .share:focus-visible {
-    border-color: var(--graphite-mid);
-    color: var(--graphite);
-    outline: none;
-  }
-  .card .share::after {
-    content: 'tap to copy';
-    display: block;
-    margin-top: 4px;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    color: var(--graphite-light);
-  }
-  .card .meta .meta-detail {
-    color: var(--graphite-light);
-    font-size: 10px;
+    padding: 14px 18px;
+    font: inherit;
+    font-weight: 800;
     letter-spacing: 0.04em;
-    cursor: help;
+    cursor: pointer;
+    transition: transform 0.08s ease, filter 0.12s ease, box-shadow 0.12s ease;
   }
-  .toast {
-    position: absolute;
-    left: 50%;
-    bottom: 88px;
-    transform: translateX(-50%) translateY(8px);
-    background: var(--graphite);
-    color: var(--white);
+  .btn:active { transform: scale(0.97); }
+  .btn-neon {
+    background: linear-gradient(180deg, #1affc0, var(--neon));
+    color: #041018;
+    box-shadow: 0 0 22px var(--neon-dim), 0 4px 0 #009e74;
+  }
+  .btn-ghost {
+    background: #1a2238;
+    color: var(--ink);
+    border: 1px solid #3a4a78;
+  }
+  .btn-hot {
+    background: linear-gradient(180deg, #ff7a90, var(--hot));
+    color: #1a0508;
+    box-shadow: 0 0 24px #ff4d6d66, 0 5px 0 #b01f3a;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+  }
+  .btn-row { display: flex; gap: 10px; margin-top: auto; }
+  .btn-row .btn { flex: 1; }
+  .hint {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  .label {
     font-size: 11px;
-    letter-spacing: 0.1em;
-    padding: 8px 14px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* WHERE */
+  .price-rail {
+    position: relative;
+    height: 64px;
+    margin: 8px 0 4px;
+    touch-action: none;
+  }
+  .price-track {
+    position: absolute;
+    left: 0; right: 0; top: 28px;
+    height: 10px;
     border-radius: 999px;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 40;
-    transition: opacity 160ms ease, transform 160ms ease;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  .sheet.no-juice .toast, .sheet.reduce .toast { transition: none; }
-  .btn.cue-pulse {
-    box-shadow: 0 0 0 2px var(--orange-soft), 0 0 0 4px var(--orange);
-  }
-  .sheet.no-juice .btn.cue-pulse,
-  .sheet.reduce .btn.cue-pulse { box-shadow: 0 0 0 2px var(--graphite-light); }
-  .btn.abort {
-    background: var(--white);
-    color: var(--graphite-mid);
-    border-style: dashed;
-  }
-  .coin-fly {
-    pointer-events: none;
-  }
-  .grade-key {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-top: 10px;
-  }
-  .grade-key div {
-    font-size: 10px;
-    padding: 6px;
-    border: 1px solid var(--paper-dot);
-    border-radius: 3px;
-  }
-  .grade-key strong { display: block; letter-spacing: 0.06em; }
-
-  #particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 15;
-  }
-
-  .hint-pulse {
-    animation: pulse 1.2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 0.35; }
-    50% { opacity: 1; }
-  }
-  .sheet.no-juice .hint-pulse,
-  .sheet.reduce .hint-pulse { animation: none; opacity: 0.7; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hint-pulse { animation: none !important; }
-  }
-
-  /* Landscape / short viewports — keep SETTLE + LOCK above the fold */
-  @media (orientation: landscape) and (max-height: 500px), (max-height: 520px) {
-    body {
-      padding: 4px;
-      align-items: stretch;
-      justify-content: center;
-    }
-    .sheet {
-      width: min(100%, 760px);
-      min-height: 0;
-      height: calc(100dvh - 8px);
-      max-height: calc(100dvh - 8px);
-    }
-    .mast {
-      padding: 4px 10px 3px;
-      gap: 6px;
-    }
-    .title { font-size: 11px; }
-    .phase-tag { font-size: 9px; }
-    .pill {
-      padding: 6px 10px;
-      min-height: 40px;
-      font-size: 9px;
-    }
-    .board-wrap { padding: 2px 8px 0; }
-    #board {
-      aspect-ratio: 360 / 220;
-      max-height: min(52dvh, 240px);
-      width: auto;
-      min-height: 120px;
-      margin: 0 auto;
-    }
-    #priceHit { /* fat scrub target — r set in SVG; ensure visible hit */ }
-    .days-rail { min-height: 36px; }
-    .days-rail input[type="range"] { height: 32px; }
-    .readout {
-      padding: 2px 2px 0;
-      gap: 4px;
-    }
-    .stat { padding: 3px 6px; }
-    .stat .lbl { font-size: 8px; }
-    .stat .val { font-size: 12px; margin-top: 0; }
-    .narr {
-      padding: 2px 10px;
-      min-height: 0;
-    }
-    .narr h2 { font-size: 11px; margin-bottom: 0; }
-    .narr p { font-size: 10px; }
-    .thumb {
-      padding: 4px 10px 6px;
-      gap: 4px;
-    }
-    .thumb-row { gap: 6px; }
-    .btn {
-      min-height: 44px;
-      font-size: 12px;
-    }
-    .disclaimer {
-      padding: 0 10px 4px;
-      font-size: 8px;
-      line-height: 1.2;
-    }
-    .toast { bottom: 64px; }
-    .card { padding: 12px; max-width: 300px; }
-    .card .pl { font-size: 22px; margin: 2px 0 6px; }
-    .grade-key { margin-top: 6px; gap: 4px; }
-    .grade-key div { padding: 4px; font-size: 9px; }
-  }
-
-
-  /* Stage 4 — soft-focus PLAN (scrub → days → wire → lock) */
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #daysRail,
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #wireCaption,
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .thumb-row#rungRow,
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnPrimary {
-    opacity: 0.28;
-    pointer-events: none;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] .thumb-row#rungRow,
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] #btnPrimary {
-    opacity: 0.38;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] #daysRail {
-    opacity: 1;
-    outline: 1.5px dashed var(--orange);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #daysRail { opacity: 0.7; }
-  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #btnPrimary { opacity: 0.38; }
-  .sheet[data-phase="PLAN"][data-plan-focus="wire"] .thumb-row#rungRow .btn {
-    box-shadow: 0 0 0 2px var(--orange-soft);
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary:not(:disabled) {
-    animation: pulse 1.1s ease-in-out infinite;
-  }
-  .sheet.no-juice[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary,
-  .sheet.reduce[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary {
-    animation: none;
-    outline: 2px dashed var(--green);
-  }
-  .days-rail {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 2px 2px;
-    min-height: 40px;
-  }
-  .days-rail label {
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: var(--graphite-light);
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .days-rail input[type="range"] {
-    flex: 1;
-    accent-color: var(--orange);
-    height: 28px;
-    cursor: pointer;
-  }
-  .days-rail .days-val {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--orange);
-    min-width: 36px;
-    text-align: right;
-  }
-  .wire-caption {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--graphite-mid);
-    padding: 2px 4px 4px;
-    min-height: 18px;
-  }
-  .wire-caption .inside { color: var(--orange); font-weight: 600; }
-  .wire-caption .outside { color: var(--graphite-mid); font-weight: 600; }
-  .btn.secondary {
-    flex: 0 0 auto;
-    min-width: 96px;
-    background: var(--white);
-    color: var(--graphite-mid);
-    border-style: dashed;
-    border-width: 1.5px;
-    font-size: 11px;
-    font-weight: 500;
-    opacity: 0.85;
-  }
-  .btn.watch-primary {
-    background: var(--graphite);
-    color: var(--paper);
-  }
-  .entry-lock-ring {
-    fill: none;
-    stroke: #2d8a4e;
-    stroke-width: 1.5;
-    stroke-dasharray: 3 2;
-    opacity: 0.7;
-  }
-  .ghost-dot {
-    fill: none;
-    stroke: #2d8a4e;
-    stroke-width: 2;
-    stroke-dasharray: 4 3;
-  }
-  .sky-chip {
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--graphite-mid);
-    text-transform: uppercase;
-  }
-
-
-  /* ========== Stage 5 AAA — juice / graphics / simplify ========== */
-
-  /* S5 soft-focus tighten — scrub is the only hero for first 15s */
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnHold,
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] #btnHold,
-  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #btnHold,
-  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnHold,
-  .sheet[data-phase="PLAN"] #btnHold {
-    display: none;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnPrimary,
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] #btnPrimary,
-  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #btnPrimary {
-    visibility: hidden;
-    pointer-events: none;
-    height: 0;
-    min-height: 0;
-    padding: 0;
-    border: 0;
+    background: #0d1324;
+    border: 1px solid #2f3c62;
     overflow: hidden;
   }
-  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary {
-    visibility: visible;
-    height: auto;
-    min-height: 56px;
-    padding: inherit;
-    border: 2px solid var(--graphite);
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #daysRail,
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #wireCaption {
-    opacity: 0.18;
-    pointer-events: none;
-  }
-  .sheet[data-phase="BOOT"] #btnHold { display: none; }
-
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .mast .phase-tag { opacity: 0.55; }
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .readout .stat:nth-child(2),
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .readout .stat:nth-child(3) {
-    opacity: 0.55;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #rungRow {
-    display: none;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] #rungRow,
-  .sheet[data-phase="PLAN"][data-plan-focus="days"] #wireCaption {
-    opacity: 0.35;
-    pointer-events: none;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #rungRow {
-    opacity: 0.7;
-  }
-  .sheet[data-phase="PLAN"] #btnPrimary {
-    min-height: 56px;
-    font-size: 15px;
-    letter-spacing: 0.1em;
-  }
-  .sheet[data-phase="RUN"] #btnPrimary.watch-primary {
-    min-height: 52px;
-    opacity: 0.92;
-  }
-  .sheet[data-phase="RUN"] #btnAbort {
-    min-width: 88px;
-    font-size: 10px;
-    opacity: 0.65;
-  }
-  .sheet[data-phase="HANG"] #btnHold {
-    min-height: 56px;
-    font-size: 15px;
-    letter-spacing: 0.12em;
-  }
-  .days-rail {
-    min-height: 48px;
-    padding: 6px 2px 4px;
-  }
-  .days-rail input[type="range"] {
-    height: 36px;
-    accent-color: var(--orange);
-  }
-  .days-rail label { font-size: 10px; color: var(--graphite-mid); }
-  .days-rail .days-val { font-size: 16px; min-width: 40px; }
-
-  .wire-caption {
-    font-size: 12px;
-    min-height: 22px;
-    padding: 4px 6px 6px;
-  }
-  .wire-caption .badge {
-    display: inline-block;
-    padding: 2px 8px;
+  .price-fill {
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, var(--blue), var(--neon));
     border-radius: 999px;
-    border: 1.5px solid;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-    vertical-align: middle;
   }
-  .wire-caption .badge.inside {
-    border-color: var(--orange);
-    color: var(--orange);
-    background: var(--orange-soft);
+  .price-now {
+    position: absolute;
+    top: 18px;
+    width: 3px;
+    height: 30px;
+    background: var(--hot);
+    border-radius: 2px;
+    transform: translateX(-50%);
   }
-  .wire-caption .badge.outside {
-    border-color: var(--graphite-light);
-    color: var(--graphite-mid);
-    background: rgba(255,254,249,0.8);
-  }
-
-  /* Cone breathe — time is happening */
-  @keyframes coneBreathe {
-    0%,100% { fill-opacity: 0.52; }
-    50% { fill-opacity: 0.72; }
-  }
-  .sheet:not(.no-juice):not(.reduce)[data-phase="PLAN"] #ivCone {
-    animation: coneBreathe 2.4s ease-in-out infinite;
-  }
-  .sheet:not(.no-juice):not(.reduce)[data-phase="PLAN"] #ghostCone {
-    animation: coneBreathe 2.8s ease-in-out infinite;
-    animation-delay: 0.3s;
-  }
-
-  /* Scrub squash (haptics-like) */
-  #priceHero.scrubbing #priceDot {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: scrubSquash 160ms ease-out;
-  }
-  @keyframes scrubSquash {
-    0% { transform: scale(1, 1); }
-    40% { transform: scale(1.22, 0.78); }
-    100% { transform: scale(1.08, 0.92); }
-  }
-  .sheet.no-juice #priceHero.scrubbing #priceDot,
-  .sheet.reduce #priceHero.scrubbing #priceDot { animation: none; }
-
-  /* Premium pop */
-  .stat .val.pop {
-    animation: premPop 280ms cubic-bezier(0.2,1.6,0.4,1);
-  }
-  @keyframes premPop {
-    0% { transform: scale(1); }
-    40% { transform: scale(1.18); color: var(--orange); }
-    100% { transform: scale(1); }
-  }
-  .sheet.no-juice .stat .val.pop,
-  .sheet.reduce .stat .val.pop { animation: none; }
-
-  /* Wire glow when INSIDE */
-  .sheet:not(.no-juice):not(.reduce) #wireLine.wire-glow {
-    filter: url(#wireGlow);
-  }
-
-  /* Stamp impact — premium bounce */
-  .stamp.in {
-    transform: scale(1.02) rotate(-3.5deg);
-    transition: transform 220ms cubic-bezier(0.15,1.6,0.35,1), opacity 100ms ease;
-  }
-  .stamp.impact .mark {
-    box-shadow: 0 0 0 0 rgba(45,138,78,0.35);
-    animation: stampRing 420ms ease-out;
-  }
-  @keyframes stampRing {
-    0% { box-shadow: 0 0 0 0 rgba(45,138,78,0.4); }
-    100% { box-shadow: 0 0 0 18px rgba(45,138,78,0); }
-  }
-  .sheet.no-juice .stamp.impact .mark,
-  .sheet.reduce .stamp.impact .mark { animation: none; }
-
-  /* Soft drip particles cue on hang */
-  .sheet[data-phase="HANG"] #btnHold.charging {
-    box-shadow: 0 0 0 3px var(--green-soft), 0 0 18px rgba(45,138,78,0.25);
-  }
-
-  /* Ghost vs solid hierarchy */
-  #entryDot { filter: none; }
-  #priceDot {
-    stroke-width: 2.4;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #priceHalo {
-    opacity: 0.7 !important;
-  }
-  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #dragHint {
+  .price-thumb {
+    position: absolute;
+    top: 8px;
+    width: 48px;
+    height: 48px;
+    margin-left: -24px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid #fff3c4;
+    box-shadow: 0 0 18px #ffc85788, 0 4px 0 #b8860b;
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
     font-size: 11px;
+    font-weight: 800;
+    color: #2a1a00;
+    cursor: grab;
+    z-index: 2;
+  }
+  .price-readout {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--gold);
+    text-shadow: 0 0 18px #ffc85755;
+  }
+  .price-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
   }
 
-  /* Demote secondary chrome */
-  .disclaimer { opacity: 0.85; }
-  .sky-chip { opacity: 0.7; font-size: 8px; }
-  .toggles .pill { min-width: 40px; padding: 6px 10px; font-size: 9px; }
-
-  /* Landscape — fat drawn ghost (Stage-4 residual) */
-  @media (orientation: landscape) and (max-height: 500px), (max-height: 520px) {
-    #priceDot { /* visual enlarged via JS syncLandscapeDot; CSS stroke boost */
-      stroke-width: 3;
-    }
-    #priceHit { /* keep fat invisible hit */ }
-    .days-rail { min-height: 42px; }
-    .days-rail input[type="range"] { height: 38px; }
-    .sheet[data-phase="PLAN"] #btnPrimary { min-height: 48px; font-size: 13px; }
-    .wire-caption { font-size: 11px; min-height: 18px; }
-    #rungRow .btn { min-height: 40px; font-size: 11px; }
+  /* WHEN */
+  .tenor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .tenor {
+    min-height: 72px;
+    border-radius: 14px;
+    border: 2px solid #2f3c62;
+    background: #0d1324;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .tenor .d { font-size: 22px; font-family: var(--mono); }
+  .tenor .t { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .tenor.on {
+    border-color: var(--neon);
+    box-shadow: 0 0 18px var(--neon-dim);
+    background: #102a28;
   }
 
+  /* PICK */
+  .opt-list { display: flex; flex-direction: column; gap: 10px; }
+  .opt-card {
+    text-align: left;
+    border-radius: 14px;
+    border: 2px solid #2f3c62;
+    background: #0d1324;
+    color: var(--ink);
+    padding: 12px 14px;
+    cursor: pointer;
+    font: inherit;
+    min-height: 88px;
+  }
+  .opt-card.on {
+    border-color: var(--neon);
+    box-shadow: 0 0 20px var(--neon-dim);
+  }
+  .opt-card .name {
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  .opt-card .spec {
+    margin-top: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--blue);
+  }
+  .opt-card .why {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .opt-card .lev {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #1a2238;
+    border: 1px solid #3a4a78;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
 
+  /* ARCADE */
+  .arcade-hud {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .hud-cell {
+    background: #0d1324;
+    border: 1px solid #2f3c62;
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+  .hud-cell .k {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hud-cell .v {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 2px;
+  }
+  .meter-wrap { margin-top: 2px; }
+  .meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .meter-labels .ex { color: var(--extrinsic); font-weight: 700; }
+  .meter-labels .in { color: var(--intrinsic); font-weight: 700; }
+  .stack-meter {
+    height: 28px;
+    border-radius: 8px;
+    background: #0d1324;
+    border: 1px solid #2f3c62;
+    display: flex;
+    overflow: hidden;
+  }
+  .stack-ex {
+    background: linear-gradient(180deg, #ffe29a, var(--extrinsic));
+    transition: width 0.08s linear;
+  }
+  .stack-in {
+    background: linear-gradient(180deg, #6dffd0, var(--intrinsic));
+    transition: width 0.08s linear;
+  }
+  .track-box {
+    position: relative;
+    height: 160px;
+    margin: 4px 0;
+    background: #0a1020;
+    border-radius: 14px;
+    border: 1px solid #2f3c62;
+    overflow: hidden;
+  }
+  .track-box canvas { width: 100%; height: 100%; display: block; }
+  .zone-chip {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #7b61ff33;
+    border: 1px solid var(--zone);
+    color: #cbbfff;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 800;
+    pointer-events: none;
+  }
+  .zone-chip.hot {
+    background: #00e5a833;
+    border-color: var(--neon);
+    color: var(--neon);
+    box-shadow: 0 0 16px var(--neon-dim);
+  }
+  .sell-wrap { margin-top: 4px; }
+  .sell-wrap .btn { width: 100%; min-height: 68px; }
+  .coach {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    min-height: 36px;
+  }
+  .coach.alert { color: var(--gold); font-weight: 700; }
+
+  /* RESULT */
+  .stamp {
+    text-align: center;
+    padding: 18px 10px;
+  }
+  .stamp .grade {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .stamp .grade.win { color: var(--neon); text-shadow: 0 0 20px var(--neon-dim); }
+  .stamp .grade.ok { color: var(--gold); }
+  .stamp .grade.lose { color: var(--hot); }
+  .stamp .grade.rare { color: #ff66cc; text-shadow: 0 0 24px #ff66cc88; }
+  .stamp .detail {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .lesson {
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #0d1324;
+    border: 1px solid #2f3c62;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .lesson strong { color: var(--gold); }
+  .iv-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .iv-split .cell {
+    padding: 10px;
+    border-radius: 10px;
+    background: #0d1324;
+    border: 1px solid #2f3c62;
+    text-align: center;
+  }
+  .iv-split .cell .n { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .iv-split .cell .x { font-family: var(--mono); font-size: 20px; font-weight: 800; margin-top: 4px; }
+
+  .hidden { display: none !important; }
+  .flex-grow { flex: 1; }
+  .foot {
+    padding: 8px 16px 12px;
+    text-align: center;
+    font-size: 10px;
+    color: #5a6688;
+    letter-spacing: 0.08em;
+  }
 </style>
 </head>
 <body>
-  <div class="sheet" id="sheet">
-    <header class="mast">
-      <div class="title" id="mastTitle" title="STRIKE:SONY">STRIKE:<span>SONY</span> <span class="bench-hint" id="benchHint">· BENCH</span></div>
-      <div class="phase-tag" id="phaseTag">BOOT</div>
-      <div class="toggles">
-        <button type="button" class="pill on" id="juiceBtn" aria-pressed="true">JUICE</button>
-        <button type="button" class="pill" id="muteBtn" aria-pressed="false">MUTE</button>
-        <button type="button" class="pill on" id="pathBtn" aria-pressed="true" title="BENCH: seeded path">GRIND</button>
-      </div>
-    </header>
-
-    <div class="board-wrap">
-      <canvas id="particles" width="360" height="320"></canvas>
-      <svg id="board" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" aria-label="Options board">
-        <defs>
-          <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
-            <line x1="0" y1="0" x2="0" y2="6" stroke="#d9d4c8" stroke-width="1"/>
-          </pattern>
-          <filter id="wobble">
-            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.8"/>
-          </filter>
-          <filter id="wireGlow" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="2.2" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <radialGradient id="bellyFill" cx="40%" cy="50%" r="70%">
-            <stop offset="0%" stop-color="#fde8c8" stop-opacity="0.85"/>
-            <stop offset="100%" stop-color="#fde8c8" stop-opacity="0.35"/>
-          </radialGradient>
-        </defs>
-
-        <rect id="cliffBand" x="40" y="40" width="280" height="200" fill="url(#hatch)" opacity="0.35"/>
-        <line x1="40" y1="240" x2="320" y2="240" stroke="#2a2a28" stroke-width="1.5" stroke-dasharray="2 3"/>
-        <line x1="40" y1="40" x2="40" y2="240" stroke="#2a2a28" stroke-width="1.5"/>
-
-        <!-- Ghost cone (what-if) + solid cone (entry/frame) -->
-        <path id="ghostCone" d="" fill="#fde8c8" fill-opacity="0.32" stroke="#d97706" stroke-width="1.2" stroke-dasharray="5 3" opacity="0.9"/>
-        <path id="ivCone" d="" fill="url(#bellyFill)" fill-opacity="0.9" stroke="#d97706" stroke-width="1.4" stroke-dasharray="3 3"/>
-
-        <g id="dateMarks"></g>
-        <polyline id="pricePath" points="" fill="none" stroke="#2a2a28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
-        <g id="rungs"></g>
-        <g id="coins"></g>
-
-        <!-- Strike wire (hero arm control) -->
-        <g id="strikeWire" style="cursor: ns-resize">
-          <line id="wireLine" x1="40" y1="160" x2="320" y2="160" stroke="#d97706" stroke-width="2.8" opacity="0.15"/>
-          <circle id="wireHandle" cx="200" cy="160" r="13" fill="#fffef9" stroke="#d97706" stroke-width="2.4" opacity="0.15"/>
-          <text id="wireLabel" x="324" y="163" font-size="10" fill="#d97706" font-family="IBM Plex Mono, monospace" font-weight="600" opacity="0.15">$24.50</text>
-        </g>
-
-        <!-- Locked entry (solid ruler) — does not move with scrub -->
-        <g id="entryHero">
-          <circle id="entryRing" class="entry-lock-ring" cx="60" cy="160" r="14" opacity="0"/>
-          <circle id="entryDot" cx="60" cy="160" r="8" fill="#2d8a4e" stroke="#2a2a28" stroke-width="2"/>
-          <text id="entryLabel" x="60" y="145" text-anchor="middle" font-size="10" font-family="IBM Plex Mono, monospace" fill="#2a2a28" font-weight="600">$23.43</text>
-        </g>
-
-        <!-- Ghost scrub (what-if) — dashed green -->
-        <g id="priceHero" style="cursor: ns-resize">
-          <circle id="priceHalo" cx="60" cy="160" r="22" fill="#c8e6d0" opacity="0"/>
-          <circle id="priceHit" cx="60" cy="160" r="34" fill="#2d8a4e" fill-opacity="0.001" stroke="none"/>
-          <circle id="priceDot" class="ghost-dot" cx="60" cy="160" r="11" fill="#c8e6d0" fill-opacity="0.42" stroke="#2d8a4e" stroke-width="2.4" stroke-dasharray="5 3"/>
-          <text id="priceLabel" x="78" y="164" text-anchor="start" font-size="10" font-family="IBM Plex Mono, monospace" fill="#2d8a4e" font-weight="600">ghost $23.43</text>
-          <text id="dragHint" class="hint-pulse" x="78" y="180" font-size="11" font-family="IBM Plex Mono, monospace" fill="#2d8a4e" font-weight="600" opacity="0">↕ drag</text>
-        </g>
-
-        <line id="timePtr" x1="60" y1="36" x2="60" y2="248" stroke="#d97706" stroke-width="1.5" opacity="0"/>
-        <polygon id="timeArrow" points="60,30 54,38 66,38" fill="#d97706" opacity="0"/>
-
-        <!-- DROP-DEAD days handle (board affordance) -->
-        <g id="daysHandleG" style="cursor: ew-resize">
-          <line id="daysHandleLine" x1="310" y1="40" x2="310" y2="240" stroke="#d97706" stroke-width="2" opacity="0.2"/>
-          <rect id="daysHandleHit" x="294" y="90" width="32" height="100" fill="#d97706" fill-opacity="0.12" stroke="#d97706" stroke-width="2" rx="4" opacity="0.2"/>
-          <text id="daysHandleLbl" x="310" y="86" text-anchor="middle" font-size="9" fill="#d97706" font-family="IBM Plex Mono, monospace" font-weight="600" opacity="0.2">14d</text>
-        </g>
-
-        <g id="tray">
-          <rect x="250" y="258" width="70" height="28" rx="3" fill="#fffef9" stroke="#2a2a28" stroke-width="1.5"/>
-          <text id="trayLbl" x="285" y="270" text-anchor="middle" font-size="8" fill="#9a968c" font-family="IBM Plex Mono, monospace">PREVIEW</text>
-          <text id="trayVal" x="285" y="282" text-anchor="middle" font-size="11" fill="#2d8a4e" font-family="IBM Plex Mono, monospace" font-weight="600">$0.00</text>
-        </g>
-
-        <text x="40" y="258" font-size="9" fill="#9a968c" font-family="IBM Plex Mono, monospace">TODAY</text>
-        <text id="xEndLbl" x="320" y="258" text-anchor="end" font-size="9" fill="#9a968c" font-family="IBM Plex Mono, monospace">DROP-DEAD</text>
-        <text x="28" y="48" text-anchor="end" font-size="9" fill="#9a968c" font-family="IBM Plex Mono, monospace" transform="rotate(-90 28 48)">$</text>
-      </svg>
-
-      <div class="readout">
-        <div class="stat"><div class="lbl" id="statSpotLbl">Spot</div><div class="val" id="statSpot">$23.43</div></div>
-        <div class="stat"><div class="lbl" id="statPremLbl">Premium</div><div class="val green" id="statPrem">$0.42</div></div>
-        <div class="stat" id="statGreeksBox"><div class="lbl" id="statGreeksLbl">Time</div><div class="val orange" id="statGreeks">14d</div></div>
-      </div>
-      <div class="days-rail" id="daysRail" aria-label="Days remaining">
-        <label for="daysSlider">DAYS</label>
-        <input type="range" id="daysSlider" min="7" max="30" value="14" step="1" />
-        <span class="days-val" id="daysVal">14d</span>
-      </div>
-      <div class="wire-caption" id="wireCaption">Wire — · place on the cone</div>
-    </div>
-
-    <div class="narr" id="narrLive" aria-live="polite" aria-atomic="true" role="status">
-      <h2 id="narrTitle">Drag the green</h2>
-      <p id="narrCopy">Coins and cone answer. Solid spot stays put.</p>
-    </div>
-
-    <div class="thumb">
-      <div class="thumb-row" id="rungRow">
-        <button type="button" class="btn" data-rung="0" disabled>$24.00</button>
-        <button type="button" class="btn" data-rung="1" disabled>$24.50</button>
-        <button type="button" class="btn" data-rung="2" disabled>$25.50</button>
-      </div>
-      <div class="thumb-row">
-        <button type="button" class="btn hold" id="btnHold" disabled>
-          POCKET
-          <span class="hold-fill" id="holdFill"></span>
-        </button>
-        <button type="button" class="btn secondary" id="btnAbort" disabled style="display:none">leave early</button>
-        <button type="button" class="btn primary" id="btnPrimary" disabled>PLAY</button>
-      </div>
-      <div class="sky-chip" id="skyChip" hidden></div>
-    </div>
-
-    <div class="disclaimer">
-      Illustrative simulation · seed SONY-HOME-v1 · not your position · not investment advice ·
-      simplified European call approx (no dividends, constant IV) · no brokerage · no real money
-    </div>
-
-    <div class="hang-veil" id="hangVeil" aria-hidden="true"></div>
-    <div class="quiet-pl" id="quietPL" aria-hidden="true"></div>
-
-    <div class="overlay" id="stampOverlay" aria-live="polite">
-      <div class="stamp" id="gradeStamp">
-        <div class="mark" id="stampMark">CORRECT</div>
-        <div class="sub" id="stampSub"></div>
-      </div>
-    </div>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-    <div class="overlay" id="summaryOverlay">
-      <div class="card" id="resultCard">
-        <h3 id="cardTitle">RESULT</h3>
-        <div class="pl" id="cardPL">+$0.00</div>
-        <div class="meta" id="cardMeta"></div>
-        <div class="share" id="cardShare" tabindex="0" role="button" title="Copy share text" aria-label="Copy share text"></div>
-        <p class="card-plain" id="cardPlain"></p>
-        <div class="grade-key">
-          <div><strong>CORRECT</strong> geometry held · path cooperated</div>
-          <div><strong>LUCKY</strong> paid · soft geometry</div>
-          <div><strong>UNLUCKY</strong> geometry solid · path against</div>
-          <div><strong>WRONG</strong> geometry and path both missed</div>
-        </div>
-        <div class="thumb-row" style="margin-top:12px">
-          <button type="button" class="btn primary" id="btnReplay">AGAIN</button>
-        </div>
-      </div>
-    </div>
+<div class="cabinet" id="app">
+  <div class="marquee">
+    <h1>STRIKE · SONY</h1>
+    <div class="sub" id="marqueeSub">Arcade · Sweet-Zone Sell</div>
   </div>
-
+  <div class="stage" id="stage"></div>
+  <div class="foot">YOUR FAVORITE · TIMING IS THE SKILL</div>
+</div>
 <script>
 (function () {
   'use strict';
 
-  /*
-   * STRIKE:SONY Stage 5 — AAA polish (juice · graphics · simplify)
-   * Stage 4 spine preserved (P0+P1 invariants)
-   * Interaction model (required): sequential soft-focus
-   *   1) Ghost Scrub  2) Day Pinch  3) Strike Wire  4) LOCK
-   * Belly membership: wire price within ±1σ of spot at MID-TENOR (t=0.5 of chosen days).
-   * Spec locked here + FIXES-STAGE4.md — caption must match pixels.
-   */
+  // ─── Market defaults (SONY under the hood) ───
+  const SPOT0 = 88.40;          // "now" — down from recent
+  const REF = 96.20;            // recent reference high-ish
+  const UNDER = 'SONY';
+  const MIN_TARGET = 90;
+  const MAX_TARGET = 120;
 
-  const T = {
-    BOOT_MS: 400,
-    RUN_MS: 5200,
-    HANG_CHARGE_MS: 1100,
-    HANG_DRONE_MS: 900,
-    QUIET_PL_MS: 420,
-    GRADE_FIRST_MS: 400,
-    STAMP_SHOW_MS: 1400,
-    STAMP_SHAKE_MS: 270,
-    CONFETTI_MS: 1600,
-    COIN_ARC_MS: 480,
-    CARD_AFTER_MS: 500,
-    PATH_SAMPLE_PX: 4,
-    ABORT_ARM_MS: 500,
-    INFO_FLASH_MS: 700,
-  };
-  const STAMP_BUDGET = { maxW: 280, fontPx: 26, padX: 18, border: 4 };
-  try {
-    if (new URLSearchParams(location.search).get('smoke') === '1') {
-      T.BOOT_MS = 20; T.RUN_MS = 180; T.HANG_CHARGE_MS = 80; T.HANG_DRONE_MS = 80;
-      T.QUIET_PL_MS = 20; T.GRADE_FIRST_MS = 20; T.STAMP_SHOW_MS = 60;
-      T.STAMP_SHAKE_MS = 20; T.CONFETTI_MS = 80; T.CARD_AFTER_MS = 40; T.COIN_ARC_MS = 40;
-      T.ABORT_ARM_MS = 500; T.INFO_FLASH_MS = 40;
-    }
-  } catch (_) {}
-
-  const SEED_ID = 'SONY-HOME-v1';
-  const SPOT0 = 23.43;
-  const STRIKES = [24.00, 24.50, 25.50];
-  const IV0 = 0.38;
-  const R = 0.05;
-  const SELL_BY_FRAC = 0.40;
-  const Y_MIN = 21.5, Y_MAX = 27.0;
-  const PATH_END_GRIND = 24.72;
-  const PATH_END_SPIKE = 26.85;
-  const PROCESS_GOOD_MIN = 0.55;
-  const X0 = 60, X1 = 310, Y0 = 40, Y1 = 240;
-  const DAYS_MIN = 7, DAYS_MAX = 30, DAYS_DEFAULT = 14;
-  const LS_SESSION = 'strikeSonySessionN';
-  const LS_STREAK = 'strikeSonyStreak';
-
-  function hashSeed(s) {
-    let h = 2166136261 >>> 0;
-    for (let i = 0; i < s.length; i++) {
-      h ^= s.charCodeAt(i);
-      h = Math.imul(h, 16777619);
-    }
-    return () => {
-      h += 0x6D2B79F5;
-      let t = Math.imul(h ^ (h >>> 15), 1 | h);
-      t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+  // ─── Seeded RNG ───
+  function mulberry32(a) {
+    return function () {
+      let t = (a += 0x6d2b79f5);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
-  function pathEndFor(variant) {
-    return variant === 'spike' ? PATH_END_SPIKE : PATH_END_GRIND;
-  }
-  function buildPath(seedStr, variant, startSpot) {
-    const v = variant === 'spike' ? 'spike' : 'grind';
-    const S0 = startSpot != null ? startSpot : SPOT0;
-    const rnd = hashSeed(seedStr + '|' + v + '|' + S0.toFixed(2));
-    const n = 48;
-    const pts = [];
-    let p = S0;
-    for (let i = 0; i < n; i++) {
-      const t = i / (n - 1);
-      const drift = v === 'spike'
-        ? ((t < 0.4 ? 0.04 : 0.12) + (rnd() - 0.42) * 0.28)
-        : ((t < 0.55 ? 0.055 : -0.02) + (rnd() - 0.48) * 0.22);
-      p = Math.max(Y_MIN + 0.3, Math.min(Y_MAX - 0.3, p + drift));
-      pts.push({ t, p: +p.toFixed(3) });
-    }
-    const endTarget = S0 + (pathEndFor(v) - SPOT0);
-    const last = pts[pts.length - 1].p;
-    const scale = (endTarget - S0) / (last - S0 || 1);
-    for (let i = 1; i < n; i++) {
-      pts[i].p = +(S0 + (pts[i].p - S0) * scale * 0.92 + (endTarget - S0) * (i / (n - 1)) * 0.08).toFixed(3);
-    }
-    pts[n - 1].p = +endTarget.toFixed(3);
-    return pts;
+  function daySeed() {
+    const d = new Date();
+    return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
   }
 
-  function normCdf(x) {
-    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
-    const p = 0.3275911;
-    const sign = x < 0 ? -1 : 1;
-    const t = 1 / (1 + p * Math.abs(x));
-    const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x / 2);
-    return 0.5 * (1 + sign * y);
-  }
-  function normPdf(x) {
-    return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
-  }
-  function bsCall(S, K, Texp, r, sigma) {
-    if (Texp <= 1e-6) return { price: Math.max(0, S - K), delta: S > K ? 1 : 0, theta: 0 };
-    const sqrtT = Math.sqrt(Texp);
-    const d1 = (Math.log(S / K) + (r + 0.5 * sigma * sigma) * Texp) / (sigma * sqrtT);
-    const d2 = d1 - sigma * sqrtT;
-    const price = S * normCdf(d1) - K * Math.exp(-r * Texp) * normCdf(d2);
-    const delta = normCdf(d1);
-    const theta = (
-      -(S * normPdf(d1) * sigma) / (2 * sqrtT)
-      - r * K * Math.exp(-r * Texp) * normCdf(d2)
-    ) / 365;
-    return { price: Math.max(0, price), delta, theta };
-  }
+  // ─── ~20 typical outcome paths ───
+  // Each path: id, tier ('common'|'uncommon'|'rare'), weight, label, builder(t01, ctx) → spot
+  // ctx: { spot0, strike, target, days, tenorDays }
+  const OUTCOMES = [
+    { id: 'flat-decay', tier: 'common', weight: 14, label: 'Flat decay killer',
+      build: (t, c) => c.spot0 + Math.sin(t * 8) * 0.35 - t * 0.4 },
+    { id: 'grind', tier: 'common', weight: 12, label: 'Slow grind',
+      build: (t, c) => c.spot0 + (c.target - c.spot0) * Math.pow(t, 1.15) * 0.72 },
+    { id: 'touch', tier: 'common', weight: 11, label: 'Light touch',
+      build: (t, c) => {
+        const peak = 0.42;
+        const amp = (c.target - c.spot0) * 0.55;
+        if (t < peak) return c.spot0 + amp * (t / peak);
+        return c.spot0 + amp * (1 - (t - peak) / (1 - peak) * 0.85);
+      }},
+    { id: 'wash', tier: 'common', weight: 10, label: 'Wash / nowhere',
+      build: (t, c) => c.spot0 + Math.sin(t * 14) * 0.9 + Math.cos(t * 5) * 0.4 },
+    { id: 'fade', tier: 'common', weight: 9, label: 'Early fade',
+      build: (t, c) => {
+        const up = (c.target - c.spot0) * 0.4;
+        if (t < 0.25) return c.spot0 + up * (t / 0.25);
+        return c.spot0 + up - (up + 2) * ((t - 0.25) / 0.75);
+      }},
+    { id: 'overshoot-2', tier: 'uncommon', weight: 7, label: 'Overshoot ×2',
+      build: (t, c) => {
+        const base = c.spot0 + (c.target - c.spot0) * 0.9;
+        const bump = Math.max(0, Math.sin(t * Math.PI * 2)) * (c.target - c.spot0) * 0.35;
+        return base * t + c.spot0 * (1 - t) + bump + (c.target - c.spot0) * t * 0.5;
+      }},
+    { id: 'late-rally', tier: 'uncommon', weight: 6, label: 'Late rally',
+      build: (t, c) => {
+        if (t < 0.55) return c.spot0 + Math.sin(t * 10) * 0.5 - t * 0.3;
+        return c.spot0 + (c.target - c.spot0) * Math.pow((t - 0.55) / 0.45, 0.9);
+      }},
+    { id: 'spike-die', tier: 'uncommon', weight: 6, label: 'Spike then die',
+      build: (t, c) => {
+        if (t < 0.18) return c.spot0 + (c.target - c.spot0) * 1.1 * (t / 0.18);
+        if (t < 0.35) return c.target + (c.target - c.spot0) * 0.15;
+        return c.target + (c.target - c.spot0) * 0.15 - (c.target - c.spot0 + 4) * ((t - 0.35) / 0.65);
+      }},
+    { id: 'slow-bleed', tier: 'common', weight: 8, label: 'Slow bleed',
+      build: (t, c) => c.spot0 - t * 3.2 - Math.sin(t * 6) * 0.3 },
+    { id: 'meander-up', tier: 'common', weight: 8, label: 'Meander up',
+      build: (t, c) => c.spot0 + (c.target - c.spot0) * 0.5 * t + Math.sin(t * 18) * 1.2 },
+    { id: 'false-break', tier: 'uncommon', weight: 5, label: 'False break',
+      build: (t, c) => {
+        const mid = c.spot0 + (c.strike - c.spot0) * 1.05;
+        if (t < 0.4) return c.spot0 + (mid - c.spot0) * (t / 0.4);
+        if (t < 0.55) return mid - (mid - c.spot0) * 0.6 * ((t - 0.4) / 0.15);
+        return mid - (mid - c.spot0) * 0.6 - t * 1.5;
+      }},
+    { id: 'target-kiss', tier: 'uncommon', weight: 5, label: 'Target kiss',
+      build: (t, c) => {
+        const peak = 0.62;
+        const amp = c.target - c.spot0;
+        if (t < peak) return c.spot0 + amp * Math.pow(t / peak, 0.85);
+        return c.target - amp * 0.25 * ((t - peak) / (1 - peak));
+      }},
+    { id: 'chop-flat', tier: 'common', weight: 7, label: 'Chop flat',
+      build: (t, c) => c.spot0 + Math.sin(t * 22) * 1.1 + Math.sin(t * 7) * 0.5 },
+    { id: 'steady-climb', tier: 'uncommon', weight: 5, label: 'Steady climb',
+      build: (t, c) => c.spot0 + (c.target - c.spot0) * 0.95 * t },
+    { id: 'dip-recover', tier: 'common', weight: 6, label: 'Dip then recover',
+      build: (t, c) => {
+        if (t < 0.3) return c.spot0 - 2.5 * (t / 0.3);
+        return c.spot0 - 2.5 + (c.target - c.spot0 + 2.5) * 0.7 * ((t - 0.3) / 0.7);
+      }},
+    { id: 'overshoot-soft', tier: 'uncommon', weight: 4, label: 'Soft overshoot',
+      build: (t, c) => c.spot0 + (c.target - c.spot0) * 1.25 * Math.sin(t * Math.PI * 0.5) },
+    { id: 'intrinsic-takeover', tier: 'uncommon', weight: 4, label: 'Intrinsic takeover',
+      build: (t, c) => {
+        // Crosses strike hard mid-run then stalls — extrinsic dies as ITM
+        const cross = 0.35;
+        if (t < cross) return c.spot0 + (c.strike + 1.5 - c.spot0) * (t / cross);
+        return c.strike + 1.5 + Math.sin((t - cross) * 10) * 0.4;
+      }},
+    { id: 'crush', tier: 'rare', weight: 1.2, label: 'CRUSH',
+      build: (t, c) => c.spot0 + (c.target - c.spot0) * 2.4 * Math.pow(t, 0.7) },
+    { id: 'mega-crush', tier: 'rare', weight: 0.5, label: 'MEGA CRUSH',
+      build: (t, c) => c.spot0 + (c.target - c.spot0) * 3.2 * Math.pow(t, 0.55) },
+    { id: 'ghost-run', tier: 'rare', weight: 0.8, label: 'Ghost run',
+      build: (t, c) => {
+        // Looks dead then rare late crush
+        if (t < 0.7) return c.spot0 + Math.sin(t * 12) * 0.4 - t * 0.2;
+        return c.spot0 + (c.target - c.spot0) * 2.0 * Math.pow((t - 0.7) / 0.3, 0.6);
+      }},
+  ];
 
-  const $ = (id) => document.getElementById(id);
-  const sheet = $('sheet');
-  const phaseTag = $('phaseTag');
-  const narrTitle = $('narrTitle');
-  const narrCopy = $('narrCopy');
-  const btnPrimary = $('btnPrimary');
-  const btnHold = $('btnHold');
-  const btnAbort = $('btnAbort');
-  const holdFill = $('holdFill');
-  const juiceBtn = $('juiceBtn');
-  const muteBtn = $('muteBtn');
-  const rungBtns = [...document.querySelectorAll('[data-rung]')];
-  const priceDot = $('priceDot');
-  const priceHalo = $('priceHalo');
-  const priceLabel = $('priceLabel');
-  const dragHint = $('dragHint');
-  const priceHero = $('priceHero');
-  const entryDot = $('entryDot');
-  const entryLabel = $('entryLabel');
-  const entryRing = $('entryRing');
-  const ivCone = $('ivCone');
-  const ghostCone = $('ghostCone');
-  const pricePath = $('pricePath');
-  const timePtr = $('timePtr');
-  const timeArrow = $('timeArrow');
-  const rungsG = $('rungs');
-  const coinsG = $('coins');
-  const dateMarks = $('dateMarks');
-  const trayVal = $('trayVal');
-  const trayLbl = $('trayLbl');
-  const statSpot = $('statSpot');
-  const statPrem = $('statPrem');
-  const statGreeks = $('statGreeks');
-  const stampOverlay = $('stampOverlay');
-  const gradeStamp = $('gradeStamp');
-  const stampMark = $('stampMark');
-  const stampSub = $('stampSub');
-  const summaryOverlay = $('summaryOverlay');
-  const cardPL = $('cardPL');
-  const cardMeta = $('cardMeta');
-  const cardShare = $('cardShare');
-  const cardTitle = $('cardTitle');
-  const particles = $('particles');
-  const pctx = particles.getContext('2d');
-  const quietPL = $('quietPL');
-  const hangVeil = $('hangVeil');
-  const toastEl = $('toast');
-  const daysSlider = $('daysSlider');
-  const daysVal = $('daysVal');
-  const daysRail = $('daysRail');
-  const wireCaption = $('wireCaption');
-  const wireLine = $('wireLine');
-  const wireHandle = $('wireHandle');
-  const wireLabel = $('wireLabel');
-  const strikeWire = $('strikeWire');
-  const skyChip = $('skyChip');
-  const daysHandleLine = $('daysHandleLine');
-  const daysHandleHit = $('daysHandleHit');
-  const daysHandleLbl = $('daysHandleLbl');
-  const statGreeksLbl = $('statGreeksLbl');
-  const cardPlain = $('cardPlain');
-  const mastTitle = $('mastTitle');
+  // ─── Big-reward (crush) schedule — Adam ───
+  // 1) Guaranteed early taste on first arcade run
+  // 2) Then ~every 5th run
+  // 3) Gaps stretch: 5 → 8 → 12 → 18 → 27 → 40 → 60 (cap)
+  // 4) Never unobtainable: deterministic due OR residual 2% mid-gap
+  const LS_RUN = 'strikeSonyArcadeRuns';
+  const LS_CRUSH = 'strikeSonyCrushHits';
+  const LS_SINCE = 'strikeSonyRunsSinceCrush';
+  const GAP_SEQ = [1, 5, 8, 12, 18, 27, 40, 60]; // index = crushHits already earned
+  const RESIDUAL_RARE = 0.02; // mid-gap non-zero chance; still eventually due
 
-  function weatherForSession(n) {
-    if (n % 3 === 0) return 'spike';
-    return 'grind';
-  }
-  function readSessionN() {
-    try { return parseInt(localStorage.getItem(LS_SESSION) || '0', 10) || 0; } catch (_) { return 0; }
-  }
-  function bumpSession() {
-    const n = readSessionN() + 1;
-    try { localStorage.setItem(LS_SESSION, String(n)); } catch (_) {}
-    return n;
-  }
-
-  const bootPath = (() => {
+  function lsGet(k, d) {
     try {
-      const q = new URLSearchParams(location.search).get('path');
-      if (q && q.toLowerCase() === 'spike') return 'spike';
-      if (q && q.toLowerCase() === 'grind') return 'grind';
-    } catch (_) {}
-    return weatherForSession(readSessionN() + 1);
-  })();
+      const v = localStorage.getItem(k);
+      if (v == null || v === '') return d;
+      const n = Number(v);
+      return Number.isFinite(n) ? n : d;
+    } catch (_) { return d; }
+  }
+  function lsSet(k, v) {
+    try { localStorage.setItem(k, String(v)); } catch (_) {}
+  }
 
+  function gapForCrushHits(hits) {
+    if (hits < GAP_SEQ.length) return GAP_SEQ[hits];
+    // Beyond table: keep stretching +4 each, floor at last
+    return GAP_SEQ[GAP_SEQ.length - 1] + (hits - (GAP_SEQ.length - 1)) * 8;
+  }
+
+  function getCrushSchedule() {
+    const runs = lsGet(LS_RUN, 0);
+    const hits = lsGet(LS_CRUSH, 0);
+    const since = lsGet(LS_SINCE, 0);
+    const gap = gapForCrushHits(hits);
+    const due = since >= gap; // before increment: "about to start" uses since+1
+    return { runs, hits, since, gap, nextGap: gap, residual: RESIDUAL_RARE };
+  }
+
+  function resetCrushSchedule() {
+    lsSet(LS_RUN, 0);
+    lsSet(LS_CRUSH, 0);
+    lsSet(LS_SINCE, 0);
+  }
+
+  /** Preview whether the NEXT run (after increment) should force rare. */
+  function wouldForceRareOnNextRun(rng, opts) {
+    opts = opts || {};
+    const hits = lsGet(LS_CRUSH, 0);
+    const since = lsGet(LS_SINCE, 0);
+    const gap = gapForCrushHits(hits);
+    const after = since + 1;
+    if (after >= gap) return { force: true, reason: 'due', after, gap, hits };
+    const residual = opts.residualOff ? 0 : RESIDUAL_RARE;
+    if (residual > 0 && rng() < residual) return { force: true, reason: 'residual', after, gap, hits };
+    return { force: false, reason: 'wait', after, gap, hits };
+  }
+
+  function weightedPick(list, rng) {
+    const total = list.reduce((s, o) => s + o.weight, 0);
+    let r = rng() * total;
+    for (const o of list) {
+      r -= o.weight;
+      if (r <= 0) return o;
+    }
+    return list[0];
+  }
+
+  function pickRare(rng) {
+    return weightedPick(OUTCOMES.filter((o) => o.tier === 'rare'), rng);
+  }
+
+  function pickNonRare(rng) {
+    return weightedPick(OUTCOMES.filter((o) => o.tier !== 'rare'), rng);
+  }
+
+  /**
+   * Start-of-run picker: increments counters, returns outcome.
+   * smokeForceOutcome bypasses schedule (still increments run for realism unless skipCount).
+   */
+  function pickOutcome(rng, opts) {
+    opts = opts || {};
+    const skipCount = !!opts.skipCount;
+    let forceRare = false;
+    let reason = 'weighted';
+
+    if (!skipCount) {
+      const decision = wouldForceRareOnNextRun(rng, opts);
+      // commit counters
+      const runs = lsGet(LS_RUN, 0) + 1;
+      lsSet(LS_RUN, runs);
+      lsSet(LS_SINCE, decision.after);
+      forceRare = decision.force;
+      reason = decision.reason;
+    }
+
+    if (state.smokeForceOutcome) {
+      const forced = OUTCOMES.find((o) => o.id === state.smokeForceOutcome);
+      if (forced) {
+        if (forced.tier === 'rare' && !skipCount) {
+          lsSet(LS_CRUSH, lsGet(LS_CRUSH, 0) + 1);
+          lsSet(LS_SINCE, 0);
+        }
+        return Object.assign({}, forced, { _scheduleReason: 'smoke-force' });
+      }
+    }
+
+    let out;
+    if (forceRare) {
+      out = pickRare(rng);
+      if (!skipCount) {
+        lsSet(LS_CRUSH, lsGet(LS_CRUSH, 0) + 1);
+        lsSet(LS_SINCE, 0);
+      }
+      return Object.assign({}, out, { _scheduleReason: reason });
+    }
+    out = pickNonRare(rng);
+    return Object.assign({}, out, { _scheduleReason: reason });
+  }
+
+  /** Pure simulator for smoke — does not touch live arcade. */
+  function simulateCrushSchedule(nRuns, seed, simOpts) {
+    simOpts = simOpts || {};
+    const residualOff = simOpts.residualOff !== false; // default ON for clean gap proof
+    const rng = mulberry32(seed || 42);
+    const prevForce = state.smokeForceOutcome;
+    state.smokeForceOutcome = null;
+    const snap = {
+      runs: lsGet(LS_RUN, 0),
+      hits: lsGet(LS_CRUSH, 0),
+      since: lsGet(LS_SINCE, 0),
+    };
+    resetCrushSchedule();
+    const log = [];
+    for (let i = 0; i < nRuns; i++) {
+      const before = getCrushSchedule();
+      const o = pickOutcome(rng, { residualOff: residualOff });
+      const after = getCrushSchedule();
+      log.push({
+        run: after.runs,
+        id: o.id,
+        tier: o.tier,
+        reason: o._scheduleReason,
+        gapBefore: before.gap,
+        sinceBefore: before.since,
+        hitsAfter: after.hits,
+      });
+    }
+    lsSet(LS_RUN, snap.runs);
+    lsSet(LS_CRUSH, snap.hits);
+    lsSet(LS_SINCE, snap.since);
+    state.smokeForceOutcome = prevForce;
+    return log;
+  }
+
+  // ─── Option pricing (toy Black-ish) ───
+  function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function extrinsicAt(spot, strike, tLeft01, entryExtrinsic) {
+    // Extrinsic melts with remaining time; also compresses when deep ITM
+    const timeFactor = Math.pow(Math.max(0, tLeft01), 0.85);
+    const moneyness = (spot - strike) / Math.max(1, strike);
+    const deepITM = clamp(moneyness, 0, 0.25) / 0.25; // 0..1
+    const compress = 1 - deepITM * 0.55;
+    return Math.max(0, entryExtrinsic * timeFactor * compress);
+  }
+  function intrinsicAt(spot, strike) {
+    return Math.max(0, spot - strike);
+  }
+  function optionValue(spot, strike, tLeft01, entryExtrinsic) {
+    return intrinsicAt(spot, strike) + extrinsicAt(spot, strike, tLeft01, entryExtrinsic);
+  }
+
+  // ─── Build 3 structures from where + when ───
+  function buildStructures(target, days) {
+    const upside = target - SPOT0;
+    // Aggressive: OTM, short tenor, high leverage
+    const aggStrike = Math.round((SPOT0 + upside * 0.85) * 2) / 2;
+    const aggDays = Math.max(7, Math.round(days * 0.55));
+    // Balanced: near target, matching tenor
+    const balStrike = Math.round((SPOT0 + upside * 0.55) * 2) / 2;
+    const balDays = days;
+    // Patient: closer to ATM / slightly ITM-leaning OTM, longer tenor
+    const patStrike = Math.round((SPOT0 + upside * 0.28) * 2) / 2;
+    const patDays = Math.min(90, Math.round(days * 1.45));
+
+    function premium(strike, d) {
+      const otm = Math.max(0, strike - SPOT0);
+      const time = Math.sqrt(d / 30);
+      const extr = Math.max(0.35, 1.8 * time + upside * 0.04 - otm * 0.08);
+      const intr = intrinsicAt(SPOT0, strike);
+      return Math.round((intr + extr) * 100) / 100;
+    }
+
+    return [
+      {
+        id: 'agg',
+        name: 'SPRINT CALL',
+        strike: aggStrike,
+        days: aggDays,
+        premium: premium(aggStrike, aggDays),
+        leverage: 'High torque',
+        why: `Bets $${target.toFixed(0)} by day ${aggDays}. Cheap, snappy, decay bites fast.`,
+      },
+      {
+        id: 'bal',
+        name: 'THESIS CALL',
+        strike: balStrike,
+        days: balDays,
+        premium: premium(balStrike, balDays),
+        leverage: 'Matched leverage',
+        why: `Built for your $${target.toFixed(0)} in ${balDays}d. Sweet-zone timing matters most.`,
+      },
+      {
+        id: 'pat',
+        name: 'PATIENT CALL',
+        strike: patStrike,
+        days: patDays,
+        premium: premium(patStrike, patDays),
+        leverage: 'Room to breathe',
+        why: `Closer strike, ${patDays}d runway. Extrinsic lasts longer — still melts if you nap.`,
+      },
+    ];
+  }
+
+  // ─── State ───
   const state = {
-    phase: 'BOOT',
-    juice: true,
-    mute: false,
-    reduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    ghostSpot: SPOT0,
-    entrySpot: SPOT0,
-    daysLeft: DAYS_DEFAULT,
-    entryDays: DAYS_DEFAULT,
-    wireK: 24.50,
-    wirePlaced: false,
-    locked: false,
-    pathVariant: bootPath,
-    armed: [false, true, false],
-    filled: [false, false, false],
-    path: buildPath(SEED_ID, bootPath, SPOT0),
-    runT: 0,
-    premiumCollected: 0,
-    processScore: 0,
-    outcomeGood: false,
-    anyFilled: false,
-    deepItm: false,
-    grade: null,
-    touches: 0,
-    dragging: false,
-    dragMode: null,
-    hangProgress: 0,
-    holding: false,
-    streak: 0,
-    planFocus: 'scrub',
-    scrubReleased: false,
-    daysTouched: false,
-    pathSampleX: -999,
-    thetaEarned: 0,
-    hangDrone: null,
-    aborted: false,
-    abortArmedAt: 0,
-    shareText: '',
-    bench: false,
-    sessionN: readSessionN(),
-    bellyInside: false,
-    geometryLine: '',
-    infoFlashDone: false,
-    dripDays: DAYS_DEFAULT,
+    phase: 'story', // story | where | when | pick | arcade | result
+    target: 102,
+    days: 30,
+    structures: [],
+    pick: null,
+    outcome: null,
+    rng: mulberry32(daySeed() ^ 0x50a1),
+    arcade: null,
+    result: null,
+    smokeForceOutcome: null,
   };
 
-  try {
-    state.streak = parseInt(localStorage.getItem(LS_STREAK) || '0', 10) || 0;
-    const qs = new URLSearchParams(location.search);
-    state.bench = qs.get('bench') === '1';
-  } catch (_) { state.bench = false; }
+  const el = {
+    stage: document.getElementById('stage'),
+    sub: document.getElementById('marqueeSub'),
+  };
 
-  let pathBtnEl = null;
-  function TexpDays(d) { return Math.max(d, 1) / 365; }
-
-  /** Mid-tenor ±1σ membership (Stage 3 critic spec). */
-  function midTenorSigma(S, days) {
-    const Tmid = TexpDays(days) * 0.5;
-    return S * IV0 * Math.sqrt(Math.max(Tmid, 1e-6));
+  function money(n) {
+    const s = (n < 0 ? '-' : '') + '$' + Math.abs(n).toFixed(2);
+    return s;
   }
-  function isInsideBelly(wireK, S, days) {
-    const sig = midTenorSigma(S, days);
-    return Math.abs(wireK - S) <= sig + 1e-6;
+  function pct(n) {
+    const s = (n >= 0 ? '+' : '') + (n * 100).toFixed(0) + '%';
+    return s;
   }
 
-  function syncBenchChrome() {
-    sheet.classList.toggle('bench', !!state.bench);
-    if (pathBtnEl) {
-      pathBtnEl.hidden = !state.bench;
-      pathBtnEl.setAttribute('aria-hidden', state.bench ? 'false' : 'true');
-    }
-    if (statGreeksLbl) statGreeksLbl.textContent = state.bench ? 'Δ / θ' : 'Time';
-    updateGreeksReadout();
-  }
-  function syncJuiceChrome() {
-    if (state.reduce) {
-      state.juice = false;
-      sheet.classList.add('reduce', 'no-juice');
-      juiceBtn.classList.remove('on');
-      juiceBtn.setAttribute('aria-pressed', 'false');
-      juiceBtn.textContent = 'MOTION OFF';
-      juiceBtn.disabled = true;
-    } else {
-      juiceBtn.disabled = false;
-      juiceBtn.textContent = state.juice ? 'JUICE ON' : 'JUICE OFF';
-      juiceBtn.classList.toggle('on', state.juice);
-      juiceBtn.setAttribute('aria-pressed', String(state.juice));
-      sheet.classList.toggle('no-juice', !state.juice);
-    }
-  }
-  syncJuiceChrome();
+  // ─── Render phases ───
+  function setSub(t) { el.sub.textContent = t; }
 
-  let audioCtx = null;
-  function ensureAudio() {
-    if (state.mute) return null;
-    try {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      return audioCtx;
-    } catch (_) { return null; }
+  function render() {
+    if (state.phase === 'story') renderStory();
+    else if (state.phase === 'where') renderWhere();
+    else if (state.phase === 'when') renderWhen();
+    else if (state.phase === 'pick') renderPick();
+    else if (state.phase === 'arcade') renderArcade();
+    else if (state.phase === 'result') renderResult();
   }
-  function beep(ctx, f, dur, type, peak, when) {
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    o.type = type || 'sine';
-    o.frequency.value = f;
-    const t0 = when != null ? when : ctx.currentTime;
-    g.gain.setValueAtTime(0.0001, t0);
-    g.gain.exponentialRampToValueAtTime(peak || 0.05, t0 + 0.01);
-    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-    o.start(t0); o.stop(t0 + dur + 0.02);
-  }
-  function feedback(kind) {
-    if (state.mute || state.reduce) return;
-    const ctx = ensureAudio();
-    if (!ctx) return;
-    const now = ctx.currentTime;
-    if (kind === 'correct') {
-      beep(ctx, 392, 0.08, 'triangle', 0.045, now);
-      beep(ctx, 523, 0.1, 'triangle', 0.055, now + 0.07);
-      beep(ctx, 659, 0.14, 'triangle', 0.05, now + 0.14);
-      return;
-    }
-    if (kind === 'lucky') { beep(ctx, 494, 0.09, 'sine', 0.04, now); beep(ctx, 466, 0.11, 'sine', 0.035, now + 0.1); return; }
-    if (kind === 'unlucky') { beep(ctx, 349, 0.12, 'sine', 0.04, now); beep(ctx, 294, 0.14, 'sine', 0.035, now + 0.1); return; }
-    if (kind === 'wrong') { beep(ctx, 330, 0.08, 'sine', 0.03, now); return; }
-    const tones = {
-      tap: [440, 0.04, 'square', 0.045], arm: [520, 0.06, 'triangle', 0.05],
-      lock: [330, 0.1, 'sine', 0.05], fill: [660, 0.08, 'sine', 0.05],
-      hang: [220, 0.05, 'sine', 0.035], soft: [392, 0.07, 'sine', 0.035],
-      theta: [880, 0.03, 'sine', 0.02],
+
+  function renderStory() {
+    setSub('Stock app · Opening beat');
+    const chg = ((SPOT0 - REF) / REF) * 100;
+    el.stage.innerHTML = `
+      <div class="panel">
+        <div class="story-big">You open the stock app.<br/>Your favorite is down.</div>
+        <div class="story-mid">You want upside — with leverage. So you reach for an option… and freeze. This arcade teaches the part brokers skip: <b style="color:var(--gold)">when to sell</b>.</div>
+        <div class="ticker">
+          <div>
+            <div class="sym">${UNDER}</div>
+            <div class="chg">${chg.toFixed(1)}% from recent</div>
+          </div>
+          <div class="px" style="color:var(--hot)">${SPOT0.toFixed(2)}</div>
+        </div>
+      </div>
+      <div class="flex-grow"></div>
+      <p class="hint">No quiz. No “correct” option. Just nail the sweet zone.</p>
+      <div class="btn-row">
+        <button class="btn btn-neon" id="btnGo" type="button">I WANT UPSIDE</button>
+      </div>
+    `;
+    document.getElementById('btnGo').onclick = () => {
+      state.phase = 'where';
+      render();
     };
-    const [f, dur, type, peak] = tones[kind] || tones.tap;
-    beep(ctx, f, dur, type, peak, now);
-  }
-  function startHangDrone() {
-    stopHangDrone();
-    if (!state.juice || state.reduce || state.mute) return;
-    const ctx = ensureAudio();
-    if (!ctx) return;
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'sine'; o.frequency.value = 55;
-    o.connect(g); g.connect(ctx.destination);
-    const now = ctx.currentTime;
-    g.gain.setValueAtTime(0.0001, now);
-    g.gain.exponentialRampToValueAtTime(0.018, now + 0.15);
-    o.start(now);
-    state.hangDrone = { o, g, ctx };
-  }
-  function updateHangDrone(u) {
-    if (!state.hangDrone) return;
-    const { g, ctx, o } = state.hangDrone;
-    const now = ctx.currentTime;
-    const peak = 0.012 + 0.028 * Math.pow(u, 1.4);
-    try {
-      g.gain.cancelScheduledValues(now);
-      g.gain.setTargetAtTime(peak, now, 0.05);
-      o.frequency.setTargetAtTime(55 + 40 * u, now, 0.08);
-    } catch (_) {}
-  }
-  function stopHangDrone() {
-    if (!state.hangDrone) return;
-    const { o, g, ctx } = state.hangDrone;
-    const now = ctx.currentTime;
-    try {
-      g.gain.cancelScheduledValues(now);
-      g.gain.setTargetAtTime(0.0001, now, 0.04);
-      o.stop(now + 0.12);
-    } catch (_) {}
-    state.hangDrone = null;
-  }
-  function buzz(ms) {
-    try { if (navigator.vibrate && state.juice && !state.reduce) navigator.vibrate(ms); } catch (_) {}
   }
 
-  /* —— Stage 5 juice helpers —— */
-  let lastScrubTick = 0;
-  let lastPremShown = -1;
-  let dripParts = [];
-  let dripAnim = null;
+  function renderWhere() {
+    setSub('Where do you think it goes?');
+    el.stage.innerHTML = `
+      <div class="panel">
+        <div class="label">Drag your target price</div>
+        <div class="price-readout" id="targetRead">${state.target.toFixed(0)}</div>
+        <div class="price-rail" id="rail">
+          <div class="price-track"><div class="price-fill" id="fill"></div></div>
+          <div class="price-now" id="nowMark"></div>
+          <div class="price-thumb" id="thumb">${SPOT0.toFixed(0)}</div>
+        </div>
+        <div class="price-meta">
+          <span>Now ${SPOT0.toFixed(2)}</span>
+          <span>Recent ${REF.toFixed(2)}</span>
+          <span>Cap ${MAX_TARGET}</span>
+        </div>
+      </div>
+      <div class="flex-grow"></div>
+      <p class="hint">This is your theory — not a grade.</p>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="btnBack" type="button">BACK</button>
+        <button class="btn btn-neon" id="btnNext" type="button">SET WHERE</button>
+      </div>
+    `;
+    const rail = document.getElementById('rail');
+    const thumb = document.getElementById('thumb');
+    const fill = document.getElementById('fill');
+    const nowMark = document.getElementById('nowMark');
+    const read = document.getElementById('targetRead');
 
-  function popPremium() {
-    if (!statPrem) return;
-    if (!state.juice || state.reduce) return;
-    statPrem.classList.remove('pop');
-    void statPrem.offsetWidth;
-    statPrem.classList.add('pop');
-    setTimeout(() => { try { statPrem.classList.remove('pop'); } catch (_) {} }, 300);
-  }
-
-  function scrubJuiceTick(S) {
-    if (!state.juice || state.reduce) return;
-    const now = performance.now();
-    if (now - lastScrubTick < 55) return;
-    lastScrubTick = now;
-    feedback('theta');
-    buzz(6);
-    // soft pencil scrap near ghost
-    spawnSoftScrap(60, yOf(S), 3);
-    const prem = state.previewPrem;
-    if (lastPremShown < 0 || Math.abs(prem - lastPremShown) > 0.04) {
-      popPremium();
-      lastPremShown = prem;
+    function fracFromTarget(t) {
+      return (t - MIN_TARGET) / (MAX_TARGET - MIN_TARGET);
     }
-  }
-
-  function spawnSoftScrap(x, y, n) {
-    if (!state.juice || state.reduce) return;
-    const cols = ['#2d8a4e', '#c8e6d0', '#d9d4c8', '#d97706'];
-    for (let i = 0; i < n; i++) {
-      dripParts.push({
-        x: x + (Math.random() - 0.5) * 16,
-        y: y + (Math.random() - 0.5) * 10,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: Math.random() * 0.6 + 0.2,
-        life: 1,
-        c: cols[(Math.random() * cols.length) | 0],
-        r: 1.2 + Math.random() * 1.8,
-        kind: 'scrap',
-      });
+    function targetFromFrac(f) {
+      return Math.round(MIN_TARGET + clamp(f, 0, 1) * (MAX_TARGET - MIN_TARGET));
     }
-    kickDripLoop();
-  }
-
-  function spawnDripParticles(u) {
-    if (!state.juice || state.reduce) return;
-    const n = 1 + ((u * 3) | 0);
-    for (let i = 0; i < n; i++) {
-      dripParts.push({
-        x: 90 + (Math.random() - 0.5) * 20,
-        y: 250 - Math.random() * 40,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: 0.4 + Math.random() * 1.2,
-        life: 1,
-        c: Math.random() > 0.5 ? '#e8c84a' : '#2d8a4e',
-        r: 1.5 + Math.random() * 2,
-        kind: 'drip',
-      });
+    function paint() {
+      const f = fracFromTarget(state.target);
+      thumb.style.left = (f * 100) + '%';
+      thumb.textContent = String(state.target);
+      fill.style.width = (f * 100) + '%';
+      read.textContent = String(state.target);
+      const nf = (SPOT0 - MIN_TARGET) / (MAX_TARGET - MIN_TARGET);
+      nowMark.style.left = (clamp(nf, 0, 1) * 100) + '%';
     }
-    kickDripLoop();
-  }
+    paint();
 
-  function kickDripLoop() {
-    if (dripAnim) return;
-    function step() {
-      pctx.clearRect(0, 0, 360, 320);
-      // Don't clear confetti if running — confetti owns canvas; skip if confettiBits live
-      if (confettiBits && confettiBits.length && confettiBits[0].life > 0.02) {
-        dripAnim = null;
-        return;
-      }
-      dripParts = dripParts.filter((b) => b.life > 0.02);
-      dripParts.forEach((b) => {
-        b.x += b.vx;
-        b.y += b.vy;
-        if (b.kind === 'drip') b.vy += 0.04;
-        else { b.vx *= 0.96; b.vy *= 0.96; }
-        b.life -= b.kind === 'drip' ? 0.025 : 0.04;
-        pctx.globalAlpha = Math.max(0, b.life * 0.75);
-        pctx.fillStyle = b.c;
-        pctx.beginPath();
-        pctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        pctx.fill();
-      });
-      pctx.globalAlpha = 1;
-      if (dripParts.length) dripAnim = requestAnimationFrame(step);
-      else { dripAnim = null; pctx.clearRect(0, 0, 360, 320); }
+    let dragging = false;
+    function setFromClientX(x) {
+      const r = rail.getBoundingClientRect();
+      const f = (x - r.left) / r.width;
+      state.target = targetFromFrac(f);
+      paint();
     }
-    dripAnim = requestAnimationFrame(step);
-  }
-
-  function syncLandscapeGhost() {
-    const tall = window.matchMedia('(orientation: landscape) and (max-height: 500px), (max-height: 520px)').matches;
-    const r = tall ? 14 : 11;
-    const hr = tall ? 40 : 34;
-    try {
-      priceDot.setAttribute('r', String(r));
-      const hit = document.getElementById('priceHit');
-      if (hit) hit.setAttribute('r', String(hr));
-      priceHalo.setAttribute('r', String(tall ? 26 : 22));
-    } catch (_) {}
-  }
-
-  let toastTimer = null;
-  function showToast(msg) {
-    if (!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1200);
-  }
-  async function copyShareText() {
-    const text = state.shareText || (cardShare && cardShare.textContent) || '';
-    if (!text) return;
-    touch();
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
-      else {
-        const ta = document.createElement('textarea');
-        ta.value = text; ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed'; ta.style.left = '-9999px';
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
-      }
-      showToast('Copied'); feedback('tap');
-    } catch (_) { showToast('Copy failed'); }
-  }
-
-  const tweens = [];
-  function tween(from, to, ms, ease, onUpdate, onDone) {
-    if (!state.juice || state.reduce) ms = Math.min(ms, 80);
-    const t0 = performance.now();
-    const obj = { from, to, ms, ease: ease || (t => t), onUpdate, onDone, t0, live: true };
-    tweens.push(obj);
-    return obj;
-  }
-  function killTweens() { tweens.forEach(t => { t.live = false; }); tweens.length = 0; }
-  let lastTs = 0;
-  function frame(ts) {
-    const dt = lastTs ? ts - lastTs : 16;
-    lastTs = ts;
-    for (let i = tweens.length - 1; i >= 0; i--) {
-      const tw = tweens[i];
-      if (!tw.live) { tweens.splice(i, 1); continue; }
-      const u = Math.min(1, (ts - tw.t0) / tw.ms);
-      const e = tw.ease(u);
-      tw.onUpdate(tw.from + (tw.to - tw.from) * e, u);
-      if (u >= 1) { tw.live = false; tweens.splice(i, 1); if (tw.onDone) tw.onDone(); }
-    }
-    if (state.phase === 'RUN') tickRun(dt);
-    if (state.phase === 'HANG' && state.holding) tickHang(dt);
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-
-  function xOf(t) { return X0 + (X1 - X0) * t; }
-  function yOf(price) {
-    const u = (price - Y_MIN) / (Y_MAX - Y_MIN);
-    return Y1 - u * (Y1 - Y0);
-  }
-  function priceOfY(y) {
-    const u = (Y1 - y) / (Y1 - Y0);
-    return Y_MIN + u * (Y_MAX - Y_MIN);
-  }
-
-  function conePath(S, days) {
-    const Texp = TexpDays(days);
-    const ptsHi = [], ptsLo = [];
-    for (let i = 0; i <= 12; i++) {
-      const t = i / 12;
-      const Tleft = Texp * (1 - t * 0.85);
-      const sigmaMove = S * IV0 * Math.sqrt(Math.max(Tleft, 0.001));
-      ptsHi.push(xOf(t).toFixed(1) + ',' + yOf(S + sigmaMove).toFixed(1));
-      ptsLo.push(xOf(t).toFixed(1) + ',' + yOf(S - sigmaMove).toFixed(1));
-    }
-    return 'M ' + ptsHi.join(' L ') + ' L ' + ptsLo.reverse().join(' L ') + ' Z';
-  }
-
-  function drawConePair() {
-    const entryS = state.entrySpot;
-    const days = state.locked ? state.entryDays : state.daysLeft;
-    ivCone.setAttribute('d', conePath(entryS, days));
-    if (!state.locked) {
-      ghostCone.setAttribute('d', conePath(state.ghostSpot, state.daysLeft));
-      ghostCone.setAttribute('opacity', Math.abs(state.ghostSpot - entryS) > 0.05 ? '0.9' : '0.45');
-    } else {
-      ghostCone.setAttribute('d', conePath(state.ghostSpot, state.entryDays));
-      ghostCone.setAttribute('opacity', '0.35');
-    }
-  }
-
-  function drawDateMarks() {
-    dateMarks.innerHTML = '';
-    const days = state.locked ? state.entryDays : state.daysLeft;
-    [{ t: SELL_BY_FRAC, label: 'SELL-BY' }, { t: 1.0, label: 'DROP-DEAD' }].forEach(m => {
-      const x = xOf(m.t);
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.innerHTML =
-        '<line x1="' + x + '" y1="40" x2="' + x + '" y2="240" stroke="#9a968c" stroke-width="1" stroke-dasharray="2 4"/>' +
-        '<text x="' + x + '" y="34" text-anchor="middle" font-size="8" fill="#9a968c" font-family="IBM Plex Mono, monospace">' + m.label + '</text>';
-      dateMarks.appendChild(g);
+    rail.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      rail.setPointerCapture(e.pointerId);
+      setFromClientX(e.clientX);
     });
-    const xDD = xOf(1);
-    daysHandleLine.setAttribute('x1', xDD);
-    daysHandleLine.setAttribute('x2', xDD);
-    daysHandleHit.setAttribute('x', xDD - 16);
-    daysHandleHit.setAttribute('width', '32');
-    daysHandleLbl.setAttribute('x', xDD);
-    daysHandleLbl.textContent = days + 'd';
-  }
-
-  function syncWireFromArmed() {
-    const k = state.wireK;
-    let best = 1, bestD = Infinity;
-    STRIKES.forEach((K, i) => {
-      const d = Math.abs(K - k);
-      if (d < bestD) { bestD = d; best = i; }
+    rail.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      setFromClientX(e.clientX);
     });
-    state.armed = [false, false, false];
-    state.armed[best] = true;
-    STRIKES.forEach((K, i) => { if (Math.abs(K - k) < 0.05) state.armed[i] = true; });
+    rail.addEventListener('pointerup', () => { dragging = false; });
+    rail.addEventListener('pointercancel', () => { dragging = false; });
+
+    document.getElementById('btnBack').onclick = () => { state.phase = 'story'; render(); };
+    document.getElementById('btnNext').onclick = () => { state.phase = 'when'; render(); };
   }
 
-  function drawRungs() {
-    rungsG.innerHTML = '';
-    STRIKES.forEach((K, i) => {
-      const y = yOf(K);
-      const near = Math.abs(state.wireK - K) < 0.08;
-      const filled = state.filled[i];
-      const stroke = filled ? '#2d8a4e' : near ? '#d97706' : '#9a968c';
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.innerHTML =
-        '<line x1="40" y1="' + y + '" x2="320" y2="' + y + '" stroke="' + stroke + '" stroke-width="1" stroke-dasharray="4 3" opacity="' + (near || filled ? 0.7 : 0.3) + '"/>' +
-        '<text x="324" y="' + (y + 3) + '" font-size="8" fill="' + stroke + '" font-family="IBM Plex Mono, monospace">$' + K.toFixed(2) + (filled ? ' ✓' : '') + '</text>';
-      rungsG.appendChild(g);
+  function renderWhen() {
+    setSub('When do you think it gets there?');
+    const tenors = [
+      { d: 14, t: '2 weeks' },
+      { d: 30, t: '1 month' },
+      { d: 45, t: '6 weeks' },
+      { d: 60, t: '2 months' },
+      { d: 90, t: 'Quarter' },
+      { d: 21, t: '3 weeks' },
+    ];
+    el.stage.innerHTML = `
+      <div class="panel">
+        <div class="label">Pick a tenor</div>
+        <div class="story-mid" style="margin:0 0 12px">Target <b style="color:var(--gold)">$${state.target}</b> · now $${SPOT0.toFixed(2)}</div>
+        <div class="tenor-grid" id="tenors"></div>
+      </div>
+      <div class="flex-grow"></div>
+      <p class="hint">Shorter = more torque, faster extrinsic melt.</p>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="btnBack" type="button">BACK</button>
+        <button class="btn btn-neon" id="btnNext" type="button">SET WHEN</button>
+      </div>
+    `;
+    const grid = document.getElementById('tenors');
+    tenors.forEach((tn) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tenor' + (state.days === tn.d ? ' on' : '');
+      b.innerHTML = `<span class="d">${tn.d}d</span><span class="t">${tn.t}</span>`;
+      b.onclick = () => {
+        state.days = tn.d;
+        renderWhen();
+      };
+      grid.appendChild(b);
     });
-  }
-
-  function drawWire() {
-    const y = yOf(state.wireK);
-    const show = state.planFocus === 'wire' || state.planFocus === 'lock' || state.locked || state.wirePlaced ||
-      state.phase === 'RUN' || state.phase === 'HANG' || state.phase === 'REVEAL' || state.phase === 'SUMMARY';
-    const op = show ? 1 : (state.planFocus === 'days' ? 0.25 : 0.12);
-    wireLine.setAttribute('y1', y);
-    wireLine.setAttribute('y2', y);
-    wireLine.setAttribute('opacity', String(op));
-    const S = state.entrySpot;
-    const days = state.locked ? state.entryDays : state.daysLeft;
-    const inside = isInsideBelly(state.wireK, S, days);
-    state.bellyInside = inside;
-    wireLine.setAttribute('stroke-width', inside ? '3.2' : '2.2');
-    wireHandle.setAttribute('cy', y);
-    wireHandle.setAttribute('opacity', String(op));
-    wireLabel.setAttribute('y', y + 3);
-    wireLabel.textContent = '$' + state.wireK.toFixed(2);
-    wireLabel.setAttribute('opacity', String(op));
-    if (wireCaption) {
-      if (!state.wirePlaced && state.planFocus !== 'wire' && state.planFocus !== 'lock' && !state.locked) {
-        wireCaption.innerHTML = 'Wire — place on the cone';
-      } else {
-        const tag = inside
-          ? '<span class="badge inside">INSIDE</span>'
-          : '<span class="badge outside">OUTSIDE</span>';
-        wireCaption.innerHTML = '$' + state.wireK.toFixed(2) + ' · ' + tag + ' · ' + days + 'd';
-      }
-    }
-    // Wire glow when INSIDE (juice only)
-    if (inside && show && state.juice && !state.reduce) {
-      wireLine.classList.add('wire-glow');
-    } else {
-      wireLine.classList.remove('wire-glow');
-    }
-  }
-
-  function drawCoins(prem, ghost) {
-    coinsG.innerHTML = '';
-    const n = Math.min(10, Math.max(0, Math.round(Math.max(0, prem) / 0.07)));
-    if (n === 0) {
-      const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-      el.setAttribute('cx', '90'); el.setAttribute('cy', '270');
-      el.setAttribute('rx', '14'); el.setAttribute('ry', '4');
-      el.setAttribute('fill', 'none'); el.setAttribute('stroke', '#9a968c');
-      el.setAttribute('stroke-width', '1'); el.setAttribute('stroke-dasharray', '2 2');
-      el.setAttribute('opacity', '0.45');
-      coinsG.appendChild(el);
-      return;
-    }
-    for (let i = 0; i < n; i++) {
-      const cy = 270 - i * 5;
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-      c.setAttribute('cx', '90');
-      c.setAttribute('cy', String(cy));
-      c.setAttribute('rx', '14');
-      c.setAttribute('ry', '4');
-      c.setAttribute('fill', i === n - 1 ? '#f5d76e' : '#e8c84a');
-      c.setAttribute('stroke', '#2a2a28');
-      c.setAttribute('stroke-width', '1');
-      c.setAttribute('stroke-dasharray', ghost ? '3 2' : 'none');
-      c.setAttribute('opacity', String(0.55 + i * 0.05));
-      coinsG.appendChild(c);
-    }
-  }
-
-  function arcCoinToTray(fromY) {
-    if (!state.juice || state.reduce) return;
-    const board = $('board');
-    if (!board) return;
-    const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-    el.setAttribute('class', 'coin-fly');
-    el.setAttribute('rx', '10'); el.setAttribute('ry', '3.5');
-    el.setAttribute('fill', '#f5d76e'); el.setAttribute('stroke', '#2a2a28');
-    el.setAttribute('stroke-width', '1'); el.setAttribute('opacity', '0.9');
-    board.appendChild(el);
-    const x0 = 90, y0 = fromY, x1 = 200, y1 = Math.min(fromY, 220) - 28, x2 = 285, y2 = 270;
-    tween(0, 1, T.COIN_ARC_MS, easeOutCubic, (u) => {
-      const o = 1 - u;
-      el.setAttribute('cx', (o * o * x0 + 2 * o * u * x1 + u * u * x2).toFixed(1));
-      el.setAttribute('cy', (o * o * y0 + 2 * o * u * y1 + u * u * y2).toFixed(1));
-      el.setAttribute('opacity', String(0.9 * (1 - u * 0.35)));
-    }, () => { try { el.remove(); } catch (_) {} });
-  }
-
-  function setEntryVisual(S) {
-    const y = yOf(S);
-    entryDot.setAttribute('cy', y);
-    entryLabel.setAttribute('y', y - 14);
-    entryLabel.textContent = '$' + S.toFixed(2);
-    entryRing.setAttribute('cy', y);
-    if (state.locked || state.phase === 'PLAN' || state.phase === 'BOOT') {
-      statSpot.textContent = '$' + S.toFixed(2);
-    }
-  }
-
-  function setGhostVisual(S) {
-    const y = yOf(S);
-    priceDot.setAttribute('cy', y);
-    priceHalo.setAttribute('cy', y);
-    const priceHit = document.getElementById('priceHit');
-    if (priceHit) priceHit.setAttribute('cy', y);
-    priceLabel.setAttribute('y', y + 4);
-    priceLabel.textContent = 'ghost $' + S.toFixed(2);
-    dragHint.setAttribute('y', y + 18);
-  }
-
-  function premiumAt(S, K, days) {
-    return bsCall(S, K, TexpDays(days), R, IV0).price;
-  }
-
-  function recomputePremium() {
-    const S = state.locked ? state.entrySpot : state.ghostSpot;
-    const days = state.locked ? state.entryDays : state.daysLeft;
-    const g = bsCall(S, state.wireK, TexpDays(days), R, IV0);
-    state.previewPrem = g.price;
-    state._lastDelta = -g.delta;
-    state._lastTheta = -g.theta;
-    if (!state.locked) {
-      const prev = lastPremShown;
-      statPrem.textContent = '$' + g.price.toFixed(2);
-      trayLbl.textContent = 'PREVIEW';
-      trayVal.textContent = '$' + g.price.toFixed(2);
-      drawCoins(g.price, true);
-      if (state.dragging && state.dragMode === 'scrub' && prev >= 0 && Math.abs(g.price - prev) > 0.05) {
-        popPremium();
-      }
-      lastPremShown = g.price;
-    }
-    updateGreeksReadout();
-    drawConePair();
-    drawWire();
-  }
-
-  function updateGreeksReadout(liveTheta) {
-    if (!statGreeks) return;
-    if (state.bench) {
-      if (statGreeksLbl) statGreeksLbl.textContent = 'Δ / θ';
-      if (liveTheta != null) statGreeks.textContent = 'θ+' + liveTheta.toFixed(3);
-      else {
-        const d = state._lastDelta, th = state._lastTheta;
-        if (d == null || th == null) statGreeks.textContent = '— / —';
-        else statGreeks.textContent = d.toFixed(2) + ' / ' + th.toFixed(3);
-      }
-      return;
-    }
-    if (statGreeksLbl) statGreeksLbl.textContent = 'Time';
-    let d = state.daysLeft;
-    if (state.locked) d = state.entryDays;
-    // RUN keeps locked frame numeral; HANG harvest drips days→0
-    if (state.phase === 'HANG') d = Math.max(0, Math.round(state.dripDays));
-    if (state.phase === 'REVEAL' || state.phase === 'SUMMARY') d = 0;
-    statGreeks.textContent = d + 'd';
-  }
-
-  function setDays(d, fromUser) {
-    d = Math.max(DAYS_MIN, Math.min(DAYS_MAX, Math.round(d)));
-    state.daysLeft = d;
-    if (daysSlider) daysSlider.value = String(d);
-    if (daysVal) daysVal.textContent = d + 'd';
-    drawDateMarks();
-    recomputePremium();
-    updateGreeksReadout();
-    if (fromUser) {
-      state.daysTouched = true;
-      if (state.juice && !state.reduce) {
-        feedback('soft');
-        popPremium();
-      }
-      if (state.scrubReleased && (state.planFocus === 'scrub' || state.planFocus === 'days')) {
-        setPlanFocus('days');
-      }
-    }
-  }
-
-  function setWire(k, placed) {
-    k = Math.max(Y_MIN + 0.3, Math.min(Y_MAX - 0.3, k));
-    k = Math.round(k * 4) / 4;
-    state.wireK = k;
-    if (placed) state.wirePlaced = true;
-    syncWireFromArmed();
-    drawRungs();
-    recomputePremium();
-    drawWire();
-    if (placed && (state.planFocus === 'wire' || state.planFocus === 'days' || state.planFocus === 'scrub')) {
-      setPlanFocus('lock');
-    } else {
-      updateChrome();
-    }
-  }
-
-  function setPhase(ph) {
-    state.phase = ph;
-    phaseTag.textContent = ph;
-    sheet.dataset.phase = ph;
-    updateChrome();
-  }
-
-  function updateChrome() {
-    const ph = state.phase;
-    rungBtns.forEach((b, i) => {
-      b.disabled = ph !== 'PLAN' || state.planFocus === 'scrub';
-      const near = Math.abs(state.wireK - STRIKES[i]) < 0.08;
-      b.classList.toggle('accent', near || state.armed[i]);
-      b.textContent = ((near || state.armed[i]) ? '● ' : '') + '$' + STRIKES[i].toFixed(2);
-    });
-    btnHold.disabled = ph !== 'HANG';
-    btnAbort.style.display = ph === 'RUN' ? '' : 'none';
-    btnAbort.disabled = ph !== 'RUN' || performance.now() < (state.abortArmedAt || 0);
-
-    if (ph === 'BOOT') {
-      narrTitle.textContent = 'Drag the green';
-      narrCopy.textContent = 'Coins and cone answer.';
-      btnPrimary.textContent = 'PLAY';
-      btnPrimary.disabled = false;
-      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
-    } else if (ph === 'PLAN') {
-      syncPlanFocusChrome();
-    } else if (ph === 'RUN') {
-      narrTitle.textContent = 'Watch time';
-      narrCopy.textContent = 'Frame locked · $' + state.entrySpot.toFixed(2) + ' · ' + state.entryDays + 'd';
-      btnPrimary.textContent = 'WATCHING';
-      btnPrimary.disabled = true;
-      btnPrimary.classList.remove('abort', 'cue-pulse');
-      btnPrimary.classList.add('watch-primary');
-      dragHint.setAttribute('opacity', '0');
-      priceHalo.setAttribute('opacity', '0');
-      timePtr.setAttribute('opacity', '1');
-      timeArrow.setAttribute('opacity', '1');
-      pricePath.setAttribute('opacity', '1');
-      if (skyChip) {
-        skyChip.hidden = false;
-        skyChip.textContent = 'sky: ' + (state.pathVariant === 'spike' ? 'spike' : 'calm');
-      }
-    } else if (ph === 'HANG') {
-      narrTitle.textContent = 'Pocket time';
-      narrCopy.textContent = 'Hold — days drip into coins.';
-      btnPrimary.disabled = true;
-      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
-      btnHold.disabled = false;
-      btnHold.childNodes[0].textContent = 'POCKET ';
-      holdFill.style.width = '0%';
-    } else if (ph === 'REVEAL') {
-      narrTitle.textContent = 'Geometry';
-      narrCopy.textContent = state.geometryLine || 'Path vs wire.';
-      btnPrimary.disabled = true;
-      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
-    } else if (ph === 'SUMMARY') {
-      narrTitle.textContent = 'Stamp';
-      narrCopy.textContent = state.geometryLine || '';
-      btnPrimary.disabled = true;
-      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
-    }
-
-    if (daysSlider) {
-      daysSlider.disabled = ph !== 'PLAN' || state.locked || state.planFocus === 'scrub';
-    }
-    if (daysRail && ph !== 'PLAN') daysRail.style.opacity = '0.55';
-    else if (daysRail) daysRail.style.opacity = '';
-
-    const showDaysHandle = ph === 'PLAN' && state.planFocus !== 'scrub';
-    daysHandleLine.setAttribute('opacity', showDaysHandle ? '0.85' : '0.15');
-    daysHandleHit.setAttribute('opacity', showDaysHandle ? '0.85' : '0.15');
-    daysHandleLbl.setAttribute('opacity', showDaysHandle ? '0.85' : '0.15');
-  }
-
-  function touch() { state.touches++; ensureAudio(); }
-
-  function setPlanFocus(f) {
-    state.planFocus = f;
-    sheet.dataset.planFocus = f;
-    syncPlanFocusChrome();
-  }
-
-  function syncPlanFocusChrome() {
-    if (state.phase !== 'PLAN') return;
-    if (state.wirePlaced && state.scrubReleased) state.planFocus = 'lock';
-    sheet.dataset.planFocus = state.planFocus;
-    const f = state.planFocus;
-    if (f === 'scrub') {
-      narrTitle.textContent = 'Drag the green';
-      narrCopy.textContent = 'Dashed = what-if · solid = spot.';
-      dragHint.setAttribute('opacity', '1');
-      dragHint.classList.add('hint-pulse');
-      priceHalo.setAttribute('opacity', '0.7');
-      btnPrimary.disabled = true;
-    } else if (f === 'days') {
-      narrTitle.textContent = 'Stretch the days';
-      narrCopy.textContent = 'Longer → fatter cone + more premium.';
-      dragHint.setAttribute('opacity', '0.15');
-      dragHint.classList.remove('hint-pulse');
-      btnPrimary.disabled = true;
-    } else if (f === 'wire') {
-      narrTitle.textContent = 'Place the wire';
-      narrCopy.textContent = 'Slide orange · INSIDE or OUTSIDE.';
-      dragHint.setAttribute('opacity', '0');
-      btnPrimary.disabled = true;
-      drawWire();
-      wireLine.setAttribute('opacity', '1');
-      wireHandle.setAttribute('opacity', '1');
-      wireLabel.setAttribute('opacity', '1');
-    } else {
-      narrTitle.textContent = 'Lock it';
-      narrCopy.textContent = '$' + state.entrySpot.toFixed(2) + ' · ' + state.daysLeft + 'd — freeze the frame.';
-      dragHint.setAttribute('opacity', '0');
-      btnPrimary.textContent = 'LOCK';
-      btnPrimary.disabled = !state.wirePlaced;
-      btnPrimary.classList.remove('abort', 'cue-pulse');
-    }
-    if (f !== 'lock') {
-      btnPrimary.textContent = 'LOCK';
-      btnPrimary.classList.remove('abort', 'cue-pulse');
-    }
-    drawWire();
-    if (daysSlider) daysSlider.disabled = f === 'scrub' && !state.scrubReleased;
-  }
-
-  function enterPlanCold() {
-    state.sessionN = bumpSession();
-    try {
-      const q = new URLSearchParams(location.search).get('path');
-      if (!(q && (q.toLowerCase() === 'spike' || q.toLowerCase() === 'grind'))) {
-        state.pathVariant = weatherForSession(state.sessionN);
-        state.path = buildPath(SEED_ID, state.pathVariant, SPOT0);
-      }
-    } catch (_) {
-      state.pathVariant = weatherForSession(state.sessionN);
-    }
-    setPhase('PLAN');
-    touch();
-    state.planFocus = 'scrub';
-    state.scrubReleased = false;
-    state.daysTouched = false;
-    state.wirePlaced = false;
-    state.locked = false;
-    state.ghostSpot = SPOT0;
-    state.entrySpot = SPOT0;
-    state.daysLeft = DAYS_DEFAULT;
-    state.wireK = 24.50;
-    state.filled = [false, false, false];
-    setDays(DAYS_DEFAULT, false);
-    setEntryVisual(SPOT0);
-    setGhostVisual(SPOT0);
-    priceDot.setAttribute('cx', X0);
-    priceHalo.setAttribute('cx', X0);
-    priceLabel.setAttribute('x', 78);
-    priceLabel.setAttribute('text-anchor', 'start');
-    priceDot.setAttribute('stroke-dasharray', '4 3');
-    priceDot.setAttribute('fill', '#c8e6d0');
-    priceDot.setAttribute('fill-opacity', '0.42');
-    priceDot.setAttribute('r', '11');
-    entryRing.setAttribute('opacity', '0.55');
-    syncLandscapeGhost();
-    drawDateMarks();
-    drawRungs();
-    drawWire();
-    recomputePremium();
-    setPlanFocus('scrub');
-    syncPathPill();
-  }
-
-  function startBoot() {
-    setPhase('BOOT');
-    quietPL.classList.remove('show');
-    quietPL.setAttribute('aria-hidden', 'true');
-    if (hangVeil) hangVeil.style.opacity = '0';
-    stopHangDrone();
-    delete sheet.dataset.planFocus;
-    if (skyChip) skyChip.hidden = true;
-    state.ghostSpot = SPOT0;
-    state.entrySpot = SPOT0;
-    state.daysLeft = DAYS_DEFAULT;
-    state.entryDays = DAYS_DEFAULT;
-    state.wireK = 24.50;
-    state.wirePlaced = false;
-    state.locked = false;
-    state.armed = [false, true, false];
-    state.filled = [false, false, false];
-    state.premiumCollected = 0;
-    state.grade = null;
-    state.pnl = 0;
-    state.outcomeGood = false;
-    state.anyFilled = false;
-    state.deepItm = false;
-    state.processScore = 0;
-    state.hangProgress = 0;
-    state.runT = 0;
-    state.aborted = false;
-    state.shareText = '';
-    state.infoFlashDone = false;
-    state.geometryLine = '';
-    state.dripDays = DAYS_DEFAULT;
-    btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
-    pricePath.setAttribute('points', '');
-    pricePath.setAttribute('opacity', '0');
-    timePtr.setAttribute('opacity', '0');
-    timeArrow.setAttribute('opacity', '0');
-    priceDot.setAttribute('cx', X0);
-    priceHalo.setAttribute('cx', X0);
-    document.querySelectorAll('.coin-fly').forEach((el) => { try { el.remove(); } catch (_) {} });
-    stampOverlay.classList.remove('show');
-    summaryOverlay.classList.remove('show');
-    gradeStamp.classList.remove('in');
-    setEntryVisual(SPOT0);
-    setGhostVisual(SPOT0);
-    setDays(DAYS_DEFAULT, false);
-    drawDateMarks();
-    drawRungs();
-    drawWire();
-    recomputePremium();
-    updateGreeksReadout();
-    setTimeout(() => {
-      if (state.phase === 'BOOT') enterPlanCold();
-    }, T.BOOT_MS);
-  }
-
-  function scoreProcess() {
-    const previewEngaged = Math.abs(state.ghostSpot - state.entrySpot) > 0.2;
-    const daysEngaged = state.daysTouched;
-    const inside = isInsideBelly(state.wireK, state.entrySpot, state.daysLeft);
-    const cushion = state.wireK >= state.entrySpot + midTenorSigma(state.entrySpot, state.daysLeft) * 0.85;
-    let ps = 0.1;
-    if (previewEngaged) ps += 0.25;
-    if (daysEngaged) ps += 0.2;
-    if (state.wirePlaced) ps += 0.15;
-    if (inside && state.daysLeft >= 21) ps += 0.05;
-    else if (!inside && cushion) ps += 0.25;
-    else if (!inside) ps += 0.15;
-    else ps += 0.08;
-    return Math.max(0, Math.min(1, ps));
-  }
-
-  function lockIn() {
-    if (state.phase !== 'PLAN') return;
-    if (!state.wirePlaced) return;
-    touch();
-    state.locked = true;
-    state.entrySpot = SPOT0;
-    state.entryDays = state.daysLeft;
-    state.processScore = scoreProcess();
-    syncWireFromArmed();
-    state.path = buildPath(SEED_ID, state.pathVariant, state.entrySpot);
-    state.premiumCollected = premiumAt(state.entrySpot, state.wireK, state.entryDays);
-    trayLbl.textContent = 'PREMIUM';
-    trayVal.textContent = '$' + state.premiumCollected.toFixed(2);
-    drawCoins(state.premiumCollected, false);
-    statPrem.textContent = '$' + state.premiumCollected.toFixed(2);
-    setEntryVisual(state.entrySpot);
-    entryRing.setAttribute('opacity', '1');
-    drawConePair();
-    drawWire();
-    updateGreeksReadout();
-    feedback('lock');
-    buzz(15);
-    showToast('Locked $' + state.entrySpot.toFixed(2) + ' · ' + state.entryDays + 'd');
-    startRun();
-  }
-
-  function startRun() {
-    state.aborted = false;
-    state.abortArmedAt = performance.now() + T.ABORT_ARM_MS;
-    setPhase('RUN');
-    state.runT = 0;
-    state.pathSampleX = -999;
-    state.thetaEarned = 0;
-    pricePath.setAttribute('points', xOf(0).toFixed(1) + ',' + yOf(state.entrySpot).toFixed(1));
-    const armUntil = state.abortArmedAt;
-    setTimeout(() => {
-      if (state.phase === 'RUN' && !state.aborted && performance.now() >= armUntil - 1) {
-        btnAbort.disabled = false;
-      }
-    }, T.ABORT_ARM_MS);
-  }
-
-  function liveShortMark(S, tFrac) {
-    const Tleft = Math.max(1e-6, TexpDays(state.entryDays) * (1 - tFrac * 0.95));
-    const g = bsCall(S, state.wireK, Tleft, R, IV0);
-    return { mark: g.price, thetaSeller: -g.theta };
-  }
-
-  function tickRun(dt) {
-    if (state.aborted || state.phase !== 'RUN') return;
-    state.runT = Math.min(1, state.runT + dt / T.RUN_MS);
-    const t = state.runT;
-    const path = state.path;
-    let price = path[path.length - 1].p;
-    for (let i = 0; i < path.length - 1; i++) {
-      if (t >= path[i].t && t <= path[i + 1].t) {
-        const u = (t - path[i].t) / (path[i + 1].t - path[i].t || 1);
-        price = path[i].p + (path[i + 1].p - path[i].p) * u;
-        break;
-      }
-    }
-    if (t <= 0) price = state.entrySpot;
-
-    const x = xOf(t);
-    const y = yOf(price);
-    timePtr.setAttribute('x1', x); timePtr.setAttribute('x2', x);
-    timeArrow.setAttribute('points', x + ',30 ' + (x - 6) + ',38 ' + (x + 6) + ',38');
-    priceDot.setAttribute('cx', x);
-    priceDot.setAttribute('cy', y);
-    priceDot.setAttribute('stroke-dasharray', 'none');
-    priceDot.setAttribute('fill', '#2d8a4e');
-    priceDot.setAttribute('fill-opacity', '1');
-    priceHalo.setAttribute('cx', x); priceHalo.setAttribute('cy', y);
-    priceLabel.setAttribute('x', x); priceLabel.setAttribute('y', y - 14);
-    priceLabel.setAttribute('text-anchor', 'middle');
-    priceLabel.textContent = '$' + price.toFixed(2);
-    statSpot.textContent = '$' + state.entrySpot.toFixed(2);
-    updateGreeksReadout();
-
-    if (Math.abs(x - state.pathSampleX) >= T.PATH_SAMPLE_PX || t >= 1) {
-      const pts = pricePath.getAttribute('points') || '';
-      pricePath.setAttribute('points', pts + ' ' + x.toFixed(1) + ',' + y.toFixed(1));
-      state.pathSampleX = x;
-    }
-
-    if (!state.anyFilled && price >= state.wireK) {
-      state.filled = state.armed.map(Boolean);
-      state.anyFilled = true;
-      drawRungs();
-      feedback('fill');
-      buzz(12);
-      arcCoinToTray(yOf(state.wireK));
-      narrTitle.textContent = 'Wire kissed';
-      narrCopy.textContent = 'Path met $' + state.wireK.toFixed(2) + ' · premium kept, upside capped.';
-      wireLine.setAttribute('stroke', '#2d8a4e');
-    }
-
-    const live = liveShortMark(price, t);
-    state.thetaEarned = Math.max(0, state.premiumCollected - live.mark);
-    state._lastTheta = live.thetaSeller;
-    statPrem.textContent = '$' + live.mark.toFixed(2);
-    trayVal.textContent = '$' + state.premiumCollected.toFixed(2);
-    drawCoins(live.mark, false);
-    if (state.juice && !state.reduce && Math.random() < 0.03 && live.thetaSeller > 0) feedback('theta');
-
-    if (t >= 1) {
-      state.finalPrice = price;
-      state.deepItm = price > state.wireK + 0.8;
-      state.anyFilled = price >= state.wireK || state.anyFilled;
-      const intrinsic = Math.max(0, price - state.wireK);
-      state.pnl = state.premiumCollected - intrinsic;
-      state.outcomeGood = state.pnl >= 0;
-      flashPathWire(price >= state.wireK);
-      state.dripDays = state.entryDays;
-      setPhase('HANG');
-      updateGreeksReadout();
-      feedback('hang');
-    }
-  }
-
-  function flashPathWire(pierced) {
-    wireLine.setAttribute('stroke', pierced ? '#b54a3a' : '#2d8a4e');
-    wireLine.setAttribute('stroke-width', '4');
-    narrTitle.textContent = pierced ? 'Pierced' : 'Held';
-    narrCopy.textContent = pierced
-      ? 'Path pierced wire · $' + state.wireK.toFixed(2)
-      : 'Path held under wire · $' + state.wireK.toFixed(2);
-    state.geometryLine = buildGeometryLine(pierced);
-    setTimeout(() => { wireLine.setAttribute('stroke-width', '2.5'); }, T.INFO_FLASH_MS);
-  }
-
-  function buildGeometryLine(pierced) {
-    const inside = isInsideBelly(state.wireK, state.entrySpot, state.entryDays);
-    const belly = inside ? 'Inside belly' : 'Outside belly';
-    const pathBit = pierced ? 'path kissed wire' : 'path slept';
-    const sky = state.pathVariant === 'spike' ? ' · SPIKE sky' : '';
-    return belly + ' · ' + state.entryDays + 'd · ' + pathBit + sky;
-  }
-
-  function tickHang(dt) {
-    state.hangProgress = Math.min(1, state.hangProgress + dt / T.HANG_CHARGE_MS);
-    holdFill.style.width = (state.hangProgress * 100) + '%';
-    btnHold.classList.toggle('charging', state.hangProgress > 0);
-    state.dripDays = state.entryDays * (1 - state.hangProgress);
-    updateGreeksReadout();
-    const collapseDays = Math.max(0.5, state.dripDays);
-    ivCone.setAttribute('d', conePath(state.entrySpot, collapseDays));
-    ghostCone.setAttribute('opacity', String(0.35 * (1 - state.hangProgress)));
-    const dripPrem = state.premiumCollected * (0.55 + 0.45 * state.hangProgress);
-    drawCoins(dripPrem, false);
-    trayVal.textContent = '$' + dripPrem.toFixed(2);
-    if (hangVeil) hangVeil.style.opacity = String(0.1 + 0.7 * Math.pow(state.hangProgress, 1.35));
-    updateHangDrone(state.hangProgress);
-    if (state.juice && !state.reduce && Math.random() < 0.35) spawnDripParticles(state.hangProgress);
-    if (state.hangProgress >= 1) {
-      state.holding = false;
-      state.dripDays = 0;
-      updateGreeksReadout();
-      hangVeil.style.opacity = '0';
-      stopHangDrone();
-      beginReveal();
-    }
-  }
-
-  function decayHang() {
-    state.holding = false;
-    state.hangProgress *= 0.5;
-    holdFill.style.width = (state.hangProgress * 100) + '%';
-    btnHold.classList.remove('charging');
-    updateHangDrone(state.hangProgress);
-    if (state.hangProgress < 0.02) {
-      hangVeil.style.opacity = '0';
-      stopHangDrone();
-    }
-  }
-
-  function priceAtRunT(t) {
-    const path = state.path;
-    if (!path || !path.length) return state.entrySpot;
-    let price = path[path.length - 1].p;
-    for (let i = 0; i < path.length - 1; i++) {
-      if (t >= path[i].t && t <= path[i + 1].t) {
-        const u = (t - path[i].t) / (path[i + 1].t - path[i].t || 1);
-        price = path[i].p + (path[i + 1].p - path[i].p) * u;
-        break;
-      }
-    }
-    if (t <= 0) price = state.entrySpot;
-    return price;
-  }
-
-  function abortRun(force) {
-    if (state.phase !== 'RUN') return;
-    if (!force && performance.now() < (state.abortArmedAt || 0)) return;
-    touch();
-    state.aborted = true;
-    const t = Math.min(1, state.runT || 0);
-    const price = priceAtRunT(t);
-    state.finalPrice = price;
-    state.anyFilled = price >= state.wireK || state.filled.some(Boolean);
-    state.deepItm = price > state.wireK + 0.8;
-    const intrinsic = Math.max(0, price - state.wireK);
-    state.pnl = state.premiumCollected - intrinsic;
-    state.outcomeGood = false;
-    state.grade = 'WRONG';
-    state.geometryLine = 'Left early · ' + (state.bellyInside ? 'Inside belly' : 'Outside belly') + ' · ' + state.entryDays + 'd';
-    feedback('wrong');
-    buzz(8);
-    beginReveal();
-  }
-
-  function beginReveal() {
-    setPhase('REVEAL');
-    touch();
-    stopHangDrone();
-    if (hangVeil) hangVeil.style.opacity = '0';
-    statPrem.textContent = '$' + (state.premiumCollected || 0).toFixed(2);
-    updateGreeksReadout();
-
-    let grade = state.grade;
-    if (!state.aborted) {
-      const processGood = state.processScore >= PROCESS_GOOD_MIN;
-      const outcomeGood = state.outcomeGood;
-      if (processGood && outcomeGood) grade = 'CORRECT';
-      else if (!processGood && outcomeGood) grade = 'LUCKY';
-      else if (processGood && !outcomeGood) grade = 'UNLUCKY';
-      else grade = 'WRONG';
-      if (!state.geometryLine) state.geometryLine = buildGeometryLine(state.finalPrice >= state.wireK);
-    } else {
-      grade = 'WRONG';
-    }
-    state.grade = grade;
-
-    const pnl = state.pnl;
-    cardPL.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
-    quietPL.textContent = 'P/L ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
-    quietPL.className = 'quiet-pl show ' + (pnl >= 0 ? 'up' : 'down');
-    quietPL.setAttribute('aria-hidden', 'false');
-
-    const quietMs = state.aborted ? Math.min(T.QUIET_PL_MS, 80) : T.QUIET_PL_MS;
-    setTimeout(() => {
-      quietPL.classList.remove('show');
-      showGradeStamp(grade, () => {
-        setTimeout(() => {
-          if (grade === 'CORRECT' && !state.aborted) {
-            feedback('correct');
-            buzz([20, 40, 20]);
-            if (state.juice && !state.reduce) spawnConfetti();
-            state.streak++;
-            try { localStorage.setItem(LS_STREAK, String(state.streak)); } catch (_) {}
-          } else if (grade === 'LUCKY') feedback('lucky');
-          else if (grade === 'UNLUCKY') feedback('unlucky');
-          else if (!state.aborted) feedback('wrong');
-          setTimeout(() => showSummary(), state.juice && !state.reduce ? T.CARD_AFTER_MS : 100);
-        }, state.aborted ? Math.min(T.GRADE_FIRST_MS, 40) : T.GRADE_FIRST_MS);
-      });
-    }, quietMs);
-  }
-
-  function showGradeStamp(grade, done) {
-    stampMark.textContent = grade;
-    stampSub.textContent = state.geometryLine || (state.aborted ? 'Left early — incomplete' : 'Belly · days · path');
-    gradeStamp.dataset.g = grade;
-    gradeStamp.style.maxWidth = STAMP_BUDGET.maxW + 'px';
-    stampOverlay.classList.add('show');
-    requestAnimationFrame(() => {
-      gradeStamp.classList.add('in');
-      if (state.juice && !state.reduce) {
-        gradeStamp.classList.add('impact');
-        sheet.classList.add('paper-jitter');
-        buzz(grade === 'CORRECT' ? [18, 40, 18] : 12);
-        setTimeout(() => {
-          sheet.classList.remove('paper-jitter');
-          gradeStamp.classList.remove('impact');
-        }, T.STAMP_SHAKE_MS + 160);
-      }
-    });
-    const stampMs = state.aborted ? Math.min(T.STAMP_SHOW_MS, 500) : T.STAMP_SHOW_MS;
-    setTimeout(() => { if (done) done(); }, stampMs);
-  }
-
-  function plainGradeLine(grade) {
-    const geo = state.geometryLine || '';
-    if (state.aborted) return geo + ' — graded incomplete.';
-    const moral = {
-      CORRECT: 'Geometry held and path cooperated.',
-      LUCKY: 'Paid — geometry was soft.',
-      UNLUCKY: 'Geometry solid; path went against you.',
-      WRONG: 'Geometry and path both missed.',
+    document.getElementById('btnBack').onclick = () => { state.phase = 'where'; render(); };
+    document.getElementById('btnNext').onclick = () => {
+      state.structures = buildStructures(state.target, state.days);
+      state.pick = null;
+      state.phase = 'pick';
+      render();
     };
-    return geo + (geo ? ' · ' : '') + (moral[grade] || '');
   }
 
-  function showSummary() {
-    setPhase('SUMMARY');
-    stampOverlay.classList.remove('show');
-    quietPL.classList.remove('show');
-    quietPL.setAttribute('aria-hidden', 'true');
-    const g = state.grade;
-    const pnl = state.pnl;
-    cardTitle.textContent = state.aborted ? 'WRONG · partial' : g;
-    cardPL.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
-    cardPL.className = 'pl ' + (pnl >= 0 ? 'up' : 'down');
-    if (cardPlain) cardPlain.textContent = plainGradeLine(g);
-    const bits = [
-      state.geometryLine,
-      state.aborted ? 'Left early' : null,
-      'sky ' + state.pathVariant,
-      state.streak ? ('streak ' + state.streak) : null,
-    ].filter(Boolean);
-    if (state.bench) {
-      cardMeta.textContent =
-        'Process ' + ((state.processScore * 100) | 0) + '% · outcome ' + (state.outcomeGood ? 'OK' : 'miss') +
-        (state.aborted ? ' · aborted' : '') + ' · ' + bits.join(' · ');
-    } else {
-      cardMeta.textContent = bits.join(' · ');
-    }
-    state.shareText =
-      'STRIKE:SONY ' + SEED_ID + '/' + state.pathVariant + '\n' +
-      g + (state.aborted ? ' (aborted)' : '') + ' · ' + (state.geometryLine || '') + '\n' +
-      'P/L ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2) + ' · illustrative only';
-    cardShare.textContent = state.shareText;
-    summaryOverlay.classList.add('show');
+  function renderPick() {
+    setSub('Three structures from YOUR theory');
+    el.stage.innerHTML = `
+      <div class="panel" style="padding-bottom:10px">
+        <div class="label">Not a ranked answer — flavors of your where + when</div>
+        <div class="story-mid" style="margin:0">$${state.target} in ${state.days}d → three ways to express it</div>
+      </div>
+      <div class="opt-list" id="opts"></div>
+      <div class="flex-grow"></div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="btnBack" type="button">BACK</button>
+        <button class="btn btn-neon" id="btnLock" type="button" ${state.pick ? '' : 'disabled'}>LOCK IN → ARCADE</button>
+      </div>
+    `;
+    const list = document.getElementById('opts');
+    state.structures.forEach((s) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'opt-card' + (state.pick && state.pick.id === s.id ? ' on' : '');
+      b.innerHTML = `
+        <div class="name">${s.name}</div>
+        <div class="spec">${UNDER} ${s.strike.toFixed(1)}C · ${s.days}d · prem ${money(s.premium)}</div>
+        <div class="why">${s.why}</div>
+        <span class="lev">${s.leverage}</span>
+      `;
+      b.onclick = () => {
+        state.pick = s;
+        renderPick();
+      };
+      list.appendChild(b);
+    });
+    document.getElementById('btnBack').onclick = () => { state.phase = 'when'; render(); };
+    document.getElementById('btnLock').onclick = () => {
+      if (!state.pick) return;
+      startArcade();
+    };
   }
 
-  let confettiBits = [];
-  function spawnConfetti() {
-    confettiBits = [];
-    const cols = ['#2a2a28', '#5a5a56', '#2d8a4e', '#d9d4c8', '#cfc9b8'];
-    for (let i = 0; i < 36; i++) {
-      const kind = i % 3 === 0 ? 'tick' : 'scrap';
-      confettiBits.push({
-        x: 180 + (Math.random() - 0.5) * 100, y: 70 + Math.random() * 30,
-        vx: (Math.random() - 0.5) * 2.4, vy: Math.random() * -2.2 - 0.6,
-        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.12,
-        c: cols[i % cols.length], kind,
-        len: kind === 'tick' ? 6 + Math.random() * 8 : 4 + Math.random() * 5, life: 1,
-      });
+  // ─── Arcade ───
+  function startArcade() {
+    const contract = state.pick;
+    const outcome = pickOutcome(state.rng); // schedule + optional smokeForce
+    state.outcome = outcome;
+
+    const entryExtrinsic = Math.max(0.05, contract.premium - intrinsicAt(SPOT0, contract.strike));
+    const durationMs = 11000; // ~11s run — arcade pace
+
+    // Precompute path samples
+    const ctx = {
+      spot0: SPOT0,
+      strike: contract.strike,
+      target: state.target,
+      days: contract.days,
+      tenorDays: contract.days,
+    };
+    const samples = [];
+    const N = 240;
+    for (let i = 0; i <= N; i++) {
+      const t = i / N;
+      const spot = outcome.build(t, ctx);
+      const tLeft = 1 - t;
+      const intr = intrinsicAt(spot, contract.strike);
+      const extr = extrinsicAt(spot, contract.strike, tLeft, entryExtrinsic);
+      const val = intr + extr;
+      samples.push({ t, spot, intr, extr, val, pnl: val - contract.premium, pnlPct: (val - contract.premium) / contract.premium });
     }
-    const t0 = performance.now();
-    function step(ts) {
-      const u = (ts - t0) / T.CONFETTI_MS;
-      pctx.clearRect(0, 0, 360, 320);
-      confettiBits.forEach(b => {
-        b.vy += 0.06; b.x += b.vx; b.y += b.vy; b.rot += b.vr; b.life = 1 - u;
-        pctx.save(); pctx.globalAlpha = Math.max(0, b.life * 0.9);
-        pctx.translate(b.x, b.y); pctx.rotate(b.rot);
-        pctx.strokeStyle = b.c; pctx.fillStyle = b.c;
-        if (b.kind === 'tick') {
-          pctx.lineWidth = 1.4; pctx.beginPath();
-          pctx.moveTo(-b.len * 0.2, 0); pctx.lineTo(b.len, -b.len * 0.15); pctx.stroke();
-        } else pctx.fillRect(-b.len * 0.5, -1.5, b.len, 3);
-        pctx.restore();
-      });
-      pctx.globalAlpha = 1;
-      if (u < 1) requestAnimationFrame(step); else pctx.clearRect(0, 0, 360, 320);
+
+    // Sweet zone: band where value is near peak of first 70% of path OR
+    // where extrinsic still meaningful and pnl positive — mapped to progress t
+    let peakIdx = 0;
+    let peakVal = -Infinity;
+    for (let i = 0; i < samples.length * 0.85; i++) {
+      if (samples[i].val > peakVal) { peakVal = samples[i].val; peakIdx = i; }
     }
-    requestAnimationFrame(step);
+    // Also prefer zones where extr share is healthy
+    let best = peakIdx;
+    let bestScore = -Infinity;
+    for (let i = Math.floor(samples.length * 0.15); i < Math.floor(samples.length * 0.8); i++) {
+      const s = samples[i];
+      const extrShare = s.val > 0 ? s.extr / s.val : 0;
+      const score = s.pnlPct * 1.2 + extrShare * 0.35 + (1 - Math.abs(i - peakIdx) / samples.length);
+      if (score > bestScore) { bestScore = score; best = i; }
+    }
+    const zoneCenter = samples[best].t;
+    const zoneHalf = 0.09; // width of sweet zone in progress
+    const zoneLo = clamp(zoneCenter - zoneHalf, 0.08, 0.85);
+    const zoneHi = clamp(zoneCenter + zoneHalf, zoneLo + 0.1, 0.92);
+
+    state.arcade = {
+      contract,
+      outcome,
+      samples,
+      entryExtrinsic,
+      durationMs,
+      t0: performance.now(),
+      progress: 0,
+      running: true,
+      sold: false,
+      zoneLo,
+      zoneHi,
+      raf: 0,
+      lastSpot: SPOT0,
+      lastIntr: 0,
+      lastExtr: entryExtrinsic,
+      lastVal: contract.premium,
+      inZone: false,
+    };
+    state.phase = 'arcade';
+    renderArcade();
+    tickArcade();
   }
 
-  function clientToSvg(e) {
-    const rect = $('board').getBoundingClientRect();
+  function sampleAt(progress) {
+    const samples = state.arcade.samples;
+    const idx = clamp(progress, 0, 1) * (samples.length - 1);
+    const i0 = Math.floor(idx);
+    const i1 = Math.min(samples.length - 1, i0 + 1);
+    const f = idx - i0;
+    const a = samples[i0], b = samples[i1];
     return {
-      x: ((e.clientX - rect.left) / rect.width) * 360,
-      y: ((e.clientY - rect.top) / rect.height) * 320,
+      t: progress,
+      spot: a.spot + (b.spot - a.spot) * f,
+      intr: a.intr + (b.intr - a.intr) * f,
+      extr: a.extr + (b.extr - a.extr) * f,
+      val: a.val + (b.val - a.val) * f,
+      pnl: a.pnl + (b.pnl - a.pnl) * f,
+      pnlPct: a.pnlPct + (b.pnlPct - a.pnlPct) * f,
     };
   }
 
-  function onPointerDown(e) {
-    if (state.phase !== 'PLAN') return;
-    const p = clientToSvg(e);
-    if (state.planFocus === 'wire' || state.planFocus === 'lock' || state.wirePlaced) {
-      const wy = yOf(state.wireK);
-      if (Math.abs(p.y - wy) < 18 && p.x > 50 && p.x < 330) {
-        state.dragging = true; state.dragMode = 'wire';
-        touch(); e.preventDefault(); return;
+  function renderArcade() {
+    setSub('ARCADE · Hit SELL in the sweet zone');
+    const c = state.arcade.contract;
+    el.stage.innerHTML = `
+      <div class="arcade-hud">
+        <div class="hud-cell"><div class="k">Spot</div><div class="v" id="hudSpot">${SPOT0.toFixed(2)}</div></div>
+        <div class="hud-cell"><div class="k">Option</div><div class="v" id="hudVal">${money(c.premium)}</div></div>
+        <div class="hud-cell"><div class="k">Strike</div><div class="v">${c.strike.toFixed(1)}</div></div>
+        <div class="hud-cell"><div class="k">P/L</div><div class="v" id="hudPnl">$0.00</div></div>
+      </div>
+      <div class="meter-wrap panel" style="padding:10px 12px">
+        <div class="meter-labels">
+          <span class="ex">EXTRINSIC <span id="exAmt">—</span></span>
+          <span class="in">INTRINSIC <span id="inAmt">—</span></span>
+        </div>
+        <div class="stack-meter">
+          <div class="stack-ex" id="stackEx" style="width:100%"></div>
+          <div class="stack-in" id="stackIn" style="width:0%"></div>
+        </div>
+        <div class="hint" style="margin-top:6px">Gold melts with time. Green only grows if spot clears strike.</div>
+      </div>
+      <div class="track-box">
+        <div class="zone-chip" id="zoneChip">SWEET ZONE</div>
+        <canvas id="arcCanvas" width="780" height="320"></canvas>
+      </div>
+      <p class="coach" id="coach">Watch the runner. Sell inside the purple band.</p>
+      <div class="sell-wrap">
+        <button class="btn btn-hot" id="btnSell" type="button">SELL</button>
+      </div>
+    `;
+    document.getElementById('btnSell').onclick = () => sellNow();
+    drawArc(0, sampleAt(0));
+  }
+
+  function drawArc(progress, samp) {
+    const canvas = document.getElementById('arcCanvas');
+    if (!canvas || !state.arcade) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padX = 40, padY = 36;
+    const a = state.arcade;
+
+    // Arc path (quadratic)
+    function xy(t) {
+      const x = padX + t * (W - padX * 2);
+      const y = H - padY - Math.sin(t * Math.PI) * (H - padY * 2 - 20);
+      return [x, y];
+    }
+
+    // Track
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = '#1e2a48';
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (let i = 0; i <= 40; i++) {
+      const [x, y] = xy(i / 40);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Sweet zone highlight on arc
+    ctx.lineWidth = 14;
+    ctx.strokeStyle = '#7b61ff99';
+    ctx.shadowColor = '#7b61ff';
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i <= 60; i++) {
+      const t = a.zoneLo + (a.zoneHi - a.zoneLo) * (i / 60);
+      const [x, y] = xy(t);
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Strike dashed horizontal feel via label
+    ctx.fillStyle = '#8b97b8';
+    ctx.font = '18px ui-monospace, monospace';
+    ctx.fillText('K ' + a.contract.strike.toFixed(1), padX, 28);
+
+    // Target tick
+    const tFrac = clamp((state.target - 70) / 60, 0, 1); // decorative
+    void tFrac;
+
+    // Runner
+    const [rx, ry] = xy(progress);
+    ctx.beginPath();
+    ctx.arc(rx, ry, 16, 0, Math.PI * 2);
+    ctx.fillStyle = a.inZone ? '#00e5a8' : '#4cc9f0';
+    ctx.shadowColor = a.inZone ? '#00e5a8' : '#4cc9f0';
+    ctx.shadowBlur = 18;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#041018';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('●', rx, ry);
+
+    // Spot sparkline ghost along bottom of value
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#8b97b8';
+    ctx.font = '16px ui-monospace, monospace';
+    ctx.fillText(samp.spot.toFixed(2), rx + 20, ry - 8);
+  }
+
+  function tickArcade() {
+    if (!state.arcade || !state.arcade.running) return;
+    const a = state.arcade;
+    const elapsed = performance.now() - a.t0;
+    const progress = clamp(elapsed / a.durationMs, 0, 1);
+    a.progress = progress;
+    const samp = sampleAt(progress);
+    a.lastSpot = samp.spot;
+    a.lastIntr = samp.intr;
+    a.lastExtr = samp.extr;
+    a.lastVal = samp.val;
+    a.inZone = progress >= a.zoneLo && progress <= a.zoneHi;
+
+    // HUD
+    const hudSpot = document.getElementById('hudSpot');
+    const hudVal = document.getElementById('hudVal');
+    const hudPnl = document.getElementById('hudPnl');
+    const stackEx = document.getElementById('stackEx');
+    const stackIn = document.getElementById('stackIn');
+    const exAmt = document.getElementById('exAmt');
+    const inAmt = document.getElementById('inAmt');
+    const zoneChip = document.getElementById('zoneChip');
+    const coach = document.getElementById('coach');
+
+    if (hudSpot) {
+      hudSpot.textContent = samp.spot.toFixed(2);
+      hudSpot.style.color = samp.spot >= a.contract.strike ? 'var(--neon)' : 'var(--ink)';
+    }
+    if (hudVal) hudVal.textContent = money(samp.val);
+    if (hudPnl) {
+      hudPnl.textContent = money(samp.pnl);
+      hudPnl.style.color = samp.pnl >= 0 ? 'var(--neon)' : 'var(--hot)';
+    }
+
+    const total = Math.max(0.01, samp.intr + samp.extr);
+    const exW = (samp.extr / total) * 100;
+    const inW = (samp.intr / total) * 100;
+    if (stackEx) stackEx.style.width = exW + '%';
+    if (stackIn) stackIn.style.width = inW + '%';
+    if (exAmt) exAmt.textContent = money(samp.extr);
+    if (inAmt) inAmt.textContent = money(samp.intr);
+
+    if (zoneChip) {
+      zoneChip.className = 'zone-chip' + (a.inZone ? ' hot' : '');
+      zoneChip.textContent = a.inZone ? 'IN THE ZONE — SELL!' : 'SWEET ZONE';
+    }
+    if (coach) {
+      if (a.inZone) {
+        coach.className = 'coach alert';
+        coach.textContent = 'Apex window! Extrinsic still alive — hit SELL.';
+      } else if (progress < a.zoneLo) {
+        coach.className = 'coach';
+        coach.textContent = 'Building… gold (extrinsic) is still fat. Wait for the band.';
+      } else {
+        coach.className = 'coach alert';
+        coach.textContent = 'Past the zone — time is eating extrinsic.';
       }
     }
-    if (state.planFocus === 'days' || state.planFocus === 'wire' || state.planFocus === 'lock') {
-      const hx = +daysHandleHit.getAttribute('x');
-      if (p.x >= hx - 4 && p.x <= hx + 28) {
-        state.dragging = true; state.dragMode = 'days';
-        touch(); e.preventDefault(); return;
-      }
+
+    drawArc(progress, samp);
+
+    if (progress >= 1) {
+      // Auto-expire = forced late sell
+      finishSell(samp, false, true);
+      return;
     }
-    const gy = +priceDot.getAttribute('cy');
-    const gx = +priceDot.getAttribute('cx');
-    const nearGhost = (p.x - gx) * (p.x - gx) + (p.y - gy) * (p.y - gy) < 48 * 48;
-    const target = e.target;
-    const priceHitEl = document.getElementById('priceHit');
-    const onHero = target === priceDot || target === priceHalo || target === priceLabel ||
-      target === priceHitEl || target === dragHint || target === priceHero || (priceHero && priceHero.contains(target));
-    if (onHero || nearGhost || (state.planFocus === 'scrub' && p.x < 120)) {
-      state.dragging = true; state.dragMode = 'scrub';
-      touch();
-      try { priceHero.setPointerCapture?.(e.pointerId); } catch (_) {}
-      e.preventDefault();
+    a.raf = requestAnimationFrame(tickArcade);
+  }
+
+  function sellNow() {
+    if (!state.arcade || !state.arcade.running || state.arcade.sold) return;
+    const samp = sampleAt(state.arcade.progress);
+    finishSell(samp, state.arcade.inZone, false);
+  }
+
+  function finishSell(samp, inZone, expired) {
+    const a = state.arcade;
+    if (!a || a.sold) return;
+    a.sold = true;
+    a.running = false;
+    if (a.raf) cancelAnimationFrame(a.raf);
+
+    const contract = a.contract;
+    const pnl = samp.pnl;
+    const pnlPct = samp.pnlPct;
+    const rare = a.outcome.tier === 'rare';
+    let grade, title, lesson;
+
+    if (expired) {
+      grade = 'lose';
+      title = 'EXPIRED';
+      lesson = `You never sold. <strong>Extrinsic melted to ${money(samp.extr)}</strong> while you waited. Flat-ish price still kills options — timing is the skill.`;
+    } else if (inZone && rare && pnlPct > 0.5) {
+      grade = 'rare';
+      title = 'JACKPOT CRUSH';
+      lesson = `Rare path + sweet-zone sell. You kept <strong>extrinsic ${money(samp.extr)}</strong> and banked <strong>intrinsic ${money(samp.intr)}</strong>. Casino-scarce — savor it.`;
+    } else if (inZone) {
+      grade = 'win';
+      title = 'SWEET ZONE';
+      lesson = `Nailed the apex. Sold with extrinsic still alive (${money(samp.extr)}) and intrinsic ${money(samp.intr)}. <strong>This</strong> is the skill — not picking the “right” strike.`;
+    } else if (a.progress < a.zoneLo) {
+      grade = pnl >= 0 ? 'ok' : 'lose';
+      title = 'EARLY EXIT';
+      lesson = `Out before the band. Thesis barely played. Extrinsic was still fat (${money(samp.extr)}) — sometimes patience into the zone pays.`;
+    } else {
+      // Late
+      grade = pnlPct > -0.15 ? 'ok' : 'lose';
+      title = 'LATE SELL';
+      lesson = `Past the sweet zone. <strong>Time decay</strong> chewed extrinsic down to ${money(samp.extr)}. Spot was ${samp.spot.toFixed(2)} — even a flat tape punishes late hands.`;
     }
+
+    state.result = {
+      grade, title, lesson, samp, inZone, expired, rare,
+      outcomeLabel: a.outcome.label,
+      outcomeId: a.outcome.id,
+      tier: a.outcome.tier,
+      contract,
+      pnl, pnlPct,
+    };
+    state.phase = 'result';
+    render();
   }
 
-  function onPointerMove(e) {
-    if (!state.dragging || state.phase !== 'PLAN') return;
-    const p = clientToSvg(e);
-    if (state.dragMode === 'scrub') {
-      const S = priceOfY(Math.max(Y0 + 4, Math.min(Y1 - 4, p.y)));
-      state.ghostSpot = S;
-      setGhostVisual(S);
-      setEntryVisual(state.entrySpot);
-      recomputePremium();
-      priceHero.classList.add('scrubbing');
-      scrubJuiceTick(S);
-    } else if (state.dragMode === 'wire') {
-      setWire(priceOfY(Math.max(Y0 + 4, Math.min(Y1 - 4, p.y))), true);
-      if (state.juice && !state.reduce) feedback('soft');
-    } else if (state.dragMode === 'days') {
-      const u = Math.max(0, Math.min(1, (p.x - X0) / (X1 - X0)));
-      setDays(DAYS_MIN + u * (DAYS_MAX - DAYS_MIN), true);
-      if (state.juice && !state.reduce) {
-        popPremium();
-        spawnSoftScrap(xOf(u), 160, 2);
-      }
-    }
-    e.preventDefault();
+  function renderResult() {
+    const r = state.result;
+    setSub('Result · Intrinsic vs Extrinsic');
+    el.stage.innerHTML = `
+      <div class="panel stamp">
+        <div class="grade ${r.grade}">${r.title}</div>
+        <div class="detail">${r.outcomeLabel} · sold @ spot ${r.samp.spot.toFixed(2)}</div>
+        <div class="iv-split">
+          <div class="cell">
+            <div class="n">Extrinsic</div>
+            <div class="x" style="color:var(--extrinsic)">${money(r.samp.extr)}</div>
+          </div>
+          <div class="cell">
+            <div class="n">Intrinsic</div>
+            <div class="x" style="color:var(--intrinsic)">${money(r.samp.intr)}</div>
+          </div>
+        </div>
+        <div class="iv-split">
+          <div class="cell">
+            <div class="n">Option P/L</div>
+            <div class="x" style="color:${r.pnl >= 0 ? 'var(--neon)' : 'var(--hot)'}">${money(r.pnl)} (${pct(r.pnlPct)})</div>
+          </div>
+          <div class="cell">
+            <div class="n">Contract</div>
+            <div class="x" style="font-size:14px">${r.contract.strike.toFixed(1)}C · ${r.contract.days}d</div>
+          </div>
+        </div>
+        <div class="lesson">${r.lesson}</div>
+      </div>
+      <div class="flex-grow"></div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="btnAgain" type="button">SAME THESIS</button>
+        <button class="btn btn-neon" id="btnNew" type="button">NEW THEORY</button>
+      </div>
+    `;
+    document.getElementById('btnAgain').onclick = () => {
+      // Re-roll outcome, same contract
+      state.rng = mulberry32((daySeed() ^ Date.now()) >>> 0);
+      startArcade();
+    };
+    document.getElementById('btnNew').onclick = () => {
+      state.phase = 'where';
+      state.pick = null;
+      state.result = null;
+      state.arcade = null;
+      render();
+    };
   }
 
-  function onPointerUp() {
-    if (!state.dragging) return;
-    const mode = state.dragMode;
-    state.dragging = false;
-    state.dragMode = null;
-    priceHero.classList.remove('scrubbing');
-    feedback('tap');
-    buzz(8);
-    if (mode === 'scrub') {
-      state.scrubReleased = true;
-      if (state.juice && !state.reduce) {
-        popPremium();
-        spawnSoftScrap(60, yOf(state.ghostSpot), 6);
-      }
-      if (state.planFocus === 'scrub') setPlanFocus('days');
-    } else if (mode === 'days') {
-      if (state.scrubReleased) setPlanFocus('wire');
-    } else if (mode === 'wire') {
-      setPlanFocus('lock');
-      if (state.juice && !state.reduce) buzz([10, 30, 10]);
-    }
-  }
-
-  priceHero.addEventListener('pointerdown', onPointerDown);
-  strikeWire.addEventListener('pointerdown', onPointerDown);
-  $('daysHandleG').addEventListener('pointerdown', onPointerDown);
-  window.addEventListener('pointermove', onPointerMove);
-  window.addEventListener('pointerup', onPointerUp);
-  $('board').addEventListener('pointerdown', onPointerDown);
-
-  if (daysSlider) {
-    daysSlider.addEventListener('input', () => {
-      if (state.phase !== 'PLAN' || state.locked) return;
-      if (state.planFocus === 'scrub' && !state.scrubReleased) return;
-      touch();
-      setDays(+daysSlider.value, true);
-    });
-    daysSlider.addEventListener('change', () => {
-      if (state.phase !== 'PLAN') return;
-      if (state.scrubReleased) setPlanFocus('wire');
-    });
-  }
-
-  btnHold.addEventListener('pointerdown', (e) => {
-    if (state.phase !== 'HANG') return;
-    e.preventDefault();
-    touch();
-    state.holding = true;
-    state.hangProgress = 0;
-    feedback('hang');
-    startHangDrone();
-    if (hangVeil) hangVeil.style.opacity = '0.15';
-  });
-  btnHold.addEventListener('pointerup', () => { if (state.phase === 'HANG') decayHang(); });
-  btnHold.addEventListener('pointerleave', () => { if (state.phase === 'HANG' && state.holding) decayHang(); });
-  btnHold.addEventListener('pointercancel', () => { if (state.phase === 'HANG' && state.holding) decayHang(); });
-
-  btnPrimary.addEventListener('click', () => {
-    const ph = state.phase;
-    if (ph === 'BOOT') enterPlanCold();
-    else if (ph === 'PLAN') lockIn();
-  });
-  btnAbort.addEventListener('click', () => abortRun(false));
-
-  rungBtns.forEach((b) => {
-    b.addEventListener('click', () => {
-      if (state.phase !== 'PLAN') return;
-      if (state.planFocus === 'scrub' && !state.scrubReleased) return;
-      touch();
-      const i = +b.dataset.rung;
-      setWire(STRIKES[i], true);
-      feedback('arm');
-      buzz(8);
-      setPlanFocus('lock');
-    });
-  });
-
-  cardShare.addEventListener('click', (e) => { e.preventDefault(); copyShareText(); });
-  cardShare.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyShareText(); }
-  });
-
-  $('btnReplay').addEventListener('click', () => {
-    touch();
-    killTweens();
-    pctx.clearRect(0, 0, 360, 320);
-    priceDot.setAttribute('cx', X0);
-    priceHalo.setAttribute('cx', X0);
-    priceLabel.setAttribute('x', 78);
-    priceLabel.setAttribute('text-anchor', 'start');
-    priceDot.setAttribute('stroke-dasharray', '4 3');
-    priceDot.setAttribute('fill', '#c8e6d0');
-    priceDot.setAttribute('fill-opacity', '0.42');
-    priceDot.setAttribute('r', '11');
-    wireLine.setAttribute('stroke', '#d97706');
-    syncLandscapeGhost();
-    state.touches = 0;
-    startBoot();
-    feedback('tap');
-  });
-
-  juiceBtn.addEventListener('click', () => {
-    if (state.reduce) return;
-    state.juice = !state.juice;
-    syncJuiceChrome();
-  });
-  muteBtn.addEventListener('click', () => {
-    state.mute = !state.mute;
-    muteBtn.classList.toggle('on', state.mute);
-    muteBtn.setAttribute('aria-pressed', String(state.mute));
-    if (!state.mute) ensureAudio();
-  });
-
-  const pathBtn = $('pathBtn');
-  pathBtnEl = pathBtn;
-  function syncPathPill() {
-    if (!pathBtn) return;
-    const spike = state.pathVariant === 'spike';
-    pathBtn.textContent = spike ? 'SPIKE' : 'GRIND';
-    pathBtn.classList.toggle('on', !spike);
-    pathBtn.setAttribute('aria-pressed', String(!spike));
-  }
-  function setBench(on, toastMsg) {
-    state.bench = !!on;
-    syncBenchChrome();
-    syncPathPill();
-    if (toastMsg) showToast(toastMsg);
-  }
-  syncPathPill();
-  syncBenchChrome();
-  if (pathBtn) pathBtn.addEventListener('click', () => {
-    if (!state.bench) return;
-    if (state.phase !== 'BOOT' && state.phase !== 'PLAN') return;
-    state.pathVariant = state.pathVariant === 'spike' ? 'grind' : 'spike';
-    state.path = buildPath(SEED_ID, state.pathVariant, state.entrySpot);
-    syncPathPill();
-    feedback('tap');
-  });
-  if (mastTitle) mastTitle.addEventListener('contextmenu', (e) => e.preventDefault());
-
-  function syncCanvas() {
-    const rect = $('board').getBoundingClientRect();
-    particles.width = 360; particles.height = 320;
-    particles.style.width = rect.width + 'px';
-    particles.style.height = rect.height + 'px';
-  }
-  window.addEventListener('resize', () => { syncCanvas(); syncLandscapeGhost(); });
-  syncCanvas();
-  syncLandscapeGhost();
-  syncJuiceChrome();
-  startBoot();
-
+  // ─── Smoke API ───
   window.__strikeSonySmoke = {
-    get: () => ({
-      phase: state.phase,
-      grade: state.grade,
-      processScore: state.processScore,
-      pnl: state.pnl,
-      outcomeGood: state.outcomeGood,
-      pathVariant: state.pathVariant,
-      entrySpot: state.entrySpot,
-      ghostSpot: state.ghostSpot,
-      spot: state.ghostSpot,
-      previewSpot: state.ghostSpot,
-      daysLeft: state.daysLeft,
-      entryDays: state.entryDays,
-      wireK: state.wireK,
-      wirePlaced: state.wirePlaced,
-      bellyInside: state.bellyInside,
-      planFocus: state.planFocus,
-      scrubReleased: state.scrubReleased,
-      daysTouched: state.daysTouched,
-      locked: state.locked,
-      premiumCollected: state.premiumCollected,
-      previewPrem: state.previewPrem,
-      armed: state.armed.slice(),
-      deepItm: state.deepItm,
-      aborted: state.aborted,
-      abortArmedAt: state.abortArmedAt,
-      abortArmed: performance.now() >= (state.abortArmedAt || 0),
-      shareText: state.shareText,
-      bench: state.bench,
-      greeksLabel: statGreeksLbl ? statGreeksLbl.textContent : '',
-      greeksValue: statGreeks ? statGreeks.textContent : '',
-      plainLine: cardPlain ? cardPlain.textContent : '',
-      geometryLine: state.geometryLine,
-      stampSub: stampSub ? stampSub.textContent : '',
-      narrTitle: narrTitle ? narrTitle.textContent : '',
-      narrCopy: narrCopy ? narrCopy.textContent : '',
-      primaryLabel: btnPrimary ? btnPrimary.textContent : '',
-      abortLabel: btnAbort ? btnAbort.textContent : '',
-      abortVisible: btnAbort ? btnAbort.style.display !== 'none' : false,
-      holdLabel: btnHold ? btnHold.textContent : '',
-      sessionN: state.sessionN,
-      trayLabel: trayLbl ? trayLbl.textContent : '',
-      wireCaption: wireCaption ? wireCaption.textContent : '',
-      bodyText: document.body.innerText,
-    }),
-    setBench: (on) => setBench(!!on),
-    setPath: (v) => {
-      state.pathVariant = v === 'spike' ? 'spike' : 'grind';
-      state.path = buildPath(SEED_ID, state.pathVariant, state.entrySpot);
-      syncPathPill();
+    get() {
+      return {
+        phase: state.phase,
+        target: state.target,
+        days: state.days,
+        structures: state.structures.map((s) => ({ id: s.id, strike: s.strike, days: s.days, premium: s.premium, name: s.name })),
+        pick: state.pick ? { id: state.pick.id, strike: state.pick.strike, days: state.pick.days } : null,
+        outcome: state.outcome ? { id: state.outcome.id, tier: state.outcome.tier, label: state.outcome.label } : null,
+        arcade: state.arcade ? {
+          progress: state.arcade.progress,
+          zoneLo: state.arcade.zoneLo,
+          zoneHi: state.arcade.zoneHi,
+          inZone: state.arcade.inZone,
+          running: state.arcade.running,
+          sold: state.arcade.sold,
+          spot: state.arcade.lastSpot,
+          extr: state.arcade.lastExtr,
+          intr: state.arcade.lastIntr,
+          val: state.arcade.lastVal,
+        } : null,
+        result: state.result ? {
+          grade: state.result.grade,
+          title: state.result.title,
+          inZone: state.result.inZone,
+          expired: state.result.expired,
+          rare: state.result.rare,
+          outcomeId: state.result.outcomeId,
+          tier: state.result.tier,
+          pnl: state.result.pnl,
+          extr: state.result.samp.extr,
+          intr: state.result.samp.intr,
+        } : null,
+        outcomes: OUTCOMES.map((o) => ({ id: o.id, tier: o.tier, weight: o.weight })),
+        spot0: SPOT0,
+        ref: REF,
+        bodyText: document.body.innerText,
+      };
     },
-    setDays: (d) => setDays(d, true),
-    setWire: (k) => setWire(k, true),
-    setGhost: (s) => {
-      state.ghostSpot = s;
-      setGhostVisual(s);
-      setEntryVisual(state.entrySpot);
-      recomputePremium();
+    setTarget(v) { state.target = clamp(Math.round(v), MIN_TARGET, MAX_TARGET); },
+    setDays(v) { state.days = v; },
+    goto(phase) { state.phase = phase; render(); },
+    forceOutcome(id) { state.smokeForceOutcome = id; },
+    clearForce() { state.smokeForceOutcome = null; },
+    pickStructure(id) {
+      state.pick = state.structures.find((s) => s.id === id) || state.structures[0];
     },
-    releaseScrub: () => {
-      state.scrubReleased = true;
-      setPlanFocus('days');
+    lockAndStart() {
+      if (!state.pick && state.structures.length) state.pick = state.structures[1] || state.structures[0];
+      startArcade();
     },
-    isInsideBelly: (k, s, d) => isInsideBelly(
-      k != null ? k : state.wireK,
-      s != null ? s : state.entrySpot,
-      d != null ? d : state.daysLeft
-    ),
-    midTenorSigma: (s, d) => midTenorSigma(
-      s != null ? s : state.entrySpot,
-      d != null ? d : state.daysLeft
-    ),
-    arm: (flags) => {
-      state.armed = [!!flags[0], !!flags[1], !!flags[2]];
-      const i = state.armed.findIndex(Boolean);
-      if (i >= 0) setWire(STRIKES[i], true);
-      else setWire(24.50, true);
+    sell() { sellNow(); },
+    // Advance arcade clock artificially for tests
+    setProgress(p) {
+      if (!state.arcade) return;
+      state.arcade.t0 = performance.now() - clamp(p, 0, 1) * state.arcade.durationMs;
     },
-    preview: (s) => {
-      state.ghostSpot = s;
-      setGhostVisual(s);
-      recomputePremium();
+    rebuildStructures() {
+      state.structures = buildStructures(state.target, state.days);
     },
-    jumpPlan: () => {
-      killTweens();
-      enterPlanCold();
-    },
-    lock: () => {
-      if (!state.wirePlaced) setWire(state.wireK, true);
-      state.scrubReleased = true;
-      lockIn();
-    },
-    forceHangDone: () => { state.hangProgress = 1; beginReveal(); },
-    abort: () => abortRun(true),
-    clearSessions: () => {
-      try { localStorage.setItem(LS_SESSION, '0'); } catch (_) {}
-      state.sessionN = 0;
-    },
-    bumpSession: () => { state.sessionN = bumpSession(); return state.sessionN; },
-    scoreProcess,
-    premiumAt,
-    conePath,
+    getCrushSchedule() { return getCrushSchedule(); },
+    resetCrushSchedule() { resetCrushSchedule(); },
+    gapForCrushHits(h) { return gapForCrushHits(h); },
+    simulateCrushSchedule(n, seed) { return simulateCrushSchedule(n, seed); },
+    GAP_SEQ: GAP_SEQ.slice(),
+    RESIDUAL_RARE,
   };
-})();
 
+  // Boot
+  const params = new URLSearchParams(location.search);
+  if (params.get('seed')) {
+    state.rng = mulberry32(Number(params.get('seed')) || 1);
+  }
+  render();
+})();
 </script>
 </body>
 </html>

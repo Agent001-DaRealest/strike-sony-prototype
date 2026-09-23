@@ -579,7 +579,7 @@
 <body>
   <div class="sheet" id="sheet">
     <header class="mast">
-      <div class="title" id="mastTitle" title="Long-press for BENCH">STRIKE:<span>SONY</span> <span class="bench-hint" id="benchHint">· BENCH</span></div>
+      <div class="title" id="mastTitle" title="STRIKE:SONY">STRIKE:<span>SONY</span> <span class="bench-hint" id="benchHint">· BENCH</span></div>
       <div class="phase-tag" id="phaseTag">BOOT</div>
       <div class="toggles">
         <button type="button" class="pill on" id="juiceBtn" aria-pressed="true">JUICE</button>
@@ -656,7 +656,7 @@
 
     <div class="narr" id="narrLive" aria-live="polite" aria-atomic="true" role="status">
       <h2 id="narrTitle">Pencil board</h2>
-      <p id="narrCopy">Illustrative covered-call loop. Not advice.</p>
+      <p id="narrCopy">Practice selling a call on a pretend stock. Screen teaches — not advice.</p>
     </div>
 
     <div class="thumb">
@@ -722,8 +722,8 @@
     DEMO_HOLD_MS: 500,
     READ_MS: 1800,
     RUN_MS: 5200,
-    HANG_CHARGE_MS: 1100,
-    HANG_DRONE_MS: 1100,     // drone/vignette tracks charge
+    HANG_CHARGE_MS: 900,
+    HANG_DRONE_MS: 900,      // drone/vignette tracks charge (trimmed for casual)
     QUIET_PL_MS: 420,        // quiet raw P/L before stamp hero
     GRADE_FIRST_MS: 400,     // grade readable BEFORE confetti
     STAMP_SHOW_MS: 1400,     // stamp on-screen as sole hero
@@ -733,6 +733,7 @@
     CARD_AFTER_MS: 500,      // card after celebration tier
     PATH_SAMPLE_PX: 4,       // polyline downsample min spacing
     PLAN_SCRUB_HINT_MS: 2400,// auto-advance scrub→arm if idle
+    ABORT_ARM_MS: 500,       // P0: gate ABORT after LOCK so double-tap cannot abort
   };
   // Measured stamp budget (px @ design 420 sheet / 360 viewBox)
   const STAMP_BUDGET = { maxW: 280, fontPx: 26, padX: 18, border: 4 };
@@ -744,6 +745,8 @@
       T.QUIET_PL_MS = 20; T.GRADE_FIRST_MS = 20; T.STAMP_SHOW_MS = 60;
       T.STAMP_SHAKE_MS = 20; T.CONFETTI_MS = 80; T.CARD_AFTER_MS = 40; T.COIN_ARC_MS = 40;
       T.PLAN_SCRUB_HINT_MS = 40;
+      // Keep a real arm-gate even under smoke so double-tap UI checks stay meaningful
+      T.ABORT_ARM_MS = 500;
     }
   } catch (_) {}
 
@@ -921,6 +924,7 @@
     visited: false,
     hangDrone: null,
     aborted: false,
+    abortArmedAt: 0,   // performance.now() when ABORT becomes live
     shareText: '',
     bench: false,
   };
@@ -1373,7 +1377,7 @@
 
     if (ph === 'BOOT') {
       narrTitle.textContent = 'Pencil board';
-      narrCopy.textContent = 'A short covered-call loop. Screen teaches.';
+      narrCopy.textContent = 'Practice selling a call on a pretend stock. Then a short covered-call loop — screen teaches.';
       btnPrimary.textContent = 'BEGIN';
       btnPrimary.disabled = false;
       btnPrimary.classList.remove('abort', 'cue-pulse');
@@ -1395,7 +1399,8 @@
     } else if (ph === 'RUN') {
       narrTitle.textContent = 'Catalyst run';
       narrCopy.textContent = 'Path burns · stack = live short mark (matches Premium).';
-      btnPrimary.disabled = false;
+      // P0: primary stays disabled until abort arm-gate elapses
+      btnPrimary.disabled = performance.now() < (state.abortArmedAt || 0);
       btnPrimary.textContent = 'ABORT RUN';
       btnPrimary.classList.add('abort');
       dragHint.setAttribute('opacity', '0');
@@ -1640,12 +1645,20 @@
   // ─── RUN ───
   function startRun() {
     state.aborted = false;
+    // P0: arm-gate ABORT so LOCK double-tap (~50ms) cannot fire abort
+    state.abortArmedAt = performance.now() + T.ABORT_ARM_MS;
     setPhase('RUN');
     state.runT = 0;
     state.pathPointsDrawn = [];
     state.pathSampleX = -999;
     state.thetaEarned = 0;
     pricePath.setAttribute('points', `${xOf(0).toFixed(1)},${yOf(SPOT0).toFixed(1)}`);
+    const armUntil = state.abortArmedAt;
+    setTimeout(() => {
+      if (state.phase === 'RUN' && !state.aborted && performance.now() >= armUntil - 1) {
+        btnPrimary.disabled = false;
+      }
+    }, T.ABORT_ARM_MS);
   }
 
   function tickRun(dt) {
@@ -1829,8 +1842,10 @@
   }
 
   // P1-4: calm ABORT RUN → SUMMARY with honest WRONG / partial framing (teaching, non-punitive)
-  function abortRun() {
+  // force=true bypasses arm-gate (smoke / intentional API). Button clicks never pass force.
+  function abortRun(force) {
     if (state.phase !== 'RUN') return;
+    if (!force && performance.now() < (state.abortArmedAt || 0)) return;
     touch();
     state.aborted = true;
     const t = Math.min(1, state.runT || 0);
@@ -2138,7 +2153,7 @@
       scheduleReadCue();
     } else if (ph === 'READ') enterPlan();
     else if (ph === 'PLAN') lockIn();
-    else if (ph === 'RUN') abortRun();
+    else if (ph === 'RUN') abortRun(false);
   });
 
   rungBtns.forEach((b) => {
@@ -2208,25 +2223,10 @@
     feedback('tap');
   });
 
-  // Long-press title (~700ms) reveals BENCH (path toggle + exact greeks)
-  let benchPressTimer = null;
-  function clearBenchPress() {
-    if (benchPressTimer) { clearTimeout(benchPressTimer); benchPressTimer = null; }
-  }
+  // P1: BENCH only via ?bench=1 (or smoke setBench) — no long-press leak of SPIKE/Δθ
+  // Accidental long-press on the title must not unlock production chrome.
   if (mastTitle) {
-    const armBenchPress = () => {
-      clearBenchPress();
-      benchPressTimer = setTimeout(() => {
-        benchPressTimer = null;
-        const next = !state.bench;
-        setBench(next, next ? 'BENCH on' : 'BENCH off');
-        feedback('tap');
-      }, 700);
-    };
-    mastTitle.addEventListener('pointerdown', armBenchPress);
-    mastTitle.addEventListener('pointerup', clearBenchPress);
-    mastTitle.addEventListener('pointerleave', clearBenchPress);
-    mastTitle.addEventListener('pointercancel', clearBenchPress);
+    mastTitle.addEventListener('contextmenu', (e) => e.preventDefault());
   }
 
   // resize particles canvas to board
@@ -2260,6 +2260,8 @@
       armed: state.armed.slice(),
       deepItm: state.deepItm,
       aborted: state.aborted,
+      abortArmedAt: state.abortArmedAt,
+      abortArmed: performance.now() >= (state.abortArmedAt || 0),
       shareText: state.shareText,
       bench: state.bench,
       greeksLabel: statGreeksLbl ? statGreeksLbl.textContent : '',
@@ -2290,7 +2292,7 @@
       state.hangProgress = 1;
       beginReveal();
     },
-    abort: () => abortRun(),
+    abort: () => abortRun(true),
     scoreProcess,
   };
 })();

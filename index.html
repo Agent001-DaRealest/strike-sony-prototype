@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>STRIKE:SONY — Foundation · Stage 1</title>
+<title>STRIKE:SONY — Stage 5 · AAA</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f7f4ec'/%3E%3Ccircle cx='8' cy='8' r='3' fill='%232d8a4e'/%3E%3C/svg%3E" />
 <style>
+
   :root {
     --paper: #f7f4ec;
     --paper-dot: #d9d4c8;
@@ -339,7 +340,7 @@
     outline: 2px dashed var(--green);
   }
 
-  /* Hang vignette (theatrical; outcome already fixed) */
+  /* Hang vignette — drip harvest chrome */
   .hang-veil {
     position: absolute;
     inset: 0;
@@ -536,11 +537,15 @@
     }
     .board-wrap { padding: 2px 8px 0; }
     #board {
-      aspect-ratio: 360 / 200;
-      max-height: min(42dvh, 200px);
+      aspect-ratio: 360 / 220;
+      max-height: min(52dvh, 240px);
       width: auto;
+      min-height: 120px;
       margin: 0 auto;
     }
+    #priceHit { /* fat scrub target — r set in SVG; ensure visible hit */ }
+    .days-rail { min-height: 36px; }
+    .days-rail input[type="range"] { height: 32px; }
     .readout {
       padding: 2px 2px 0;
       gap: 4px;
@@ -574,6 +579,314 @@
     .grade-key { margin-top: 6px; gap: 4px; }
     .grade-key div { padding: 4px; font-size: 9px; }
   }
+
+
+  /* Stage 4 — soft-focus PLAN (scrub → days → wire → lock) */
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #daysRail,
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #wireCaption,
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .thumb-row#rungRow,
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnPrimary {
+    opacity: 0.28;
+    pointer-events: none;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] .thumb-row#rungRow,
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] #btnPrimary {
+    opacity: 0.38;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] #daysRail {
+    opacity: 1;
+    outline: 1.5px dashed var(--orange);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #daysRail { opacity: 0.7; }
+  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #btnPrimary { opacity: 0.38; }
+  .sheet[data-phase="PLAN"][data-plan-focus="wire"] .thumb-row#rungRow .btn {
+    box-shadow: 0 0 0 2px var(--orange-soft);
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary:not(:disabled) {
+    animation: pulse 1.1s ease-in-out infinite;
+  }
+  .sheet.no-juice[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary,
+  .sheet.reduce[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary {
+    animation: none;
+    outline: 2px dashed var(--green);
+  }
+  .days-rail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 2px 2px;
+    min-height: 40px;
+  }
+  .days-rail label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--graphite-light);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .days-rail input[type="range"] {
+    flex: 1;
+    accent-color: var(--orange);
+    height: 28px;
+    cursor: pointer;
+  }
+  .days-rail .days-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--orange);
+    min-width: 36px;
+    text-align: right;
+  }
+  .wire-caption {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--graphite-mid);
+    padding: 2px 4px 4px;
+    min-height: 18px;
+  }
+  .wire-caption .inside { color: var(--orange); font-weight: 600; }
+  .wire-caption .outside { color: var(--graphite-mid); font-weight: 600; }
+  .btn.secondary {
+    flex: 0 0 auto;
+    min-width: 96px;
+    background: var(--white);
+    color: var(--graphite-mid);
+    border-style: dashed;
+    border-width: 1.5px;
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+  .btn.watch-primary {
+    background: var(--graphite);
+    color: var(--paper);
+  }
+  .entry-lock-ring {
+    fill: none;
+    stroke: #2d8a4e;
+    stroke-width: 1.5;
+    stroke-dasharray: 3 2;
+    opacity: 0.7;
+  }
+  .ghost-dot {
+    fill: none;
+    stroke: #2d8a4e;
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+  }
+  .sky-chip {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--graphite-mid);
+    text-transform: uppercase;
+  }
+
+
+  /* ========== Stage 5 AAA — juice / graphics / simplify ========== */
+
+  /* S5 soft-focus tighten — scrub is the only hero for first 15s */
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnHold,
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] #btnHold,
+  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #btnHold,
+  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnHold,
+  .sheet[data-phase="PLAN"] #btnHold {
+    display: none;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #btnPrimary,
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] #btnPrimary,
+  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #btnPrimary {
+    visibility: hidden;
+    pointer-events: none;
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="lock"] #btnPrimary {
+    visibility: visible;
+    height: auto;
+    min-height: 56px;
+    padding: inherit;
+    border: 2px solid var(--graphite);
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #daysRail,
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #wireCaption {
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .sheet[data-phase="BOOT"] #btnHold { display: none; }
+
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .mast .phase-tag { opacity: 0.55; }
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .readout .stat:nth-child(2),
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] .readout .stat:nth-child(3) {
+    opacity: 0.55;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #rungRow {
+    display: none;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] #rungRow,
+  .sheet[data-phase="PLAN"][data-plan-focus="days"] #wireCaption {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="wire"] #rungRow {
+    opacity: 0.7;
+  }
+  .sheet[data-phase="PLAN"] #btnPrimary {
+    min-height: 56px;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+  }
+  .sheet[data-phase="RUN"] #btnPrimary.watch-primary {
+    min-height: 52px;
+    opacity: 0.92;
+  }
+  .sheet[data-phase="RUN"] #btnAbort {
+    min-width: 88px;
+    font-size: 10px;
+    opacity: 0.65;
+  }
+  .sheet[data-phase="HANG"] #btnHold {
+    min-height: 56px;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+  }
+  .days-rail {
+    min-height: 48px;
+    padding: 6px 2px 4px;
+  }
+  .days-rail input[type="range"] {
+    height: 36px;
+    accent-color: var(--orange);
+  }
+  .days-rail label { font-size: 10px; color: var(--graphite-mid); }
+  .days-rail .days-val { font-size: 16px; min-width: 40px; }
+
+  .wire-caption {
+    font-size: 12px;
+    min-height: 22px;
+    padding: 4px 6px 6px;
+  }
+  .wire-caption .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+  .wire-caption .badge.inside {
+    border-color: var(--orange);
+    color: var(--orange);
+    background: var(--orange-soft);
+  }
+  .wire-caption .badge.outside {
+    border-color: var(--graphite-light);
+    color: var(--graphite-mid);
+    background: rgba(255,254,249,0.8);
+  }
+
+  /* Cone breathe — time is happening */
+  @keyframes coneBreathe {
+    0%,100% { fill-opacity: 0.52; }
+    50% { fill-opacity: 0.72; }
+  }
+  .sheet:not(.no-juice):not(.reduce)[data-phase="PLAN"] #ivCone {
+    animation: coneBreathe 2.4s ease-in-out infinite;
+  }
+  .sheet:not(.no-juice):not(.reduce)[data-phase="PLAN"] #ghostCone {
+    animation: coneBreathe 2.8s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+
+  /* Scrub squash (haptics-like) */
+  #priceHero.scrubbing #priceDot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: scrubSquash 160ms ease-out;
+  }
+  @keyframes scrubSquash {
+    0% { transform: scale(1, 1); }
+    40% { transform: scale(1.22, 0.78); }
+    100% { transform: scale(1.08, 0.92); }
+  }
+  .sheet.no-juice #priceHero.scrubbing #priceDot,
+  .sheet.reduce #priceHero.scrubbing #priceDot { animation: none; }
+
+  /* Premium pop */
+  .stat .val.pop {
+    animation: premPop 280ms cubic-bezier(0.2,1.6,0.4,1);
+  }
+  @keyframes premPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.18); color: var(--orange); }
+    100% { transform: scale(1); }
+  }
+  .sheet.no-juice .stat .val.pop,
+  .sheet.reduce .stat .val.pop { animation: none; }
+
+  /* Wire glow when INSIDE */
+  .sheet:not(.no-juice):not(.reduce) #wireLine.wire-glow {
+    filter: url(#wireGlow);
+  }
+
+  /* Stamp impact — premium bounce */
+  .stamp.in {
+    transform: scale(1.02) rotate(-3.5deg);
+    transition: transform 220ms cubic-bezier(0.15,1.6,0.35,1), opacity 100ms ease;
+  }
+  .stamp.impact .mark {
+    box-shadow: 0 0 0 0 rgba(45,138,78,0.35);
+    animation: stampRing 420ms ease-out;
+  }
+  @keyframes stampRing {
+    0% { box-shadow: 0 0 0 0 rgba(45,138,78,0.4); }
+    100% { box-shadow: 0 0 0 18px rgba(45,138,78,0); }
+  }
+  .sheet.no-juice .stamp.impact .mark,
+  .sheet.reduce .stamp.impact .mark { animation: none; }
+
+  /* Soft drip particles cue on hang */
+  .sheet[data-phase="HANG"] #btnHold.charging {
+    box-shadow: 0 0 0 3px var(--green-soft), 0 0 18px rgba(45,138,78,0.25);
+  }
+
+  /* Ghost vs solid hierarchy */
+  #entryDot { filter: none; }
+  #priceDot {
+    stroke-width: 2.4;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #priceHalo {
+    opacity: 0.7 !important;
+  }
+  .sheet[data-phase="PLAN"][data-plan-focus="scrub"] #dragHint {
+    font-size: 11px;
+  }
+
+  /* Demote secondary chrome */
+  .disclaimer { opacity: 0.85; }
+  .sky-chip { opacity: 0.7; font-size: 8px; }
+  .toggles .pill { min-width: 40px; padding: 6px 10px; font-size: 9px; }
+
+  /* Landscape — fat drawn ghost (Stage-4 residual) */
+  @media (orientation: landscape) and (max-height: 500px), (max-height: 520px) {
+    #priceDot { /* visual enlarged via JS syncLandscapeDot; CSS stroke boost */
+      stroke-width: 3;
+    }
+    #priceHit { /* keep fat invisible hit */ }
+    .days-rail { min-height: 42px; }
+    .days-rail input[type="range"] { height: 38px; }
+    .sheet[data-phase="PLAN"] #btnPrimary { min-height: 48px; font-size: 13px; }
+    .wire-caption { font-size: 11px; min-height: 18px; }
+    #rungRow .btn { min-height: 40px; font-size: 11px; }
+  }
+
+
 </style>
 </head>
 <body>
@@ -584,14 +897,13 @@
       <div class="toggles">
         <button type="button" class="pill on" id="juiceBtn" aria-pressed="true">JUICE</button>
         <button type="button" class="pill" id="muteBtn" aria-pressed="false">MUTE</button>
-        <button type="button" class="pill on" id="pathBtn" aria-pressed="true" title="BENCH: seeded path GRIND (mild) or SPIKE (blow-through). Also ?path=spike">GRIND</button>
+        <button type="button" class="pill on" id="pathBtn" aria-pressed="true" title="BENCH: seeded path">GRIND</button>
       </div>
     </header>
 
     <div class="board-wrap">
       <canvas id="particles" width="360" height="320"></canvas>
       <svg id="board" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" aria-label="Options board">
-        <!-- dotted paper feel already on sheet; grid guides -->
         <defs>
           <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
             <line x1="0" y1="0" x2="0" y2="6" stroke="#d9d4c8" stroke-width="1"/>
@@ -600,63 +912,92 @@
             <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="noise"/>
             <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.8"/>
           </filter>
+          <filter id="wireGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="2.2" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <radialGradient id="bellyFill" cx="40%" cy="50%" r="70%">
+            <stop offset="0%" stop-color="#fde8c8" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#fde8c8" stop-opacity="0.35"/>
+          </radialGradient>
         </defs>
 
-        <!-- axes / cliff zone -->
         <rect id="cliffBand" x="40" y="40" width="280" height="200" fill="url(#hatch)" opacity="0.35"/>
         <line x1="40" y1="240" x2="320" y2="240" stroke="#2a2a28" stroke-width="1.5" stroke-dasharray="2 3"/>
         <line x1="40" y1="40" x2="40" y2="240" stroke="#2a2a28" stroke-width="1.5"/>
 
-        <!-- IV cone (filled path updated by JS) -->
-        <path id="ivCone" d="" fill="#fde8c8" fill-opacity="0.55" stroke="#d97706" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <!-- Ghost cone (what-if) + solid cone (entry/frame) -->
+        <path id="ghostCone" d="" fill="#fde8c8" fill-opacity="0.32" stroke="#d97706" stroke-width="1.2" stroke-dasharray="5 3" opacity="0.9"/>
+        <path id="ivCone" d="" fill="url(#bellyFill)" fill-opacity="0.9" stroke="#d97706" stroke-width="1.4" stroke-dasharray="3 3"/>
 
-        <!-- sell-by / drop-dead markers -->
         <g id="dateMarks"></g>
-
-        <!-- price path (revealed during RUN) -->
         <polyline id="pricePath" points="" fill="none" stroke="#2a2a28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
-
-        <!-- ladder rungs -->
         <g id="rungs"></g>
-
-        <!-- coin stacks (premium tray metaphor) -->
         <g id="coins"></g>
 
-        <!-- today's price hero -->
-        <g id="priceHero" style="cursor: ns-resize">
-          <circle id="priceHalo" cx="60" cy="160" r="18" fill="#c8e6d0" opacity="0"/>
-          <circle id="priceDot" cx="60" cy="160" r="9" fill="#2d8a4e" stroke="#2a2a28" stroke-width="1.5"/>
-          <text id="priceLabel" x="60" y="145" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#2a2a28" font-weight="600">$23.43</text>
-          <text id="dragHint" class="hint-pulse" x="78" y="164" font-size="10" font-family="IBM Plex Mono, monospace" fill="#5a5a56" opacity="0">↕ drag</text>
+        <!-- Strike wire (hero arm control) -->
+        <g id="strikeWire" style="cursor: ns-resize">
+          <line id="wireLine" x1="40" y1="160" x2="320" y2="160" stroke="#d97706" stroke-width="2.8" opacity="0.15"/>
+          <circle id="wireHandle" cx="200" cy="160" r="13" fill="#fffef9" stroke="#d97706" stroke-width="2.4" opacity="0.15"/>
+          <text id="wireLabel" x="324" y="163" font-size="10" fill="#d97706" font-family="IBM Plex Mono, monospace" font-weight="600" opacity="0.15">$24.50</text>
         </g>
 
-        <!-- time pointer -->
+        <!-- Locked entry (solid ruler) — does not move with scrub -->
+        <g id="entryHero">
+          <circle id="entryRing" class="entry-lock-ring" cx="60" cy="160" r="14" opacity="0"/>
+          <circle id="entryDot" cx="60" cy="160" r="8" fill="#2d8a4e" stroke="#2a2a28" stroke-width="2"/>
+          <text id="entryLabel" x="60" y="145" text-anchor="middle" font-size="10" font-family="IBM Plex Mono, monospace" fill="#2a2a28" font-weight="600">$23.43</text>
+        </g>
+
+        <!-- Ghost scrub (what-if) — dashed green -->
+        <g id="priceHero" style="cursor: ns-resize">
+          <circle id="priceHalo" cx="60" cy="160" r="22" fill="#c8e6d0" opacity="0"/>
+          <circle id="priceHit" cx="60" cy="160" r="34" fill="#2d8a4e" fill-opacity="0.001" stroke="none"/>
+          <circle id="priceDot" class="ghost-dot" cx="60" cy="160" r="11" fill="#c8e6d0" fill-opacity="0.42" stroke="#2d8a4e" stroke-width="2.4" stroke-dasharray="5 3"/>
+          <text id="priceLabel" x="78" y="164" text-anchor="start" font-size="10" font-family="IBM Plex Mono, monospace" fill="#2d8a4e" font-weight="600">ghost $23.43</text>
+          <text id="dragHint" class="hint-pulse" x="78" y="180" font-size="11" font-family="IBM Plex Mono, monospace" fill="#2d8a4e" font-weight="600" opacity="0">↕ drag</text>
+        </g>
+
         <line id="timePtr" x1="60" y1="36" x2="60" y2="248" stroke="#d97706" stroke-width="1.5" opacity="0"/>
         <polygon id="timeArrow" points="60,30 54,38 66,38" fill="#d97706" opacity="0"/>
 
-        <!-- premium tray -->
+        <!-- DROP-DEAD days handle (board affordance) -->
+        <g id="daysHandleG" style="cursor: ew-resize">
+          <line id="daysHandleLine" x1="310" y1="40" x2="310" y2="240" stroke="#d97706" stroke-width="2" opacity="0.2"/>
+          <rect id="daysHandleHit" x="294" y="90" width="32" height="100" fill="#d97706" fill-opacity="0.12" stroke="#d97706" stroke-width="2" rx="4" opacity="0.2"/>
+          <text id="daysHandleLbl" x="310" y="86" text-anchor="middle" font-size="9" fill="#d97706" font-family="IBM Plex Mono, monospace" font-weight="600" opacity="0.2">14d</text>
+        </g>
+
         <g id="tray">
           <rect x="250" y="258" width="70" height="28" rx="3" fill="#fffef9" stroke="#2a2a28" stroke-width="1.5"/>
-          <text x="285" y="270" text-anchor="middle" font-size="8" fill="#9a968c" font-family="IBM Plex Mono, monospace">PREMIUM</text>
+          <text id="trayLbl" x="285" y="270" text-anchor="middle" font-size="8" fill="#9a968c" font-family="IBM Plex Mono, monospace">PREVIEW</text>
           <text id="trayVal" x="285" y="282" text-anchor="middle" font-size="11" fill="#2d8a4e" font-family="IBM Plex Mono, monospace" font-weight="600">$0.00</text>
         </g>
 
-        <!-- axis labels -->
         <text x="40" y="258" font-size="9" fill="#9a968c" font-family="IBM Plex Mono, monospace">TODAY</text>
         <text id="xEndLbl" x="320" y="258" text-anchor="end" font-size="9" fill="#9a968c" font-family="IBM Plex Mono, monospace">DROP-DEAD</text>
         <text x="28" y="48" text-anchor="end" font-size="9" fill="#9a968c" font-family="IBM Plex Mono, monospace" transform="rotate(-90 28 48)">$</text>
       </svg>
 
       <div class="readout">
-        <div class="stat"><div class="lbl">Spot</div><div class="val" id="statSpot">$23.43</div></div>
-        <div class="stat"><div class="lbl">Premium</div><div class="val green" id="statPrem">$0.42</div></div>
-        <div class="stat" id="statGreeksBox"><div class="lbl" id="statGreeksLbl">Time</div><div class="val orange" id="statGreeks">collecting</div></div>
+        <div class="stat"><div class="lbl" id="statSpotLbl">Spot</div><div class="val" id="statSpot">$23.43</div></div>
+        <div class="stat"><div class="lbl" id="statPremLbl">Premium</div><div class="val green" id="statPrem">$0.42</div></div>
+        <div class="stat" id="statGreeksBox"><div class="lbl" id="statGreeksLbl">Time</div><div class="val orange" id="statGreeks">14d</div></div>
       </div>
+      <div class="days-rail" id="daysRail" aria-label="Days remaining">
+        <label for="daysSlider">DAYS</label>
+        <input type="range" id="daysSlider" min="7" max="30" value="14" step="1" />
+        <span class="days-val" id="daysVal">14d</span>
+      </div>
+      <div class="wire-caption" id="wireCaption">Wire — · place on the cone</div>
     </div>
 
     <div class="narr" id="narrLive" aria-live="polite" aria-atomic="true" role="status">
-      <h2 id="narrTitle">Pencil board</h2>
-      <p id="narrCopy">Practice selling a call on a pretend stock. Screen teaches — not advice.</p>
+      <h2 id="narrTitle">Drag the green</h2>
+      <p id="narrCopy">Coins and cone answer. Solid spot stays put.</p>
     </div>
 
     <div class="thumb">
@@ -667,11 +1008,13 @@
       </div>
       <div class="thumb-row">
         <button type="button" class="btn hold" id="btnHold" disabled>
-          SETTLE
+          POCKET
           <span class="hold-fill" id="holdFill"></span>
         </button>
-        <button type="button" class="btn primary" id="btnPrimary" disabled>BEGIN</button>
+        <button type="button" class="btn secondary" id="btnAbort" disabled style="display:none">leave early</button>
+        <button type="button" class="btn primary" id="btnPrimary" disabled>PLAY</button>
       </div>
+      <div class="sky-chip" id="skyChip" hidden></div>
     </div>
 
     <div class="disclaimer">
@@ -699,10 +1042,10 @@
         <div class="share" id="cardShare" tabindex="0" role="button" title="Copy share text" aria-label="Copy share text"></div>
         <p class="card-plain" id="cardPlain"></p>
         <div class="grade-key">
-          <div><strong>CORRECT</strong> process held · path cooperated</div>
-          <div><strong>LUCKY</strong> made money, but process was soft</div>
-          <div><strong>UNLUCKY</strong> process solid; path went against you</div>
-          <div><strong>WRONG</strong> process and path both missed</div>
+          <div><strong>CORRECT</strong> geometry held · path cooperated</div>
+          <div><strong>LUCKY</strong> paid · soft geometry</div>
+          <div><strong>UNLUCKY</strong> geometry solid · path against</div>
+          <div><strong>WRONG</strong> geometry and path both missed</div>
         </div>
         <div class="thumb-row" style="margin-top:12px">
           <button type="button" class="btn primary" id="btnReplay">AGAIN</button>
@@ -715,59 +1058,56 @@
 (function () {
   'use strict';
 
-  // ─── Named timing constants (SE Design Direction) ───
+  /*
+   * STRIKE:SONY Stage 5 — AAA polish (juice · graphics · simplify)
+   * Stage 4 spine preserved (P0+P1 invariants)
+   * Interaction model (required): sequential soft-focus
+   *   1) Ghost Scrub  2) Day Pinch  3) Strike Wire  4) LOCK
+   * Belly membership: wire price within ±1σ of spot at MID-TENOR (t=0.5 of chosen days).
+   * Spec locked here + FIXES-STAGE4.md — caption must match pixels.
+   */
+
   const T = {
-    BOOT_MS: 600,
-    DEMO_DRAG_MS: 1400,
-    DEMO_HOLD_MS: 500,
-    READ_MS: 1800,
+    BOOT_MS: 400,
     RUN_MS: 5200,
-    HANG_CHARGE_MS: 900,
-    HANG_DRONE_MS: 900,      // drone/vignette tracks charge (trimmed for casual)
-    QUIET_PL_MS: 420,        // quiet raw P/L before stamp hero
-    GRADE_FIRST_MS: 400,     // grade readable BEFORE confetti
-    STAMP_SHOW_MS: 1400,     // stamp on-screen as sole hero
-    STAMP_SHAKE_MS: 270,     // paper jitter window
+    HANG_CHARGE_MS: 1100,
+    HANG_DRONE_MS: 900,
+    QUIET_PL_MS: 420,
+    GRADE_FIRST_MS: 400,
+    STAMP_SHOW_MS: 1400,
+    STAMP_SHAKE_MS: 270,
     CONFETTI_MS: 1600,
     COIN_ARC_MS: 480,
-    CARD_AFTER_MS: 500,      // card after celebration tier
-    PATH_SAMPLE_PX: 4,       // polyline downsample min spacing
-    PLAN_SCRUB_HINT_MS: 2400,// auto-advance scrub→arm if idle
-    ABORT_ARM_MS: 500,       // P0: gate ABORT after LOCK so double-tap cannot abort
+    CARD_AFTER_MS: 500,
+    PATH_SAMPLE_PX: 4,
+    ABORT_ARM_MS: 500,
+    INFO_FLASH_MS: 700,
   };
-  // Measured stamp budget (px @ design 420 sheet / 360 viewBox)
   const STAMP_BUDGET = { maxW: 280, fontPx: 26, padX: 18, border: 4 };
-  // ?smoke=1 compresses theatrical timings for automated grade checks
   try {
     if (new URLSearchParams(location.search).get('smoke') === '1') {
-      T.DEMO_DRAG_MS = 40; T.DEMO_HOLD_MS = 20; T.READ_MS = 20;
-      T.RUN_MS = 180; T.HANG_CHARGE_MS = 80; T.HANG_DRONE_MS = 80;
+      T.BOOT_MS = 20; T.RUN_MS = 180; T.HANG_CHARGE_MS = 80; T.HANG_DRONE_MS = 80;
       T.QUIET_PL_MS = 20; T.GRADE_FIRST_MS = 20; T.STAMP_SHOW_MS = 60;
       T.STAMP_SHAKE_MS = 20; T.CONFETTI_MS = 80; T.CARD_AFTER_MS = 40; T.COIN_ARC_MS = 40;
-      T.PLAN_SCRUB_HINT_MS = 40;
-      // Keep a real arm-gate even under smoke so double-tap UI checks stay meaningful
-      T.ABORT_ARM_MS = 500;
+      T.ABORT_ARM_MS = 500; T.INFO_FLASH_MS = 40;
     }
   } catch (_) {}
 
   const SEED_ID = 'SONY-HOME-v1';
   const SPOT0 = 23.43;
   const STRIKES = [24.00, 24.50, 25.50];
-  const IV0 = 0.38;          // illustrative IV
-  const R = 0.05;            // risk-free approx
-  const T_EXP = 21 / 365;    // ~3 weeks to drop-dead
-  const SELL_BY_T = 0.45;    // fraction of run for sell-by marker
-  const DROP_DEAD_T = 1.0;
-  const Y_MIN = 21.5;
-  const Y_MAX = 27.0;
-  // Path branches under one seed — intentional play picks GRIND vs SPIKE
-  const PATH_END_GRIND = 24.72;  // mild: $24 fills, cushions keep PnL ≥ 0
-  const PATH_END_SPIKE = 26.85;  // blow-through: short-call PnL goes negative
-  const PROCESS_GOOD_MIN = 0.55; // binary process gate (2×2 matrix; not a 70/30 blend)
+  const IV0 = 0.38;
+  const R = 0.05;
+  const SELL_BY_FRAC = 0.40;
+  const Y_MIN = 21.5, Y_MAX = 27.0;
+  const PATH_END_GRIND = 24.72;
+  const PATH_END_SPIKE = 26.85;
+  const PROCESS_GOOD_MIN = 0.55;
   const X0 = 60, X1 = 310, Y0 = 40, Y1 = 240;
+  const DAYS_MIN = 7, DAYS_MAX = 30, DAYS_DEFAULT = 14;
+  const LS_SESSION = 'strikeSonySessionN';
+  const LS_STREAK = 'strikeSonyStreak';
 
-  // Seeded path: mild grind up then drift — outcome depends on player's ladder
-  // Deterministic from SEED_ID hash
   function hashSeed(s) {
     let h = 2166136261 >>> 0;
     for (let i = 0; i < s.length; i++) {
@@ -781,38 +1121,34 @@
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
-
   function pathEndFor(variant) {
     return variant === 'spike' ? PATH_END_SPIKE : PATH_END_GRIND;
   }
-
-  function buildPath(seedStr, variant) {
+  function buildPath(seedStr, variant, startSpot) {
     const v = variant === 'spike' ? 'spike' : 'grind';
-    const rnd = hashSeed(seedStr + '|' + v);
+    const S0 = startSpot != null ? startSpot : SPOT0;
+    const rnd = hashSeed(seedStr + '|' + v + '|' + S0.toFixed(2));
     const n = 48;
     const pts = [];
-    let p = SPOT0;
+    let p = S0;
     for (let i = 0; i < n; i++) {
       const t = i / (n - 1);
-      // grind: mild upward bias; spike: stronger late blow-through bias in raw walk
       const drift = v === 'spike'
         ? ((t < 0.4 ? 0.04 : 0.12) + (rnd() - 0.42) * 0.28)
         : ((t < 0.55 ? 0.055 : -0.02) + (rnd() - 0.48) * 0.22);
       p = Math.max(Y_MIN + 0.3, Math.min(Y_MAX - 0.3, p + drift));
       pts.push({ t, p: +p.toFixed(3) });
     }
-    // Rebase to teachable end in the SAME world as entry SPOT0
-    const endTarget = pathEndFor(v);
+    const endTarget = S0 + (pathEndFor(v) - SPOT0);
     const last = pts[pts.length - 1].p;
-    const scale = (endTarget - SPOT0) / (last - SPOT0 || 1);
+    const scale = (endTarget - S0) / (last - S0 || 1);
     for (let i = 1; i < n; i++) {
-      pts[i].p = +(SPOT0 + (pts[i].p - SPOT0) * scale * 0.92 + (endTarget - SPOT0) * (i / (n - 1)) * 0.08).toFixed(3);
+      pts[i].p = +(S0 + (pts[i].p - S0) * scale * 0.92 + (endTarget - S0) * (i / (n - 1)) * 0.08).toFixed(3);
     }
-    pts[n - 1].p = endTarget;
+    pts[n - 1].p = +endTarget.toFixed(3);
     return pts;
   }
 
-  // ─── Black-Scholes European call (teaching approx) ───
   function normCdf(x) {
     const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
     const p = 0.3275911;
@@ -825,7 +1161,7 @@
     return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
   }
   function bsCall(S, K, Texp, r, sigma) {
-    if (Texp <= 1e-6) return Math.max(0, S - K);
+    if (Texp <= 1e-6) return { price: Math.max(0, S - K), delta: S > K ? 1 : 0, theta: 0 };
     const sqrtT = Math.sqrt(Texp);
     const d1 = (Math.log(S / K) + (r + 0.5 * sigma * sigma) * Texp) / (sigma * sqrtT);
     const d2 = d1 - sigma * sqrtT;
@@ -834,11 +1170,10 @@
     const theta = (
       -(S * normPdf(d1) * sigma) / (2 * sqrtT)
       - r * K * Math.exp(-r * Texp) * normCdf(d2)
-    ) / 365; // per day
+    ) / 365;
     return { price: Math.max(0, price), delta, theta };
   }
 
-  // ─── DOM ───
   const $ = (id) => document.getElementById(id);
   const sheet = $('sheet');
   const phaseTag = $('phaseTag');
@@ -846,6 +1181,7 @@
   const narrCopy = $('narrCopy');
   const btnPrimary = $('btnPrimary');
   const btnHold = $('btnHold');
+  const btnAbort = $('btnAbort');
   const holdFill = $('holdFill');
   const juiceBtn = $('juiceBtn');
   const muteBtn = $('muteBtn');
@@ -855,7 +1191,11 @@
   const priceLabel = $('priceLabel');
   const dragHint = $('dragHint');
   const priceHero = $('priceHero');
+  const entryDot = $('entryDot');
+  const entryLabel = $('entryLabel');
+  const entryRing = $('entryRing');
   const ivCone = $('ivCone');
+  const ghostCone = $('ghostCone');
   const pricePath = $('pricePath');
   const timePtr = $('timePtr');
   const timeArrow = $('timeArrow');
@@ -863,6 +1203,7 @@
   const coinsG = $('coins');
   const dateMarks = $('dateMarks');
   const trayVal = $('trayVal');
+  const trayLbl = $('trayLbl');
   const statSpot = $('statSpot');
   const statPrem = $('statPrem');
   const statGreeks = $('statGreeks');
@@ -880,16 +1221,42 @@
   const quietPL = $('quietPL');
   const hangVeil = $('hangVeil');
   const toastEl = $('toast');
+  const daysSlider = $('daysSlider');
+  const daysVal = $('daysVal');
+  const daysRail = $('daysRail');
+  const wireCaption = $('wireCaption');
+  const wireLine = $('wireLine');
+  const wireHandle = $('wireHandle');
+  const wireLabel = $('wireLabel');
+  const strikeWire = $('strikeWire');
+  const skyChip = $('skyChip');
+  const daysHandleLine = $('daysHandleLine');
+  const daysHandleHit = $('daysHandleHit');
+  const daysHandleLbl = $('daysHandleLbl');
+  const statGreeksLbl = $('statGreeksLbl');
+  const cardPlain = $('cardPlain');
+  const mastTitle = $('mastTitle');
 
-  // ─── State ───
-  const STATES = ['BOOT','DEMO','READ','PLAN','RUN','HANG','REVEAL','SUMMARY'];
-  // URL override: ?path=spike selects blow-through branch at boot
+  function weatherForSession(n) {
+    if (n % 3 === 0) return 'spike';
+    return 'grind';
+  }
+  function readSessionN() {
+    try { return parseInt(localStorage.getItem(LS_SESSION) || '0', 10) || 0; } catch (_) { return 0; }
+  }
+  function bumpSession() {
+    const n = readSessionN() + 1;
+    try { localStorage.setItem(LS_SESSION, String(n)); } catch (_) {}
+    return n;
+  }
+
   const bootPath = (() => {
     try {
       const q = new URLSearchParams(location.search).get('path');
       if (q && q.toLowerCase() === 'spike') return 'spike';
+      if (q && q.toLowerCase() === 'grind') return 'grind';
     } catch (_) {}
-    return 'grind';
+    return weatherForSession(readSessionN() + 1);
   })();
 
   const state = {
@@ -897,52 +1264,65 @@
     juice: true,
     mute: false,
     reduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    spot: SPOT0,           // live board / preview spot during PLAN
-    entrySpot: SPOT0,      // settlement world — always scenario entry on LOCK
-    previewSpot: SPOT0,    // last PLAN what-if spot (process only)
-    pathVariant: bootPath, // 'grind' | 'spike'
-    armed: [false, false, false], // which rungs selected to sell
+    ghostSpot: SPOT0,
+    entrySpot: SPOT0,
+    daysLeft: DAYS_DEFAULT,
+    entryDays: DAYS_DEFAULT,
+    wireK: 24.50,
+    wirePlaced: false,
+    locked: false,
+    pathVariant: bootPath,
+    armed: [false, true, false],
     filled: [false, false, false],
-    path: buildPath(SEED_ID, bootPath),
+    path: buildPath(SEED_ID, bootPath, SPOT0),
     runT: 0,
     premiumCollected: 0,
-    processScore: 0,   // 0..1 — process AXIS only (feeds binary gate)
+    processScore: 0,
     outcomeGood: false,
     anyFilled: false,
     deepItm: false,
     grade: null,
     touches: 0,
     dragging: false,
+    dragMode: null,
     hangProgress: 0,
     holding: false,
-    demoDone: false,
-    locked: false,
     streak: 0,
-    planFocus: 'scrub',   // scrub → arm → lock (one spotlight)
+    planFocus: 'scrub',
+    scrubReleased: false,
+    daysTouched: false,
     pathSampleX: -999,
-    thetaEarned: 0,       // truthful θ accrual during RUN (matches greek)
-    visited: false,
+    thetaEarned: 0,
     hangDrone: null,
     aborted: false,
-    abortArmedAt: 0,   // performance.now() when ABORT becomes live
+    abortArmedAt: 0,
     shareText: '',
     bench: false,
+    sessionN: readSessionN(),
+    bellyInside: false,
+    geometryLine: '',
+    infoFlashDone: false,
+    dripDays: DAYS_DEFAULT,
   };
 
   try {
-    state.streak = parseInt(localStorage.getItem('strikeSonyStreak') || '0', 10) || 0;
-    state.visited = localStorage.getItem('strikeSonyVisited') === '1';
-  } catch (_) {}
-  try {
+    state.streak = parseInt(localStorage.getItem(LS_STREAK) || '0', 10) || 0;
     const qs = new URLSearchParams(location.search);
     state.bench = qs.get('bench') === '1';
-    // Production default = GRIND; ?path=spike still reaches SPIKE for stress scripts
-    // without exposing the player toggle.
   } catch (_) { state.bench = false; }
 
-  const statGreeksLbl = $('statGreeksLbl');
-  const cardPlain = $('cardPlain');
-  const mastTitle = $('mastTitle');
+  let pathBtnEl = null;
+  function TexpDays(d) { return Math.max(d, 1) / 365; }
+
+  /** Mid-tenor ±1σ membership (Stage 3 critic spec). */
+  function midTenorSigma(S, days) {
+    const Tmid = TexpDays(days) * 0.5;
+    return S * IV0 * Math.sqrt(Math.max(Tmid, 1e-6));
+  }
+  function isInsideBelly(wireK, S, days) {
+    const sig = midTenorSigma(S, days);
+    return Math.abs(wireK - S) <= sig + 1e-6;
+  }
 
   function syncBenchChrome() {
     sheet.classList.toggle('bench', !!state.bench);
@@ -950,29 +1330,19 @@
       pathBtnEl.hidden = !state.bench;
       pathBtnEl.setAttribute('aria-hidden', state.bench ? 'false' : 'true');
     }
-    if (statGreeksLbl) {
-      statGreeksLbl.textContent = state.bench ? 'Δ / θ' : 'Time';
-    }
+    if (statGreeksLbl) statGreeksLbl.textContent = state.bench ? 'Δ / θ' : 'Time';
     updateGreeksReadout();
   }
-
-  // Forward decl — pathBtn wired later; sync after DOM refs exist
-  let pathBtnEl = null;
-
   function syncJuiceChrome() {
-    // P1-7: under prefers-reduced-motion, never advertise JUICE ON
     if (state.reduce) {
       state.juice = false;
-      sheet.classList.add('reduce');
-      sheet.classList.add('no-juice');
+      sheet.classList.add('reduce', 'no-juice');
       juiceBtn.classList.remove('on');
       juiceBtn.setAttribute('aria-pressed', 'false');
       juiceBtn.textContent = 'MOTION OFF';
       juiceBtn.disabled = true;
-      juiceBtn.title = 'prefers-reduced-motion is on — motion juice disabled';
     } else {
       juiceBtn.disabled = false;
-      juiceBtn.title = '';
       juiceBtn.textContent = state.juice ? 'JUICE ON' : 'JUICE OFF';
       juiceBtn.classList.toggle('on', state.juice);
       juiceBtn.setAttribute('aria-pressed', String(state.juice));
@@ -981,7 +1351,6 @@
   }
   syncJuiceChrome();
 
-  // ─── Audio stub ───
   let audioCtx = null;
   function ensureAudio() {
     if (state.mute) return null;
@@ -1008,34 +1377,19 @@
     const ctx = ensureAudio();
     if (!ctx) return;
     const now = ctx.currentTime;
-    // Distinct grade stamp signatures (CORRECT major / LUCKY ambiguous / UNLUCKY warm / WRONG soft)
     if (kind === 'correct') {
       beep(ctx, 392, 0.08, 'triangle', 0.045, now);
       beep(ctx, 523, 0.1, 'triangle', 0.055, now + 0.07);
       beep(ctx, 659, 0.14, 'triangle', 0.05, now + 0.14);
       return;
     }
-    if (kind === 'lucky') {
-      beep(ctx, 494, 0.09, 'sine', 0.04, now);
-      beep(ctx, 466, 0.11, 'sine', 0.035, now + 0.1); // slightly unresolved
-      return;
-    }
-    if (kind === 'unlucky') {
-      beep(ctx, 349, 0.12, 'sine', 0.04, now);
-      beep(ctx, 294, 0.14, 'sine', 0.035, now + 0.1); // warm descent, not punitive
-      return;
-    }
-    if (kind === 'wrong') {
-      beep(ctx, 330, 0.08, 'sine', 0.03, now);
-      return;
-    }
+    if (kind === 'lucky') { beep(ctx, 494, 0.09, 'sine', 0.04, now); beep(ctx, 466, 0.11, 'sine', 0.035, now + 0.1); return; }
+    if (kind === 'unlucky') { beep(ctx, 349, 0.12, 'sine', 0.04, now); beep(ctx, 294, 0.14, 'sine', 0.035, now + 0.1); return; }
+    if (kind === 'wrong') { beep(ctx, 330, 0.08, 'sine', 0.03, now); return; }
     const tones = {
-      tap: [440, 0.04, 'square', 0.045],
-      arm: [520, 0.06, 'triangle', 0.05],
-      lock: [330, 0.1, 'sine', 0.05],
-      fill: [660, 0.08, 'sine', 0.05],
-      hang: [220, 0.05, 'sine', 0.035],
-      soft: [392, 0.07, 'sine', 0.035],
+      tap: [440, 0.04, 'square', 0.045], arm: [520, 0.06, 'triangle', 0.05],
+      lock: [330, 0.1, 'sine', 0.05], fill: [660, 0.08, 'sine', 0.05],
+      hang: [220, 0.05, 'sine', 0.035], soft: [392, 0.07, 'sine', 0.035],
       theta: [880, 0.03, 'sine', 0.02],
     };
     const [f, dur, type, peak] = tones[kind] || tones.tap;
@@ -1048,8 +1402,7 @@
     if (!ctx) return;
     const o = ctx.createOscillator();
     const g = ctx.createGain();
-    o.type = 'sine';
-    o.frequency.value = 55;
+    o.type = 'sine'; o.frequency.value = 55;
     o.connect(g); g.connect(ctx.destination);
     const now = ctx.currentTime;
     g.gain.setValueAtTime(0.0001, now);
@@ -1061,7 +1414,6 @@
     if (!state.hangDrone) return;
     const { g, ctx, o } = state.hangDrone;
     const now = ctx.currentTime;
-    // curve: quiet → denser as charge fills (theatrical only)
     const peak = 0.012 + 0.028 * Math.pow(u, 1.4);
     try {
       g.gain.cancelScheduledValues(now);
@@ -1084,6 +1436,114 @@
     try { if (navigator.vibrate && state.juice && !state.reduce) navigator.vibrate(ms); } catch (_) {}
   }
 
+  /* —— Stage 5 juice helpers —— */
+  let lastScrubTick = 0;
+  let lastPremShown = -1;
+  let dripParts = [];
+  let dripAnim = null;
+
+  function popPremium() {
+    if (!statPrem) return;
+    if (!state.juice || state.reduce) return;
+    statPrem.classList.remove('pop');
+    void statPrem.offsetWidth;
+    statPrem.classList.add('pop');
+    setTimeout(() => { try { statPrem.classList.remove('pop'); } catch (_) {} }, 300);
+  }
+
+  function scrubJuiceTick(S) {
+    if (!state.juice || state.reduce) return;
+    const now = performance.now();
+    if (now - lastScrubTick < 55) return;
+    lastScrubTick = now;
+    feedback('theta');
+    buzz(6);
+    // soft pencil scrap near ghost
+    spawnSoftScrap(60, yOf(S), 3);
+    const prem = state.previewPrem;
+    if (lastPremShown < 0 || Math.abs(prem - lastPremShown) > 0.04) {
+      popPremium();
+      lastPremShown = prem;
+    }
+  }
+
+  function spawnSoftScrap(x, y, n) {
+    if (!state.juice || state.reduce) return;
+    const cols = ['#2d8a4e', '#c8e6d0', '#d9d4c8', '#d97706'];
+    for (let i = 0; i < n; i++) {
+      dripParts.push({
+        x: x + (Math.random() - 0.5) * 16,
+        y: y + (Math.random() - 0.5) * 10,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: Math.random() * 0.6 + 0.2,
+        life: 1,
+        c: cols[(Math.random() * cols.length) | 0],
+        r: 1.2 + Math.random() * 1.8,
+        kind: 'scrap',
+      });
+    }
+    kickDripLoop();
+  }
+
+  function spawnDripParticles(u) {
+    if (!state.juice || state.reduce) return;
+    const n = 1 + ((u * 3) | 0);
+    for (let i = 0; i < n; i++) {
+      dripParts.push({
+        x: 90 + (Math.random() - 0.5) * 20,
+        y: 250 - Math.random() * 40,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: 0.4 + Math.random() * 1.2,
+        life: 1,
+        c: Math.random() > 0.5 ? '#e8c84a' : '#2d8a4e',
+        r: 1.5 + Math.random() * 2,
+        kind: 'drip',
+      });
+    }
+    kickDripLoop();
+  }
+
+  function kickDripLoop() {
+    if (dripAnim) return;
+    function step() {
+      pctx.clearRect(0, 0, 360, 320);
+      // Don't clear confetti if running — confetti owns canvas; skip if confettiBits live
+      if (confettiBits && confettiBits.length && confettiBits[0].life > 0.02) {
+        dripAnim = null;
+        return;
+      }
+      dripParts = dripParts.filter((b) => b.life > 0.02);
+      dripParts.forEach((b) => {
+        b.x += b.vx;
+        b.y += b.vy;
+        if (b.kind === 'drip') b.vy += 0.04;
+        else { b.vx *= 0.96; b.vy *= 0.96; }
+        b.life -= b.kind === 'drip' ? 0.025 : 0.04;
+        pctx.globalAlpha = Math.max(0, b.life * 0.75);
+        pctx.fillStyle = b.c;
+        pctx.beginPath();
+        pctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        pctx.fill();
+      });
+      pctx.globalAlpha = 1;
+      if (dripParts.length) dripAnim = requestAnimationFrame(step);
+      else { dripAnim = null; pctx.clearRect(0, 0, 360, 320); }
+    }
+    dripAnim = requestAnimationFrame(step);
+  }
+
+  function syncLandscapeGhost() {
+    const tall = window.matchMedia('(orientation: landscape) and (max-height: 500px), (max-height: 520px)').matches;
+    const r = tall ? 14 : 11;
+    const hr = tall ? 40 : 34;
+    try {
+      priceDot.setAttribute('r', String(r));
+      const hit = document.getElementById('priceHit');
+      if (hit) hit.setAttribute('r', String(hr));
+      priceHalo.setAttribute('r', String(tall ? 26 : 22));
+    } catch (_) {}
+  }
+
   let toastTimer = null;
   function showToast(msg) {
     if (!toastEl) return;
@@ -1092,33 +1552,22 @@
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1200);
   }
-
   async function copyShareText() {
     const text = state.shareText || (cardShare && cardShare.textContent) || '';
     if (!text) return;
     touch();
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
+      if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
+      else {
         const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed';
-        ta.style.left = '-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        ta.remove();
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
       }
-      showToast('Copied');
-      feedback('tap');
-    } catch (_) {
-      showToast('Copy failed');
-    }
+      showToast('Copied'); feedback('tap');
+    } catch (_) { showToast('Copy failed'); }
   }
 
-  // ─── Tween / RAF ───
   const tweens = [];
   function tween(from, to, ms, ease, onUpdate, onDone) {
     if (!state.juice || state.reduce) ms = Math.min(ms, 80);
@@ -1127,10 +1576,7 @@
     tweens.push(obj);
     return obj;
   }
-  function killTweens() {
-    tweens.forEach(t => { t.live = false; });
-    tweens.length = 0;
-  }
+  function killTweens() { tweens.forEach(t => { t.live = false; }); tweens.length = 0; }
   let lastTs = 0;
   function frame(ts) {
     const dt = lastTs ? ts - lastTs : 16;
@@ -1140,24 +1586,16 @@
       if (!tw.live) { tweens.splice(i, 1); continue; }
       const u = Math.min(1, (ts - tw.t0) / tw.ms);
       const e = tw.ease(u);
-      const v = tw.from + (tw.to - tw.from) * e;
-      tw.onUpdate(v, u);
-      if (u >= 1) {
-        tw.live = false;
-        tweens.splice(i, 1);
-        if (tw.onDone) tw.onDone();
-      }
+      tw.onUpdate(tw.from + (tw.to - tw.from) * e, u);
+      if (u >= 1) { tw.live = false; tweens.splice(i, 1); if (tw.onDone) tw.onDone(); }
     }
     if (state.phase === 'RUN') tickRun(dt);
     if (state.phase === 'HANG' && state.holding) tickHang(dt);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-
   function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-  function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
 
-  // ─── Geometry helpers ───
   function xOf(t) { return X0 + (X1 - X0) * t; }
   function yOf(price) {
     const u = (price - Y_MIN) / (Y_MAX - Y_MIN);
@@ -1168,78 +1606,126 @@
     return Y_MIN + u * (Y_MAX - Y_MIN);
   }
 
-  function drawCone(S) {
-    // IV cone: ±1σ band over time (teaching visual)
+  function conePath(S, days) {
+    const Texp = TexpDays(days);
     const ptsHi = [], ptsLo = [];
     for (let i = 0; i <= 12; i++) {
       const t = i / 12;
-      const Tleft = T_EXP * (1 - t * 0.85);
+      const Tleft = Texp * (1 - t * 0.85);
       const sigmaMove = S * IV0 * Math.sqrt(Math.max(Tleft, 0.001));
-      ptsHi.push(`${xOf(t).toFixed(1)},${yOf(S + sigmaMove).toFixed(1)}`);
-      ptsLo.push(`${xOf(t).toFixed(1)},${yOf(S - sigmaMove).toFixed(1)}`);
+      ptsHi.push(xOf(t).toFixed(1) + ',' + yOf(S + sigmaMove).toFixed(1));
+      ptsLo.push(xOf(t).toFixed(1) + ',' + yOf(S - sigmaMove).toFixed(1));
     }
-    ivCone.setAttribute('d', `M ${ptsHi.join(' L ')} L ${ptsLo.reverse().join(' L ')} Z`);
+    return 'M ' + ptsHi.join(' L ') + ' L ' + ptsLo.reverse().join(' L ') + ' Z';
+  }
+
+  function drawConePair() {
+    const entryS = state.entrySpot;
+    const days = state.locked ? state.entryDays : state.daysLeft;
+    ivCone.setAttribute('d', conePath(entryS, days));
+    if (!state.locked) {
+      ghostCone.setAttribute('d', conePath(state.ghostSpot, state.daysLeft));
+      ghostCone.setAttribute('opacity', Math.abs(state.ghostSpot - entryS) > 0.05 ? '0.9' : '0.45');
+    } else {
+      ghostCone.setAttribute('d', conePath(state.ghostSpot, state.entryDays));
+      ghostCone.setAttribute('opacity', '0.35');
+    }
   }
 
   function drawDateMarks() {
     dateMarks.innerHTML = '';
-    const marks = [
-      { t: SELL_BY_T, label: 'SELL-BY' },
-      { t: DROP_DEAD_T, label: 'DROP-DEAD' },
-    ];
-    marks.forEach(m => {
+    const days = state.locked ? state.entryDays : state.daysLeft;
+    [{ t: SELL_BY_FRAC, label: 'SELL-BY' }, { t: 1.0, label: 'DROP-DEAD' }].forEach(m => {
       const x = xOf(m.t);
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.innerHTML =
-        `<line x1="${x}" y1="40" x2="${x}" y2="240" stroke="#9a968c" stroke-width="1" stroke-dasharray="2 4"/>` +
-        `<text x="${x}" y="34" text-anchor="middle" font-size="8" fill="#9a968c" font-family="IBM Plex Mono, monospace">${m.label}</text>`;
+        '<line x1="' + x + '" y1="40" x2="' + x + '" y2="240" stroke="#9a968c" stroke-width="1" stroke-dasharray="2 4"/>' +
+        '<text x="' + x + '" y="34" text-anchor="middle" font-size="8" fill="#9a968c" font-family="IBM Plex Mono, monospace">' + m.label + '</text>';
       dateMarks.appendChild(g);
     });
+    const xDD = xOf(1);
+    daysHandleLine.setAttribute('x1', xDD);
+    daysHandleLine.setAttribute('x2', xDD);
+    daysHandleHit.setAttribute('x', xDD - 16);
+    daysHandleHit.setAttribute('width', '32');
+    daysHandleLbl.setAttribute('x', xDD);
+    daysHandleLbl.textContent = days + 'd';
+  }
+
+  function syncWireFromArmed() {
+    const k = state.wireK;
+    let best = 1, bestD = Infinity;
+    STRIKES.forEach((K, i) => {
+      const d = Math.abs(K - k);
+      if (d < bestD) { bestD = d; best = i; }
+    });
+    state.armed = [false, false, false];
+    state.armed[best] = true;
+    STRIKES.forEach((K, i) => { if (Math.abs(K - k) < 0.05) state.armed[i] = true; });
   }
 
   function drawRungs() {
     rungsG.innerHTML = '';
     STRIKES.forEach((K, i) => {
       const y = yOf(K);
-      const armed = state.armed[i];
+      const near = Math.abs(state.wireK - K) < 0.08;
       const filled = state.filled[i];
+      const stroke = filled ? '#2d8a4e' : near ? '#d97706' : '#9a968c';
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      const stroke = filled ? '#2d8a4e' : armed ? '#d97706' : '#9a968c';
-      const dash = armed || filled ? 'none' : '4 3';
-      const w = filled ? 2.5 : 1.5;
-      // P1-6: filled rung shows CAP (premium kept, upside capped) — not just a tick
-      const tag = filled ? ' FILL·CAP' : (armed ? '' : '');
       g.innerHTML =
-        `<line x1="40" y1="${y}" x2="320" y2="${y}" stroke="${stroke}" stroke-width="${w}" stroke-dasharray="${dash}" opacity="${armed || filled ? 1 : 0.45}"/>` +
-        `<text x="324" y="${y + 3}" font-size="9" fill="${stroke}" font-family="IBM Plex Mono, monospace">$${K.toFixed(2)}${filled ? ' ✓' : ''}</text>` +
-        (filled ? `<text class="fill-cap" x="200" y="${y - 5}" text-anchor="middle" font-family="IBM Plex Mono, monospace">CAPPED UPSIDE</text>` : '');
+        '<line x1="40" y1="' + y + '" x2="320" y2="' + y + '" stroke="' + stroke + '" stroke-width="1" stroke-dasharray="4 3" opacity="' + (near || filled ? 0.7 : 0.3) + '"/>' +
+        '<text x="324" y="' + (y + 3) + '" font-size="8" fill="' + stroke + '" font-family="IBM Plex Mono, monospace">$' + K.toFixed(2) + (filled ? ' ✓' : '') + '</text>';
       rungsG.appendChild(g);
-      if (filled) {
-        // optional pencil tick from rung mid toward tray (comprehension, not casino)
-        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        tick.setAttribute('d', `M 200 ${y} Q 240 ${y + 20} 270 268`);
-        tick.setAttribute('fill', 'none');
-        tick.setAttribute('stroke', '#2d8a4e');
-        tick.setAttribute('stroke-width', '1.2');
-        tick.setAttribute('stroke-dasharray', '3 2');
-        tick.setAttribute('opacity', '0.55');
-        g.appendChild(tick);
-      }
     });
   }
 
-  function drawCoins(prem) {
-    // Coin stack = live mark of short calls (matches Premium / θ numbers — no lying dust)
+  function drawWire() {
+    const y = yOf(state.wireK);
+    const show = state.planFocus === 'wire' || state.planFocus === 'lock' || state.locked || state.wirePlaced ||
+      state.phase === 'RUN' || state.phase === 'HANG' || state.phase === 'REVEAL' || state.phase === 'SUMMARY';
+    const op = show ? 1 : (state.planFocus === 'days' ? 0.25 : 0.12);
+    wireLine.setAttribute('y1', y);
+    wireLine.setAttribute('y2', y);
+    wireLine.setAttribute('opacity', String(op));
+    const S = state.entrySpot;
+    const days = state.locked ? state.entryDays : state.daysLeft;
+    const inside = isInsideBelly(state.wireK, S, days);
+    state.bellyInside = inside;
+    wireLine.setAttribute('stroke-width', inside ? '3.2' : '2.2');
+    wireHandle.setAttribute('cy', y);
+    wireHandle.setAttribute('opacity', String(op));
+    wireLabel.setAttribute('y', y + 3);
+    wireLabel.textContent = '$' + state.wireK.toFixed(2);
+    wireLabel.setAttribute('opacity', String(op));
+    if (wireCaption) {
+      if (!state.wirePlaced && state.planFocus !== 'wire' && state.planFocus !== 'lock' && !state.locked) {
+        wireCaption.innerHTML = 'Wire — place on the cone';
+      } else {
+        const tag = inside
+          ? '<span class="badge inside">INSIDE</span>'
+          : '<span class="badge outside">OUTSIDE</span>';
+        wireCaption.innerHTML = '$' + state.wireK.toFixed(2) + ' · ' + tag + ' · ' + days + 'd';
+      }
+    }
+    // Wire glow when INSIDE (juice only)
+    if (inside && show && state.juice && !state.reduce) {
+      wireLine.classList.add('wire-glow');
+    } else {
+      wireLine.classList.remove('wire-glow');
+    }
+  }
+
+  function drawCoins(prem, ghost) {
     coinsG.innerHTML = '';
-    const n = Math.min(8, Math.max(0, Math.round(Math.max(0, prem) / 0.08)));
+    const n = Math.min(10, Math.max(0, Math.round(Math.max(0, prem) / 0.07)));
     if (n === 0) {
-      const ghost = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-      ghost.setAttribute('cx', '90'); ghost.setAttribute('cy', '270');
-      ghost.setAttribute('rx', '14'); ghost.setAttribute('ry', '4');
-      ghost.setAttribute('fill', 'none'); ghost.setAttribute('stroke', '#9a968c');
-      ghost.setAttribute('stroke-width', '1'); ghost.setAttribute('stroke-dasharray', '2 2');
-      ghost.setAttribute('opacity', '0.45');
-      coinsG.appendChild(ghost);
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+      el.setAttribute('cx', '90'); el.setAttribute('cy', '270');
+      el.setAttribute('rx', '14'); el.setAttribute('ry', '4');
+      el.setAttribute('fill', 'none'); el.setAttribute('stroke', '#9a968c');
+      el.setAttribute('stroke-width', '1'); el.setAttribute('stroke-dasharray', '2 2');
+      el.setAttribute('opacity', '0.45');
+      coinsG.appendChild(el);
       return;
     }
     for (let i = 0; i < n; i++) {
@@ -1252,112 +1738,137 @@
       c.setAttribute('fill', i === n - 1 ? '#f5d76e' : '#e8c84a');
       c.setAttribute('stroke', '#2a2a28');
       c.setAttribute('stroke-width', '1');
+      c.setAttribute('stroke-dasharray', ghost ? '3 2' : 'none');
       c.setAttribute('opacity', String(0.55 + i * 0.05));
       coinsG.appendChild(c);
     }
   }
 
-  // Cheap pencil coin→tray arc (one SVG ellipse; no casino LDW)
   function arcCoinToTray(fromY) {
     if (!state.juice || state.reduce) return;
     const board = $('board');
     if (!board) return;
     const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
     el.setAttribute('class', 'coin-fly');
-    el.setAttribute('rx', '10');
-    el.setAttribute('ry', '3.5');
-    el.setAttribute('fill', '#f5d76e');
-    el.setAttribute('stroke', '#2a2a28');
-    el.setAttribute('stroke-width', '1');
-    el.setAttribute('opacity', '0.9');
+    el.setAttribute('rx', '10'); el.setAttribute('ry', '3.5');
+    el.setAttribute('fill', '#f5d76e'); el.setAttribute('stroke', '#2a2a28');
+    el.setAttribute('stroke-width', '1'); el.setAttribute('opacity', '0.9');
     board.appendChild(el);
-    const x0 = 90, y0 = fromY;
-    const x1 = 200, y1 = Math.min(fromY, 220) - 28;
-    const x2 = 285, y2 = 270;
+    const x0 = 90, y0 = fromY, x1 = 200, y1 = Math.min(fromY, 220) - 28, x2 = 285, y2 = 270;
     tween(0, 1, T.COIN_ARC_MS, easeOutCubic, (u) => {
       const o = 1 - u;
-      const x = o * o * x0 + 2 * o * u * x1 + u * u * x2;
-      const y = o * o * y0 + 2 * o * u * y1 + u * u * y2;
-      el.setAttribute('cx', x.toFixed(1));
-      el.setAttribute('cy', y.toFixed(1));
+      el.setAttribute('cx', (o * o * x0 + 2 * o * u * x1 + u * u * x2).toFixed(1));
+      el.setAttribute('cy', (o * o * y0 + 2 * o * u * y1 + u * u * y2).toFixed(1));
       el.setAttribute('opacity', String(0.9 * (1 - u * 0.35)));
     }, () => { try { el.remove(); } catch (_) {} });
   }
 
-  // Truthful θ signal: short-call seller earns positive theta as time burns
-  function liveShortMark(S, tFrac) {
-    const Tleft = Math.max(1e-6, T_EXP * (1 - tFrac * 0.95));
-    let mark = 0, thetaSeller = 0;
-    STRIKES.forEach((K, i) => {
-      if (!state.armed[i]) return;
-      const g = bsCall(S, K, Tleft, R, IV0);
-      mark += g.price;
-      thetaSeller += -g.theta; // short theta > 0 for seller
-    });
-    return { mark, thetaSeller };
-  }
-
-  function setSpot(S, animateHint) {
-    state.spot = S;
+  function setEntryVisual(S) {
     const y = yOf(S);
-    priceDot.setAttribute('cy', y);
-    priceHalo.setAttribute('cy', y);
-    priceLabel.setAttribute('y', y - 14);
-    priceLabel.textContent = '$' + S.toFixed(2);
-    dragHint.setAttribute('y', y + 4);
-    statSpot.textContent = '$' + S.toFixed(2);
-    drawCone(S);
-    recomputePremium();
-  }
-
-  function recomputePremium() {
-    // Sum premiums for armed short calls (1 contract each, teaching scale ×1 not ×100)
-    let total = 0, delta = 0, theta = 0;
-    const anyArmed = state.armed.some(Boolean);
-    STRIKES.forEach((K, i) => {
-      const use = state.armed[i] || (!anyArmed && i === 1); // mid-strike preview
-      if (!use) return;
-      const g = bsCall(state.spot, K, T_EXP, R, IV0);
-      total += g.price;
-      delta += -g.delta; // short call
-      theta += -g.theta; // short theta positive for seller
-    });
-    state.previewPrem = total;
-    state._lastDelta = delta;
-    state._lastTheta = theta;
-    statPrem.textContent = '$' + total.toFixed(2);
-    updateGreeksReadout();
-    if (!state.locked) {
-      trayVal.textContent = '$' + total.toFixed(2);
-      drawCoins(total);
+    entryDot.setAttribute('cy', y);
+    entryLabel.setAttribute('y', y - 14);
+    entryLabel.textContent = '$' + S.toFixed(2);
+    entryRing.setAttribute('cy', y);
+    if (state.locked || state.phase === 'PLAN' || state.phase === 'BOOT') {
+      statSpot.textContent = '$' + S.toFixed(2);
     }
   }
 
-  // Player UI: plain Time label. Bench keeps exact Δ/θ.
+  function setGhostVisual(S) {
+    const y = yOf(S);
+    priceDot.setAttribute('cy', y);
+    priceHalo.setAttribute('cy', y);
+    const priceHit = document.getElementById('priceHit');
+    if (priceHit) priceHit.setAttribute('cy', y);
+    priceLabel.setAttribute('y', y + 4);
+    priceLabel.textContent = 'ghost $' + S.toFixed(2);
+    dragHint.setAttribute('y', y + 18);
+  }
+
+  function premiumAt(S, K, days) {
+    return bsCall(S, K, TexpDays(days), R, IV0).price;
+  }
+
+  function recomputePremium() {
+    const S = state.locked ? state.entrySpot : state.ghostSpot;
+    const days = state.locked ? state.entryDays : state.daysLeft;
+    const g = bsCall(S, state.wireK, TexpDays(days), R, IV0);
+    state.previewPrem = g.price;
+    state._lastDelta = -g.delta;
+    state._lastTheta = -g.theta;
+    if (!state.locked) {
+      const prev = lastPremShown;
+      statPrem.textContent = '$' + g.price.toFixed(2);
+      trayLbl.textContent = 'PREVIEW';
+      trayVal.textContent = '$' + g.price.toFixed(2);
+      drawCoins(g.price, true);
+      if (state.dragging && state.dragMode === 'scrub' && prev >= 0 && Math.abs(g.price - prev) > 0.05) {
+        popPremium();
+      }
+      lastPremShown = g.price;
+    }
+    updateGreeksReadout();
+    drawConePair();
+    drawWire();
+  }
+
   function updateGreeksReadout(liveTheta) {
     if (!statGreeks) return;
     if (state.bench) {
       if (statGreeksLbl) statGreeksLbl.textContent = 'Δ / θ';
-      if (liveTheta != null) {
-        statGreeks.textContent = 'θ+' + liveTheta.toFixed(3);
-      } else {
-        const d = state._lastDelta;
-        const th = state._lastTheta;
-        if (d == null || th == null) statGreeks.textContent = '—. / —';
+      if (liveTheta != null) statGreeks.textContent = 'θ+' + liveTheta.toFixed(3);
+      else {
+        const d = state._lastDelta, th = state._lastTheta;
+        if (d == null || th == null) statGreeks.textContent = '— / —';
         else statGreeks.textContent = d.toFixed(2) + ' / ' + th.toFixed(3);
       }
       return;
     }
     if (statGreeksLbl) statGreeksLbl.textContent = 'Time';
-    if (state.phase === 'RUN' || state.phase === 'HANG') {
-      const earn = state.thetaEarned || 0;
-      statGreeks.textContent = earn > 0.01 ? 'earning' : 'collecting';
-    } else {
-      statGreeks.textContent = 'collecting';
+    let d = state.daysLeft;
+    if (state.locked) d = state.entryDays;
+    // RUN keeps locked frame numeral; HANG harvest drips days→0
+    if (state.phase === 'HANG') d = Math.max(0, Math.round(state.dripDays));
+    if (state.phase === 'REVEAL' || state.phase === 'SUMMARY') d = 0;
+    statGreeks.textContent = d + 'd';
+  }
+
+  function setDays(d, fromUser) {
+    d = Math.max(DAYS_MIN, Math.min(DAYS_MAX, Math.round(d)));
+    state.daysLeft = d;
+    if (daysSlider) daysSlider.value = String(d);
+    if (daysVal) daysVal.textContent = d + 'd';
+    drawDateMarks();
+    recomputePremium();
+    updateGreeksReadout();
+    if (fromUser) {
+      state.daysTouched = true;
+      if (state.juice && !state.reduce) {
+        feedback('soft');
+        popPremium();
+      }
+      if (state.scrubReleased && (state.planFocus === 'scrub' || state.planFocus === 'days')) {
+        setPlanFocus('days');
+      }
     }
   }
 
-  // ─── Phase machine ───
+  function setWire(k, placed) {
+    k = Math.max(Y_MIN + 0.3, Math.min(Y_MAX - 0.3, k));
+    k = Math.round(k * 4) / 4;
+    state.wireK = k;
+    if (placed) state.wirePlaced = true;
+    syncWireFromArmed();
+    drawRungs();
+    recomputePremium();
+    drawWire();
+    if (placed && (state.planFocus === 'wire' || state.planFocus === 'days' || state.planFocus === 'scrub')) {
+      setPlanFocus('lock');
+    } else {
+      updateChrome();
+    }
+  }
+
   function setPhase(ph) {
     state.phase = ph;
     phaseTag.textContent = ph;
@@ -1368,86 +1879,164 @@
   function updateChrome() {
     const ph = state.phase;
     rungBtns.forEach((b, i) => {
-      b.disabled = ph !== 'PLAN';
-      b.classList.toggle('accent', state.armed[i]);
-      b.textContent = (state.armed[i] ? '● ' : '') + '$' + STRIKES[i].toFixed(2);
+      b.disabled = ph !== 'PLAN' || state.planFocus === 'scrub';
+      const near = Math.abs(state.wireK - STRIKES[i]) < 0.08;
+      b.classList.toggle('accent', near || state.armed[i]);
+      b.textContent = ((near || state.armed[i]) ? '● ' : '') + '$' + STRIKES[i].toFixed(2);
     });
     btnHold.disabled = ph !== 'HANG';
-    btnPrimary.disabled = false;
+    btnAbort.style.display = ph === 'RUN' ? '' : 'none';
+    btnAbort.disabled = ph !== 'RUN' || performance.now() < (state.abortArmedAt || 0);
 
     if (ph === 'BOOT') {
-      narrTitle.textContent = 'Pencil board';
-      narrCopy.textContent = 'Practice selling a call on a pretend stock. Then a short covered-call loop — screen teaches.';
-      btnPrimary.textContent = 'BEGIN';
+      narrTitle.textContent = 'Drag the green';
+      narrCopy.textContent = 'Coins and cone answer.';
+      btnPrimary.textContent = 'PLAY';
       btnPrimary.disabled = false;
-      btnPrimary.classList.remove('abort', 'cue-pulse');
-    } else if (ph === 'DEMO') {
-      narrTitle.textContent = 'Watch';
-      narrCopy.textContent = 'Drag today\'s price — premium & cone update live.';
-      btnPrimary.disabled = false;
-      btnPrimary.textContent = 'SKIP';
-      btnPrimary.classList.remove('abort', 'cue-pulse');
-      dragHint.setAttribute('opacity', '1');
-    } else if (ph === 'READ') {
-      narrTitle.textContent = 'Read the board';
-      narrCopy.textContent = 'Cone = IV · lines = sell rungs · coins = premium.';
-      btnPrimary.textContent = 'SET LADDER';
-      btnPrimary.classList.remove('abort');
-      dragHint.setAttribute('opacity', '0');
+      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
     } else if (ph === 'PLAN') {
       syncPlanFocusChrome();
     } else if (ph === 'RUN') {
-      narrTitle.textContent = 'Catalyst run';
-      narrCopy.textContent = 'Path burns · stack = live short mark (matches Premium).';
-      // P0: primary stays disabled until abort arm-gate elapses
-      btnPrimary.disabled = performance.now() < (state.abortArmedAt || 0);
-      btnPrimary.textContent = 'ABORT RUN';
-      btnPrimary.classList.add('abort');
+      narrTitle.textContent = 'Watch time';
+      narrCopy.textContent = 'Frame locked · $' + state.entrySpot.toFixed(2) + ' · ' + state.entryDays + 'd';
+      btnPrimary.textContent = 'WATCHING';
+      btnPrimary.disabled = true;
+      btnPrimary.classList.remove('abort', 'cue-pulse');
+      btnPrimary.classList.add('watch-primary');
       dragHint.setAttribute('opacity', '0');
       priceHalo.setAttribute('opacity', '0');
       timePtr.setAttribute('opacity', '1');
       timeArrow.setAttribute('opacity', '1');
       pricePath.setAttribute('opacity', '1');
+      if (skyChip) {
+        skyChip.hidden = false;
+        skyChip.textContent = 'sky: ' + (state.pathVariant === 'spike' ? 'spike' : 'calm');
+      }
     } else if (ph === 'HANG') {
-      narrTitle.textContent = 'Hang';
-      narrCopy.textContent = 'Outcome fixed. Hold SETTLE — theatrical only.';
+      narrTitle.textContent = 'Pocket time';
+      narrCopy.textContent = 'Hold — days drip into coins.';
       btnPrimary.disabled = true;
-      btnPrimary.classList.remove('abort', 'cue-pulse');
+      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
       btnHold.disabled = false;
+      btnHold.childNodes[0].textContent = 'POCKET ';
       holdFill.style.width = '0%';
     } else if (ph === 'REVEAL') {
-      narrTitle.textContent = 'Reveal';
-      narrCopy.textContent = 'Quiet P/L · GRADE stamp is the proof.';
+      narrTitle.textContent = 'Geometry';
+      narrCopy.textContent = state.geometryLine || 'Path vs wire.';
       btnPrimary.disabled = true;
-      btnPrimary.classList.remove('abort', 'cue-pulse');
+      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
     } else if (ph === 'SUMMARY') {
-      narrTitle.textContent = 'Process card';
-      narrCopy.textContent = 'Grade rewards process, not luck.';
+      narrTitle.textContent = 'Stamp';
+      narrCopy.textContent = state.geometryLine || '';
       btnPrimary.disabled = true;
+      btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
+    }
+
+    if (daysSlider) {
+      daysSlider.disabled = ph !== 'PLAN' || state.locked || state.planFocus === 'scrub';
+    }
+    if (daysRail && ph !== 'PLAN') daysRail.style.opacity = '0.55';
+    else if (daysRail) daysRail.style.opacity = '';
+
+    const showDaysHandle = ph === 'PLAN' && state.planFocus !== 'scrub';
+    daysHandleLine.setAttribute('opacity', showDaysHandle ? '0.85' : '0.15');
+    daysHandleHit.setAttribute('opacity', showDaysHandle ? '0.85' : '0.15');
+    daysHandleLbl.setAttribute('opacity', showDaysHandle ? '0.85' : '0.15');
+  }
+
+  function touch() { state.touches++; ensureAudio(); }
+
+  function setPlanFocus(f) {
+    state.planFocus = f;
+    sheet.dataset.planFocus = f;
+    syncPlanFocusChrome();
+  }
+
+  function syncPlanFocusChrome() {
+    if (state.phase !== 'PLAN') return;
+    if (state.wirePlaced && state.scrubReleased) state.planFocus = 'lock';
+    sheet.dataset.planFocus = state.planFocus;
+    const f = state.planFocus;
+    if (f === 'scrub') {
+      narrTitle.textContent = 'Drag the green';
+      narrCopy.textContent = 'Dashed = what-if · solid = spot.';
+      dragHint.setAttribute('opacity', '1');
+      dragHint.classList.add('hint-pulse');
+      priceHalo.setAttribute('opacity', '0.7');
+      btnPrimary.disabled = true;
+    } else if (f === 'days') {
+      narrTitle.textContent = 'Stretch the days';
+      narrCopy.textContent = 'Longer → fatter cone + more premium.';
+      dragHint.setAttribute('opacity', '0.15');
+      dragHint.classList.remove('hint-pulse');
+      btnPrimary.disabled = true;
+    } else if (f === 'wire') {
+      narrTitle.textContent = 'Place the wire';
+      narrCopy.textContent = 'Slide orange · INSIDE or OUTSIDE.';
+      dragHint.setAttribute('opacity', '0');
+      btnPrimary.disabled = true;
+      drawWire();
+      wireLine.setAttribute('opacity', '1');
+      wireHandle.setAttribute('opacity', '1');
+      wireLabel.setAttribute('opacity', '1');
+    } else {
+      narrTitle.textContent = 'Lock it';
+      narrCopy.textContent = '$' + state.entrySpot.toFixed(2) + ' · ' + state.daysLeft + 'd — freeze the frame.';
+      dragHint.setAttribute('opacity', '0');
+      btnPrimary.textContent = 'LOCK';
+      btnPrimary.disabled = !state.wirePlaced;
       btnPrimary.classList.remove('abort', 'cue-pulse');
     }
+    if (f !== 'lock') {
+      btnPrimary.textContent = 'LOCK';
+      btnPrimary.classList.remove('abort', 'cue-pulse');
+    }
+    drawWire();
+    if (daysSlider) daysSlider.disabled = f === 'scrub' && !state.scrubReleased;
   }
 
-  function touch() {
-    state.touches++;
-    ensureAudio();
-  }
-
-  // ─── BOOT → DEMO ───
-  function pencilDrawIn() {
-    if (!state.juice || state.reduce) return;
-    // Brief pencil stroke reveal of cone + axes (paper, not chrome)
-    const targets = [ivCone, $('cliffBand'), priceDot];
-    targets.forEach((el, i) => {
-      if (!el) return;
-      const prev = el.style.opacity;
-      el.style.opacity = '0';
-      setTimeout(() => {
-        el.style.transition = 'opacity 280ms ease';
-        el.style.opacity = prev || '';
-        setTimeout(() => { el.style.transition = ''; }, 300);
-      }, 60 + i * 90);
-    });
+  function enterPlanCold() {
+    state.sessionN = bumpSession();
+    try {
+      const q = new URLSearchParams(location.search).get('path');
+      if (!(q && (q.toLowerCase() === 'spike' || q.toLowerCase() === 'grind'))) {
+        state.pathVariant = weatherForSession(state.sessionN);
+        state.path = buildPath(SEED_ID, state.pathVariant, SPOT0);
+      }
+    } catch (_) {
+      state.pathVariant = weatherForSession(state.sessionN);
+    }
+    setPhase('PLAN');
+    touch();
+    state.planFocus = 'scrub';
+    state.scrubReleased = false;
+    state.daysTouched = false;
+    state.wirePlaced = false;
+    state.locked = false;
+    state.ghostSpot = SPOT0;
+    state.entrySpot = SPOT0;
+    state.daysLeft = DAYS_DEFAULT;
+    state.wireK = 24.50;
+    state.filled = [false, false, false];
+    setDays(DAYS_DEFAULT, false);
+    setEntryVisual(SPOT0);
+    setGhostVisual(SPOT0);
+    priceDot.setAttribute('cx', X0);
+    priceHalo.setAttribute('cx', X0);
+    priceLabel.setAttribute('x', 78);
+    priceLabel.setAttribute('text-anchor', 'start');
+    priceDot.setAttribute('stroke-dasharray', '4 3');
+    priceDot.setAttribute('fill', '#c8e6d0');
+    priceDot.setAttribute('fill-opacity', '0.42');
+    priceDot.setAttribute('r', '11');
+    entryRing.setAttribute('opacity', '0.55');
+    syncLandscapeGhost();
+    drawDateMarks();
+    drawRungs();
+    drawWire();
+    recomputePremium();
+    setPlanFocus('scrub');
+    syncPathPill();
   }
 
   function startBoot() {
@@ -1457,16 +2046,16 @@
     if (hangVeil) hangVeil.style.opacity = '0';
     stopHangDrone();
     delete sheet.dataset.planFocus;
-    drawDateMarks();
-    drawRungs();
-    pencilDrawIn();
-    setSpot(SPOT0);
-    updateGreeksReadout();
+    if (skyChip) skyChip.hidden = true;
+    state.ghostSpot = SPOT0;
     state.entrySpot = SPOT0;
-    state.previewSpot = SPOT0;
-    state.armed = [false, false, false];
-    state.filled = [false, false, false];
+    state.daysLeft = DAYS_DEFAULT;
+    state.entryDays = DAYS_DEFAULT;
+    state.wireK = 24.50;
+    state.wirePlaced = false;
     state.locked = false;
+    state.armed = [false, true, false];
+    state.filled = [false, false, false];
     state.premiumCollected = 0;
     state.grade = null;
     state.pnl = 0;
@@ -1478,196 +2067,101 @@
     state.runT = 0;
     state.aborted = false;
     state.shareText = '';
-    btnPrimary.classList.remove('abort', 'cue-pulse');
+    state.infoFlashDone = false;
+    state.geometryLine = '';
+    state.dripDays = DAYS_DEFAULT;
+    btnPrimary.classList.remove('abort', 'cue-pulse', 'watch-primary');
     pricePath.setAttribute('points', '');
     pricePath.setAttribute('opacity', '0');
     timePtr.setAttribute('opacity', '0');
     timeArrow.setAttribute('opacity', '0');
+    priceDot.setAttribute('cx', X0);
+    priceHalo.setAttribute('cx', X0);
     document.querySelectorAll('.coin-fly').forEach((el) => { try { el.remove(); } catch (_) {} });
     stampOverlay.classList.remove('show');
     summaryOverlay.classList.remove('show');
     gradeStamp.classList.remove('in');
-  }
-
-  function runDemo() {
-    setPhase('DEMO');
-    touch();
-    // auto-demo one vertical drag
-    const yStart = yOf(SPOT0);
-    const yMid = yOf(24.8);
-    tween(0, 1, T.DEMO_DRAG_MS, easeInOut, (u) => {
-      const y = yStart + (yMid - yStart) * (u < 0.5 ? u * 2 : 2 - u * 2);
-      setSpot(priceOfY(y));
-    }, () => {
-      setSpot(SPOT0);
-      setTimeout(() => {
-        setPhase('READ');
-        scheduleReadCue();
-      }, T.DEMO_HOLD_MS);
-    });
-  }
-
-  // ─── PLAN (P1-2: one spotlight verb — scrub → arm → lock) ───
-  let planScrubTimer = null;
-  function setPlanFocus(f) {
-    state.planFocus = f;
-    sheet.dataset.planFocus = f;
-    syncPlanFocusChrome();
-  }
-  function syncPlanFocusChrome() {
-    if (state.phase !== 'PLAN') return;
-    const n = state.armed.filter(Boolean).length;
-    // Auto-promote focus when conditions met
-    if (n >= 2 && state.planFocus !== 'lock') state.planFocus = 'lock';
-    else if (n >= 1 && state.planFocus === 'scrub') state.planFocus = 'arm';
-    sheet.dataset.planFocus = state.planFocus;
-    const f = state.planFocus;
-    if (f === 'scrub') {
-      narrTitle.textContent = 'Scrub the what-if';
-      narrCopy.textContent = 'Drag today\'s price — preview only. Then arm rungs.';
-      dragHint.setAttribute('opacity', '1');
-      dragHint.classList.add('hint-pulse');
-      priceHalo.setAttribute('opacity', '0.55');
-    } else if (f === 'arm') {
-      narrTitle.textContent = 'Arm 2–3 rungs';
-      narrCopy.textContent = 'Tap strikes to sell. Preview stays what-if until LOCK.';
-      dragHint.setAttribute('opacity', '0.25');
-      dragHint.classList.remove('hint-pulse');
-      priceHalo.setAttribute('opacity', '0.25');
-    } else {
-      narrTitle.textContent = 'Lock it in';
-      narrCopy.textContent = 'LOCK rebases to entry. Path + premium = one world.';
-      dragHint.setAttribute('opacity', '0');
-      priceHalo.setAttribute('opacity', '0.15');
-    }
-    btnPrimary.textContent = 'LOCK IT IN';
-    btnPrimary.disabled = n < 2;
-    btnPrimary.classList.remove('abort', 'cue-pulse');
-  }
-  let readCueTimer = null;
-  function scheduleReadCue() {
-    if (readCueTimer) clearTimeout(readCueTimer);
-    btnPrimary.classList.remove('cue-pulse');
-    readCueTimer = setTimeout(() => {
-      if (state.phase !== 'READ') return;
-      btnPrimary.classList.add('cue-pulse');
-      narrCopy.textContent = 'Ready? Tap SET LADDER.';
-    }, T.READ_MS);
-  }
-  function clearReadCue() {
-    if (readCueTimer) clearTimeout(readCueTimer);
-    readCueTimer = null;
-    btnPrimary.classList.remove('cue-pulse');
-  }
-
-  function enterPlan() {
-    clearReadCue();
-    setPhase('PLAN');
-    touch();
-    feedback('tap');
-    state.planFocus = 'scrub';
-    setPlanFocus('scrub');
-    if (planScrubTimer) clearTimeout(planScrubTimer);
-    planScrubTimer = setTimeout(() => {
-      if (state.phase === 'PLAN' && state.planFocus === 'scrub') setPlanFocus('arm');
-    }, T.PLAN_SCRUB_HINT_MS);
-  }
-
-  function toggleRung(i) {
-    if (state.phase !== 'PLAN') return;
-    touch();
-    state.armed[i] = !state.armed[i];
-    feedback('arm');
-    buzz(8);
+    setEntryVisual(SPOT0);
+    setGhostVisual(SPOT0);
+    setDays(DAYS_DEFAULT, false);
+    drawDateMarks();
     drawRungs();
+    drawWire();
     recomputePremium();
-    if (state.planFocus === 'scrub') setPlanFocus('arm');
-    else updateChrome();
+    updateGreeksReadout();
+    setTimeout(() => {
+      if (state.phase === 'BOOT') enterPlanCold();
+    }, T.BOOT_MS);
   }
 
-  function scoreProcess(previewSpot, armed) {
-    // Continuous process AXIS only — grade uses binary gate PROCESS_GOOD_MIN.
-    // Must be able to fail (< 0.55): sell-into preview, no scrub + nearest rungs, etc.
-    const n = armed.filter(Boolean).length;
-    const previewEngaged = Math.abs(previewSpot - SPOT0) > 0.2;
-    const soldInto = armed.some((a, i) => a && previewSpot >= STRIKES[i] - 0.02);
-    const otmAtPreview = armed.every((a, i) => !a || previewSpot < STRIKES[i] - 0.05);
-    const skippedNearest = !armed[0];
-    const hasCushion = !!armed[2];
-
-    let ps = 0;
-    ps += (n >= 2 && n <= 3) ? 0.15 : 0.0; // legal lock floor — not enough alone
-    if (!soldInto && otmAtPreview) {
-      // Full OTM credit only if player scrubbed the what-if; idle lock is weaker
-      ps += previewEngaged ? 0.30 : 0.10;
-    } else if (soldInto) {
-      ps += 0.0; // sell-into / arm into ITM preview = weak process
-    } else {
-      ps += 0.05;
-    }
-    if (previewEngaged && !soldInto) ps += 0.25;
-    // else no preview bonus
-    ps += skippedNearest ? 0.20 : 0.05;
-    ps += hasCushion ? 0.15 : 0.05;
+  function scoreProcess() {
+    const previewEngaged = Math.abs(state.ghostSpot - state.entrySpot) > 0.2;
+    const daysEngaged = state.daysTouched;
+    const inside = isInsideBelly(state.wireK, state.entrySpot, state.daysLeft);
+    const cushion = state.wireK >= state.entrySpot + midTenorSigma(state.entrySpot, state.daysLeft) * 0.85;
+    let ps = 0.1;
+    if (previewEngaged) ps += 0.25;
+    if (daysEngaged) ps += 0.2;
+    if (state.wirePlaced) ps += 0.15;
+    if (inside && state.daysLeft >= 21) ps += 0.05;
+    else if (!inside && cushion) ps += 0.25;
+    else if (!inside) ps += 0.15;
+    else ps += 0.08;
     return Math.max(0, Math.min(1, ps));
   }
 
   function lockIn() {
     if (state.phase !== 'PLAN') return;
-    const n = state.armed.filter(Boolean).length;
-    if (n < 2) return;
+    if (!state.wirePlaced) return;
     touch();
     state.locked = true;
-
-    // Capture what-if preview for process only; settlement world = scenario entry
-    state.previewSpot = state.spot;
     state.entrySpot = SPOT0;
-    state.processScore = scoreProcess(state.previewSpot, state.armed);
-
-    // P0-2: rebase premium/PnL to true entry — drag was preview only
-    state.spot = state.entrySpot;
-    setSpot(state.entrySpot);
-    state.path = buildPath(SEED_ID, state.pathVariant);
-
-    state.premiumCollected = 0;
-    STRIKES.forEach((K, i) => {
-      if (!state.armed[i]) return;
-      const g = bsCall(state.entrySpot, K, T_EXP, R, IV0);
-      state.premiumCollected += g.price;
-    });
+    state.entryDays = state.daysLeft;
+    state.processScore = scoreProcess();
+    syncWireFromArmed();
+    state.path = buildPath(SEED_ID, state.pathVariant, state.entrySpot);
+    state.premiumCollected = premiumAt(state.entrySpot, state.wireK, state.entryDays);
+    trayLbl.textContent = 'PREMIUM';
     trayVal.textContent = '$' + state.premiumCollected.toFixed(2);
-    drawCoins(state.premiumCollected);
+    drawCoins(state.premiumCollected, false);
+    statPrem.textContent = '$' + state.premiumCollected.toFixed(2);
+    setEntryVisual(state.entrySpot);
+    entryRing.setAttribute('opacity', '1');
+    drawConePair();
+    drawWire();
+    updateGreeksReadout();
     feedback('lock');
     buzz(15);
+    showToast('Locked $' + state.entrySpot.toFixed(2) + ' · ' + state.entryDays + 'd');
     startRun();
   }
 
-  // ─── RUN ───
   function startRun() {
     state.aborted = false;
-    // P0: arm-gate ABORT so LOCK double-tap (~50ms) cannot fire abort
     state.abortArmedAt = performance.now() + T.ABORT_ARM_MS;
     setPhase('RUN');
     state.runT = 0;
-    state.pathPointsDrawn = [];
     state.pathSampleX = -999;
     state.thetaEarned = 0;
-    pricePath.setAttribute('points', `${xOf(0).toFixed(1)},${yOf(SPOT0).toFixed(1)}`);
+    pricePath.setAttribute('points', xOf(0).toFixed(1) + ',' + yOf(state.entrySpot).toFixed(1));
     const armUntil = state.abortArmedAt;
     setTimeout(() => {
       if (state.phase === 'RUN' && !state.aborted && performance.now() >= armUntil - 1) {
-        btnPrimary.disabled = false;
+        btnAbort.disabled = false;
       }
     }, T.ABORT_ARM_MS);
   }
 
+  function liveShortMark(S, tFrac) {
+    const Tleft = Math.max(1e-6, TexpDays(state.entryDays) * (1 - tFrac * 0.95));
+    const g = bsCall(S, state.wireK, Tleft, R, IV0);
+    return { mark: g.price, thetaSeller: -g.theta };
+  }
+
   function tickRun(dt) {
     if (state.aborted || state.phase !== 'RUN') return;
-    const speed = 1 / T.RUN_MS;
-    state.runT = Math.min(1, state.runT + dt * speed);
+    state.runT = Math.min(1, state.runT + dt / T.RUN_MS);
     const t = state.runT;
-
-    // interpolate seeded path
     const path = state.path;
     let price = path[path.length - 1].p;
     for (let i = 0; i < path.length - 1; i++) {
@@ -1677,116 +2171,109 @@
         break;
       }
     }
-    if (t <= 0) price = SPOT0;
+    if (t <= 0) price = state.entrySpot;
 
     const x = xOf(t);
     const y = yOf(price);
-    timePtr.setAttribute('x1', x);
-    timePtr.setAttribute('x2', x);
-    timeArrow.setAttribute('points', `${x},30 ${x - 6},38 ${x + 6},38`);
+    timePtr.setAttribute('x1', x); timePtr.setAttribute('x2', x);
+    timeArrow.setAttribute('points', x + ',30 ' + (x - 6) + ',38 ' + (x + 6) + ',38');
     priceDot.setAttribute('cx', x);
     priceDot.setAttribute('cy', y);
-    priceHalo.setAttribute('cx', x);
-    priceHalo.setAttribute('cy', y);
-    priceLabel.setAttribute('x', x);
-    priceLabel.setAttribute('y', y - 14);
+    priceDot.setAttribute('stroke-dasharray', 'none');
+    priceDot.setAttribute('fill', '#2d8a4e');
+    priceDot.setAttribute('fill-opacity', '1');
+    priceHalo.setAttribute('cx', x); priceHalo.setAttribute('cy', y);
+    priceLabel.setAttribute('x', x); priceLabel.setAttribute('y', y - 14);
+    priceLabel.setAttribute('text-anchor', 'middle');
     priceLabel.textContent = '$' + price.toFixed(2);
-    statSpot.textContent = '$' + price.toFixed(2);
+    statSpot.textContent = '$' + state.entrySpot.toFixed(2);
+    updateGreeksReadout();
 
-    // P2: denser polyline downsample — append only when moved ≥ PATH_SAMPLE_PX
     if (Math.abs(x - state.pathSampleX) >= T.PATH_SAMPLE_PX || t >= 1) {
       const pts = pricePath.getAttribute('points') || '';
-      pricePath.setAttribute('points', pts + ` ${x.toFixed(1)},${y.toFixed(1)}`);
+      pricePath.setAttribute('points', pts + ' ' + x.toFixed(1) + ',' + y.toFixed(1));
       state.pathSampleX = x;
     }
 
-    // fill rungs when path crosses from below — P1-6 teaching beat
-    STRIKES.forEach((K, i) => {
-      if (!state.armed[i] || state.filled[i]) return;
-      if (price >= K) {
-        state.filled[i] = true;
-        drawRungs();
-        feedback('fill');
-        buzz(12);
-        flashTray();
-        arcCoinToTray(yOf(K));
-        narrTitle.textContent = 'Filled $' + K.toFixed(2);
-        narrCopy.textContent = 'Premium kept · upside capped at the rung.';
-      }
-    });
+    if (!state.anyFilled && price >= state.wireK) {
+      state.filled = state.armed.map(Boolean);
+      state.anyFilled = true;
+      drawRungs();
+      feedback('fill');
+      buzz(12);
+      arcCoinToTray(yOf(state.wireK));
+      narrTitle.textContent = 'Wire kissed';
+      narrCopy.textContent = 'Path met $' + state.wireK.toFixed(2) + ' · premium kept, upside capped.';
+      wireLine.setAttribute('stroke', '#2d8a4e');
+    }
 
-    // P1-5: truthful θ — coin stack & Δ/θ track live short mark (no random dust)
     const live = liveShortMark(price, t);
-    const credit = state.premiumCollected;
-    // Seller θ earn ≈ credit − live mark when OTM extrinsic burns (clamp ≥ 0 teaching)
-    state.thetaEarned = Math.max(0, credit - live.mark);
+    state.thetaEarned = Math.max(0, state.premiumCollected - live.mark);
     state._lastTheta = live.thetaSeller;
     statPrem.textContent = '$' + live.mark.toFixed(2);
-    updateGreeksReadout(live.thetaSeller);
-    trayVal.textContent = '$' + credit.toFixed(2);
-    // Tiny θ label under tray via narr during quiet stretches
-    if (!state.filled.some(Boolean) && (Math.floor(t * 20) % 7 === 0)) {
-      if (state.bench) {
-        narrCopy.textContent =
-          'Credit $' + credit.toFixed(2) + ' · live mark $' + live.mark.toFixed(2) +
-          ' · θ earn ~$' + state.thetaEarned.toFixed(2);
-      } else {
-        narrCopy.textContent =
-          "You're collecting time decay · credit $" + credit.toFixed(2) +
-          ' · live mark $' + live.mark.toFixed(2);
-      }
-    }
-    drawCoins(live.mark);
-    if (state.juice && !state.reduce && Math.random() < 0.03 && live.thetaSeller > 0) {
-      feedback('theta');
-    }
+    trayVal.textContent = '$' + state.premiumCollected.toFixed(2);
+    drawCoins(live.mark, false);
+    if (state.juice && !state.reduce && Math.random() < 0.03 && live.thetaSeller > 0) feedback('theta');
 
     if (t >= 1) {
       state.finalPrice = price;
-      // Outcome design: short-call PnL at seeded end in the SAME world as entry premium.
-      // anyFilled / deepItm feed the narrative (run-over vs quiet expire).
-      const anyFilled = state.filled.some(Boolean);
-      const deepItm = state.armed.some((a, i) => a && price > STRIKES[i] + 0.8);
-      state.anyFilled = anyFilled;
-      state.deepItm = deepItm;
-      const entry = state.entrySpot;
-      let pnl = 0;
-      STRIKES.forEach((K, i) => {
-        if (!state.armed[i]) return;
-        const prem = bsCall(entry, K, T_EXP, R, IV0).price;
-        const intrinsic = Math.max(0, price - K);
-        pnl += prem - intrinsic;
-      });
-      state.pnl = pnl;
-      // Binary outcome gate: PnL ≥ 0. deepItm explains SPIKE misses in the card.
-      state.outcomeGood = pnl >= 0;
+      state.deepItm = price > state.wireK + 0.8;
+      state.anyFilled = price >= state.wireK || state.anyFilled;
+      const intrinsic = Math.max(0, price - state.wireK);
+      state.pnl = state.premiumCollected - intrinsic;
+      state.outcomeGood = state.pnl >= 0;
+      flashPathWire(price >= state.wireK);
+      state.dripDays = state.entryDays;
       setPhase('HANG');
+      updateGreeksReadout();
       feedback('hang');
     }
   }
 
-  function flashTray() {
-    trayVal.style.fill = '#d97706';
-    const tray = $('tray');
-    if (tray) {
-      const note = tray.querySelector('#trayCapNote');
-      if (note) note.remove();
-      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('id', 'trayCapNote');
-      t.setAttribute('x', '285');
-      t.setAttribute('y', '254');
-      t.setAttribute('text-anchor', 'middle');
-      t.setAttribute('font-size', '8');
-      t.setAttribute('fill', '#2d8a4e');
-      t.setAttribute('font-family', 'IBM Plex Mono, monospace');
-      t.textContent = 'PREMIUM KEPT';
-      tray.appendChild(t);
-      setTimeout(() => { try { t.remove(); } catch (_) {} }, 900);
-    }
-    setTimeout(() => { trayVal.style.fill = '#2d8a4e'; }, 280);
+  function flashPathWire(pierced) {
+    wireLine.setAttribute('stroke', pierced ? '#b54a3a' : '#2d8a4e');
+    wireLine.setAttribute('stroke-width', '4');
+    narrTitle.textContent = pierced ? 'Pierced' : 'Held';
+    narrCopy.textContent = pierced
+      ? 'Path pierced wire · $' + state.wireK.toFixed(2)
+      : 'Path held under wire · $' + state.wireK.toFixed(2);
+    state.geometryLine = buildGeometryLine(pierced);
+    setTimeout(() => { wireLine.setAttribute('stroke-width', '2.5'); }, T.INFO_FLASH_MS);
   }
 
-  // ─── HANG ───
+  function buildGeometryLine(pierced) {
+    const inside = isInsideBelly(state.wireK, state.entrySpot, state.entryDays);
+    const belly = inside ? 'Inside belly' : 'Outside belly';
+    const pathBit = pierced ? 'path kissed wire' : 'path slept';
+    const sky = state.pathVariant === 'spike' ? ' · SPIKE sky' : '';
+    return belly + ' · ' + state.entryDays + 'd · ' + pathBit + sky;
+  }
+
+  function tickHang(dt) {
+    state.hangProgress = Math.min(1, state.hangProgress + dt / T.HANG_CHARGE_MS);
+    holdFill.style.width = (state.hangProgress * 100) + '%';
+    btnHold.classList.toggle('charging', state.hangProgress > 0);
+    state.dripDays = state.entryDays * (1 - state.hangProgress);
+    updateGreeksReadout();
+    const collapseDays = Math.max(0.5, state.dripDays);
+    ivCone.setAttribute('d', conePath(state.entrySpot, collapseDays));
+    ghostCone.setAttribute('opacity', String(0.35 * (1 - state.hangProgress)));
+    const dripPrem = state.premiumCollected * (0.55 + 0.45 * state.hangProgress);
+    drawCoins(dripPrem, false);
+    trayVal.textContent = '$' + dripPrem.toFixed(2);
+    if (hangVeil) hangVeil.style.opacity = String(0.1 + 0.7 * Math.pow(state.hangProgress, 1.35));
+    updateHangDrone(state.hangProgress);
+    if (state.juice && !state.reduce && Math.random() < 0.35) spawnDripParticles(state.hangProgress);
+    if (state.hangProgress >= 1) {
+      state.holding = false;
+      state.dripDays = 0;
+      updateGreeksReadout();
+      hangVeil.style.opacity = '0';
+      stopHangDrone();
+      beginReveal();
+    }
+  }
+
   function decayHang() {
     state.holding = false;
     state.hangProgress *= 0.5;
@@ -1799,24 +2286,9 @@
     }
   }
 
-  function tickHang(dt) {
-    state.hangProgress = Math.min(1, state.hangProgress + dt / T.HANG_CHARGE_MS);
-    holdFill.style.width = (state.hangProgress * 100) + '%';
-    btnHold.classList.toggle('charging', state.hangProgress > 0);
-    // Theatrical vignette + drone curve (does not change outcome)
-    if (hangVeil) hangVeil.style.opacity = String(0.15 + 0.75 * Math.pow(state.hangProgress, 1.35));
-    updateHangDrone(state.hangProgress);
-    if (state.hangProgress >= 1) {
-      state.holding = false;
-      hangVeil.style.opacity = '0';
-      stopHangDrone();
-      beginReveal();
-    }
-  }
-
   function priceAtRunT(t) {
     const path = state.path;
-    if (!path || !path.length) return state.entrySpot || SPOT0;
+    if (!path || !path.length) return state.entrySpot;
     let price = path[path.length - 1].p;
     for (let i = 0; i < path.length - 1; i++) {
       if (t >= path[i].t && t <= path[i + 1].t) {
@@ -1825,24 +2297,10 @@
         break;
       }
     }
-    if (t <= 0) price = SPOT0;
+    if (t <= 0) price = state.entrySpot;
     return price;
   }
 
-  function settlePnlAt(price) {
-    const entry = state.entrySpot;
-    let pnl = 0;
-    STRIKES.forEach((K, i) => {
-      if (!state.armed[i]) return;
-      const prem = bsCall(entry, K, T_EXP, R, IV0).price;
-      const intrinsic = Math.max(0, price - K);
-      pnl += prem - intrinsic;
-    });
-    return pnl;
-  }
-
-  // P1-4: calm ABORT RUN → SUMMARY with honest WRONG / partial framing (teaching, non-punitive)
-  // force=true bypasses arm-gate (smoke / intentional API). Button clicks never pass force.
   function abortRun(force) {
     if (state.phase !== 'RUN') return;
     if (!force && performance.now() < (state.abortArmedAt || 0)) return;
@@ -1851,15 +2309,15 @@
     const t = Math.min(1, state.runT || 0);
     const price = priceAtRunT(t);
     state.finalPrice = price;
-    state.anyFilled = state.filled.some(Boolean);
-    state.deepItm = state.armed.some((a, i) => a && price > STRIKES[i] + 0.8);
-    state.pnl = settlePnlAt(price);
-    state.outcomeGood = false; // incomplete settle — miss framing
-    // Force WRONG (partial) regardless of process axis — bail = unfinished proof
+    state.anyFilled = price >= state.wireK || state.filled.some(Boolean);
+    state.deepItm = price > state.wireK + 0.8;
+    const intrinsic = Math.max(0, price - state.wireK);
+    state.pnl = state.premiumCollected - intrinsic;
+    state.outcomeGood = false;
     state.grade = 'WRONG';
+    state.geometryLine = 'Left early · ' + (state.bellyInside ? 'Inside belly' : 'Outside belly') + ' · ' + state.entryDays + 'd';
     feedback('wrong');
     buzz(8);
-    // Skip hang theatre; soft reveal → summary
     beginReveal();
   }
 
@@ -1868,10 +2326,9 @@
     touch();
     stopHangDrone();
     if (hangVeil) hangVeil.style.opacity = '0';
-    // Restore Premium readout to credited entry (never hijack for P/L)
     statPrem.textContent = '$' + (state.premiumCollected || 0).toFixed(2);
+    updateGreeksReadout();
 
-    // Grade matrix (binary 2×2 — unchanged from P0); abort forces WRONG / partial
     let grade = state.grade;
     if (!state.aborted) {
       const processGood = state.processScore >= PROCESS_GOOD_MIN;
@@ -1880,6 +2337,7 @@
       else if (!processGood && outcomeGood) grade = 'LUCKY';
       else if (processGood && !outcomeGood) grade = 'UNLUCKY';
       else grade = 'WRONG';
+      if (!state.geometryLine) state.geometryLine = buildGeometryLine(state.finalPrice >= state.wireK);
     } else {
       grade = 'WRONG';
     }
@@ -1887,16 +2345,12 @@
 
     const pnl = state.pnl;
     cardPL.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
-
-    // P1-1 SE-10: quiet raw P/L → GRADE stamp sole hero → tiered celebration → card
-    // Do NOT count-up #statPrem.
     quietPL.textContent = 'P/L ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
     quietPL.className = 'quiet-pl show ' + (pnl >= 0 ? 'up' : 'down');
     quietPL.setAttribute('aria-hidden', 'false');
 
     const quietMs = state.aborted ? Math.min(T.QUIET_PL_MS, 80) : T.QUIET_PL_MS;
     setTimeout(() => {
-      // Fade quiet PL while stamp takes the frame (proof, not boast)
       quietPL.classList.remove('show');
       showGradeStamp(grade, () => {
         setTimeout(() => {
@@ -1905,64 +2359,48 @@
             buzz([20, 40, 20]);
             if (state.juice && !state.reduce) spawnConfetti();
             state.streak++;
-            try { localStorage.setItem('strikeSonyStreak', String(state.streak)); } catch (_) {}
-          } else if (grade === 'LUCKY') {
-            feedback('lucky');
-          } else if (grade === 'UNLUCKY') {
-            feedback('unlucky');
-          } else {
-            // WRONG / aborted — soft teaching feedback only (already buzzed on abort)
-            if (!state.aborted) feedback('wrong');
-          }
-          setTimeout(
-            () => showSummary(),
-            state.juice && !state.reduce ? T.CARD_AFTER_MS : 100
-          );
+            try { localStorage.setItem(LS_STREAK, String(state.streak)); } catch (_) {}
+          } else if (grade === 'LUCKY') feedback('lucky');
+          else if (grade === 'UNLUCKY') feedback('unlucky');
+          else if (!state.aborted) feedback('wrong');
+          setTimeout(() => showSummary(), state.juice && !state.reduce ? T.CARD_AFTER_MS : 100);
         }, state.aborted ? Math.min(T.GRADE_FIRST_MS, 40) : T.GRADE_FIRST_MS);
       });
     }, quietMs);
   }
 
-  function plainGradeLine(grade) {
-    if (state.aborted) {
-      return 'You left early — graded as incomplete.';
-    }
-    const lines = {
-      CORRECT: 'Process held and the path cooperated.',
-      LUCKY: 'You made money, but the process was soft.',
-      UNLUCKY: 'Process was solid; the path went against you.',
-      WRONG: 'Process and path both missed.',
-    };
-    return lines[grade] || '';
-  }
-
   function showGradeStamp(grade, done) {
-    // Stamp keeps grade names; sub uses everyday English (restrained CORRECT)
-    const subs = {
-      CORRECT: 'Process held · path cooperated',
-      LUCKY: 'You made money, but the process was soft',
-      UNLUCKY: 'Process was solid; the path went against you',
-      WRONG: state.aborted
-        ? 'You left early — graded as incomplete'
-        : 'Process and path both missed',
-    };
     stampMark.textContent = grade;
-    stampSub.textContent = subs[grade];
+    stampSub.textContent = state.geometryLine || (state.aborted ? 'Left early — incomplete' : 'Belly · days · path');
     gradeStamp.dataset.g = grade;
-    // Measured px budget: stamp max-width 280 on ≤420 sheet
     gradeStamp.style.maxWidth = STAMP_BUDGET.maxW + 'px';
     stampOverlay.classList.add('show');
     requestAnimationFrame(() => {
       gradeStamp.classList.add('in');
       if (state.juice && !state.reduce) {
+        gradeStamp.classList.add('impact');
         sheet.classList.add('paper-jitter');
-        setTimeout(() => sheet.classList.remove('paper-jitter'), T.STAMP_SHAKE_MS);
+        buzz(grade === 'CORRECT' ? [18, 40, 18] : 12);
+        setTimeout(() => {
+          sheet.classList.remove('paper-jitter');
+          gradeStamp.classList.remove('impact');
+        }, T.STAMP_SHAKE_MS + 160);
       }
     });
     const stampMs = state.aborted ? Math.min(T.STAMP_SHOW_MS, 500) : T.STAMP_SHOW_MS;
-    setTimeout(() => {
-      if (done) done();
-    }, stampMs);
+    setTimeout(() => { if (done) done(); }, stampMs);
+  }
+
+  function plainGradeLine(grade) {
+    const geo = state.geometryLine || '';
+    if (state.aborted) return geo + ' — graded incomplete.';
+    const moral = {
+      CORRECT: 'Geometry held and path cooperated.',
+      LUCKY: 'Paid — geometry was soft.',
+      UNLUCKY: 'Geometry solid; path went against you.',
+      WRONG: 'Geometry and path both missed.',
+    };
+    return geo + (geo ? ' · ' : '') + (moral[grade] || '');
   }
 
   function showSummary() {
@@ -1976,38 +2414,27 @@
     cardPL.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
     cardPL.className = 'pl ' + (pnl >= 0 ? 'up' : 'down');
     if (cardPlain) cardPlain.textContent = plainGradeLine(g);
-    const armedN = state.armed.filter(Boolean).length;
-    const filledN = state.filled.filter(Boolean).length;
-    const psPct = (state.processScore * 100) | 0;
-    // First-timers: trim raw process % / path jargon. Bench keeps the axis + path.
+    const bits = [
+      state.geometryLine,
+      state.aborted ? 'Left early' : null,
+      'sky ' + state.pathVariant,
+      state.streak ? ('streak ' + state.streak) : null,
+    ].filter(Boolean);
     if (state.bench) {
       cardMeta.textContent =
-        `Process ${psPct}% · outcome ${state.outcomeGood ? 'OK' : 'miss'}` +
-        `${state.aborted ? ' · aborted' : ''} · path ${state.pathVariant.toUpperCase()} · ` +
-        `${armedN} rungs · ${filledN} filled` +
-        `${state.deepItm ? ' · deep ITM' : ''} · streak ${state.streak} · touches ${state.touches}`;
+        'Process ' + ((state.processScore * 100) | 0) + '% · outcome ' + (state.outcomeGood ? 'OK' : 'miss') +
+        (state.aborted ? ' · aborted' : '') + ' · ' + bits.join(' · ');
     } else {
-      const bits = [
-        state.aborted ? 'Left early' : null,
-        armedN + ' rungs sold',
-        filledN + ' filled',
-        state.deepItm ? 'price ran through' : null,
-        state.streak ? ('streak ' + state.streak) : null,
-      ].filter(Boolean);
-      cardMeta.innerHTML =
-        bits.join(' · ') +
-        ` <span class="meta-detail" title="Process axis ${psPct}% · outcome ${state.outcomeGood ? 'OK' : 'miss'} · touches ${state.touches}">· detail</span>`;
+      cardMeta.textContent = bits.join(' · ');
     }
-    const share =
-      `STRIKE:SONY ${SEED_ID}/${state.pathVariant}\n` +
-      `${g}${state.aborted ? ' (aborted)' : ''} · P/L ${(pnl >= 0 ? '+' : '')}$${pnl.toFixed(2)}\n` +
-      `process-first · illustrative only`;
-    state.shareText = share;
-    cardShare.textContent = share;
+    state.shareText =
+      'STRIKE:SONY ' + SEED_ID + '/' + state.pathVariant + '\n' +
+      g + (state.aborted ? ' (aborted)' : '') + ' · ' + (state.geometryLine || '') + '\n' +
+      'P/L ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2) + ' · illustrative only';
+    cardShare.textContent = state.shareText;
     summaryOverlay.classList.add('show');
   }
 
-  // ─── CORRECT celebration: pencil ticks / paper scraps (not casino gold) ───
   let confettiBits = [];
   function spawnConfetti() {
     confettiBits = [];
@@ -2015,16 +2442,11 @@
     for (let i = 0; i < 36; i++) {
       const kind = i % 3 === 0 ? 'tick' : 'scrap';
       confettiBits.push({
-        x: 180 + (Math.random() - 0.5) * 100,
-        y: 70 + Math.random() * 30,
-        vx: (Math.random() - 0.5) * 2.4,
-        vy: Math.random() * -2.2 - 0.6,
-        rot: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.12,
-        c: cols[i % cols.length],
-        kind,
-        len: kind === 'tick' ? 6 + Math.random() * 8 : 4 + Math.random() * 5,
-        life: 1,
+        x: 180 + (Math.random() - 0.5) * 100, y: 70 + Math.random() * 30,
+        vx: (Math.random() - 0.5) * 2.4, vy: Math.random() * -2.2 - 0.6,
+        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.12,
+        c: cols[i % cols.length], kind,
+        len: kind === 'tick' ? 6 + Math.random() * 8 : 4 + Math.random() * 5, life: 1,
       });
     }
     const t0 = performance.now();
@@ -2032,81 +2454,130 @@
       const u = (ts - t0) / T.CONFETTI_MS;
       pctx.clearRect(0, 0, 360, 320);
       confettiBits.forEach(b => {
-        b.vy += 0.06;
-        b.x += b.vx;
-        b.y += b.vy;
-        b.rot += b.vr;
-        b.life = 1 - u;
-        pctx.save();
-        pctx.globalAlpha = Math.max(0, b.life * 0.9);
-        pctx.translate(b.x, b.y);
-        pctx.rotate(b.rot);
-        pctx.strokeStyle = b.c;
-        pctx.fillStyle = b.c;
+        b.vy += 0.06; b.x += b.vx; b.y += b.vy; b.rot += b.vr; b.life = 1 - u;
+        pctx.save(); pctx.globalAlpha = Math.max(0, b.life * 0.9);
+        pctx.translate(b.x, b.y); pctx.rotate(b.rot);
+        pctx.strokeStyle = b.c; pctx.fillStyle = b.c;
         if (b.kind === 'tick') {
-          pctx.lineWidth = 1.4;
-          pctx.beginPath();
-          pctx.moveTo(-b.len * 0.2, 0);
-          pctx.lineTo(b.len, -b.len * 0.15);
-          pctx.stroke();
-        } else {
-          pctx.fillRect(-b.len * 0.5, -1.5, b.len, 3);
-        }
+          pctx.lineWidth = 1.4; pctx.beginPath();
+          pctx.moveTo(-b.len * 0.2, 0); pctx.lineTo(b.len, -b.len * 0.15); pctx.stroke();
+        } else pctx.fillRect(-b.len * 0.5, -1.5, b.len, 3);
         pctx.restore();
       });
       pctx.globalAlpha = 1;
-      if (u < 1) requestAnimationFrame(step);
-      else pctx.clearRect(0, 0, 360, 320);
+      if (u < 1) requestAnimationFrame(step); else pctx.clearRect(0, 0, 360, 320);
     }
     requestAnimationFrame(step);
   }
 
-  // ─── Drag (primary gesture) ───
-  function clientToSvgY(clientY) {
+  function clientToSvg(e) {
     const rect = $('board').getBoundingClientRect();
-    const y = ((clientY - rect.top) / rect.height) * 320;
-    return Math.max(Y0 + 4, Math.min(Y1 - 4, y));
+    return {
+      x: ((e.clientX - rect.left) / rect.width) * 360,
+      y: ((e.clientY - rect.top) / rect.height) * 320,
+    };
   }
 
   function onPointerDown(e) {
-    if (state.phase !== 'PLAN' && state.phase !== 'DEMO') return;
-    if (state.phase === 'DEMO') return; // auto demo owns the drag
-    const target = e.target;
-    if (target !== priceDot && target !== priceHalo && target !== priceLabel && target !== dragHint && target !== priceHero && !priceHero.contains(target)) {
-      // allow drag if near the dot
-      const rect = $('board').getBoundingClientRect();
-      const y = ((e.clientY - rect.top) / rect.height) * 320;
-      const x = ((e.clientX - rect.left) / rect.width) * 360;
-      const dy = y - +priceDot.getAttribute('cy');
-      const dx = x - +priceDot.getAttribute('cx');
-      if (dx * dx + dy * dy > 40 * 40) return;
+    if (state.phase !== 'PLAN') return;
+    const p = clientToSvg(e);
+    if (state.planFocus === 'wire' || state.planFocus === 'lock' || state.wirePlaced) {
+      const wy = yOf(state.wireK);
+      if (Math.abs(p.y - wy) < 18 && p.x > 50 && p.x < 330) {
+        state.dragging = true; state.dragMode = 'wire';
+        touch(); e.preventDefault(); return;
+      }
     }
-    state.dragging = true;
-    touch();
-    priceHero.setPointerCapture?.(e.pointerId);
-    e.preventDefault();
+    if (state.planFocus === 'days' || state.planFocus === 'wire' || state.planFocus === 'lock') {
+      const hx = +daysHandleHit.getAttribute('x');
+      if (p.x >= hx - 4 && p.x <= hx + 28) {
+        state.dragging = true; state.dragMode = 'days';
+        touch(); e.preventDefault(); return;
+      }
+    }
+    const gy = +priceDot.getAttribute('cy');
+    const gx = +priceDot.getAttribute('cx');
+    const nearGhost = (p.x - gx) * (p.x - gx) + (p.y - gy) * (p.y - gy) < 48 * 48;
+    const target = e.target;
+    const priceHitEl = document.getElementById('priceHit');
+    const onHero = target === priceDot || target === priceHalo || target === priceLabel ||
+      target === priceHitEl || target === dragHint || target === priceHero || (priceHero && priceHero.contains(target));
+    if (onHero || nearGhost || (state.planFocus === 'scrub' && p.x < 120)) {
+      state.dragging = true; state.dragMode = 'scrub';
+      touch();
+      try { priceHero.setPointerCapture?.(e.pointerId); } catch (_) {}
+      e.preventDefault();
+    }
   }
+
   function onPointerMove(e) {
     if (!state.dragging || state.phase !== 'PLAN') return;
-    const y = clientToSvgY(e.clientY);
-    setSpot(priceOfY(y));
-    if (state.planFocus === 'scrub' && Math.abs(state.spot - SPOT0) > 0.15) {
-      setPlanFocus('arm');
+    const p = clientToSvg(e);
+    if (state.dragMode === 'scrub') {
+      const S = priceOfY(Math.max(Y0 + 4, Math.min(Y1 - 4, p.y)));
+      state.ghostSpot = S;
+      setGhostVisual(S);
+      setEntryVisual(state.entrySpot);
+      recomputePremium();
+      priceHero.classList.add('scrubbing');
+      scrubJuiceTick(S);
+    } else if (state.dragMode === 'wire') {
+      setWire(priceOfY(Math.max(Y0 + 4, Math.min(Y1 - 4, p.y))), true);
+      if (state.juice && !state.reduce) feedback('soft');
+    } else if (state.dragMode === 'days') {
+      const u = Math.max(0, Math.min(1, (p.x - X0) / (X1 - X0)));
+      setDays(DAYS_MIN + u * (DAYS_MAX - DAYS_MIN), true);
+      if (state.juice && !state.reduce) {
+        popPremium();
+        spawnSoftScrap(xOf(u), 160, 2);
+      }
     }
     e.preventDefault();
   }
-  function onPointerUp(e) {
+
+  function onPointerUp() {
     if (!state.dragging) return;
+    const mode = state.dragMode;
     state.dragging = false;
+    state.dragMode = null;
+    priceHero.classList.remove('scrubbing');
     feedback('tap');
+    buzz(8);
+    if (mode === 'scrub') {
+      state.scrubReleased = true;
+      if (state.juice && !state.reduce) {
+        popPremium();
+        spawnSoftScrap(60, yOf(state.ghostSpot), 6);
+      }
+      if (state.planFocus === 'scrub') setPlanFocus('days');
+    } else if (mode === 'days') {
+      if (state.scrubReleased) setPlanFocus('wire');
+    } else if (mode === 'wire') {
+      setPlanFocus('lock');
+      if (state.juice && !state.reduce) buzz([10, 30, 10]);
+    }
   }
 
   priceHero.addEventListener('pointerdown', onPointerDown);
+  strikeWire.addEventListener('pointerdown', onPointerDown);
+  $('daysHandleG').addEventListener('pointerdown', onPointerDown);
   window.addEventListener('pointermove', onPointerMove);
   window.addEventListener('pointerup', onPointerUp);
   $('board').addEventListener('pointerdown', onPointerDown);
 
-  // Hold settle — P1-3: pointerleave decays like pointerup (no sticky full bar)
+  if (daysSlider) {
+    daysSlider.addEventListener('input', () => {
+      if (state.phase !== 'PLAN' || state.locked) return;
+      if (state.planFocus === 'scrub' && !state.scrubReleased) return;
+      touch();
+      setDays(+daysSlider.value, true);
+    });
+    daysSlider.addEventListener('change', () => {
+      if (state.phase !== 'PLAN') return;
+      if (state.scrubReleased) setPlanFocus('wire');
+    });
+  }
+
   btnHold.addEventListener('pointerdown', (e) => {
     if (state.phase !== 'HANG') return;
     e.preventDefault();
@@ -2117,76 +2588,56 @@
     startHangDrone();
     if (hangVeil) hangVeil.style.opacity = '0.15';
   });
-  btnHold.addEventListener('pointerup', () => {
-    if (state.phase !== 'HANG') return;
-    decayHang();
-  });
-  btnHold.addEventListener('pointerleave', () => {
-    if (state.phase !== 'HANG') return;
-    if (state.holding) decayHang();
-  });
-  btnHold.addEventListener('pointercancel', () => {
-    if (state.phase !== 'HANG') return;
-    if (state.holding) decayHang();
-  });
+  btnHold.addEventListener('pointerup', () => { if (state.phase === 'HANG') decayHang(); });
+  btnHold.addEventListener('pointerleave', () => { if (state.phase === 'HANG' && state.holding) decayHang(); });
+  btnHold.addEventListener('pointercancel', () => { if (state.phase === 'HANG' && state.holding) decayHang(); });
 
-  // Buttons
   btnPrimary.addEventListener('click', () => {
     const ph = state.phase;
-    if (ph === 'BOOT') {
-      // P2: skip DEMO for return visits
-      try { localStorage.setItem('strikeSonyVisited', '1'); } catch (_) {}
-      if (state.visited) {
-        setSpot(SPOT0);
-        setPhase('READ');
-        narrCopy.textContent = 'Welcome back. Cone = IV · lines = rungs · coins = premium.';
-        scheduleReadCue();
-      } else {
-        state.visited = true;
-        runDemo();
-      }
-    } else if (ph === 'DEMO') {
-      // allow SKIP during demo
-      killTweens();
-      setSpot(SPOT0);
-      setPhase('READ');
-      scheduleReadCue();
-    } else if (ph === 'READ') enterPlan();
+    if (ph === 'BOOT') enterPlanCold();
     else if (ph === 'PLAN') lockIn();
-    else if (ph === 'RUN') abortRun(false);
   });
+  btnAbort.addEventListener('click', () => abortRun(false));
 
   rungBtns.forEach((b) => {
-    b.addEventListener('click', () => toggleRung(+b.dataset.rung));
+    b.addEventListener('click', () => {
+      if (state.phase !== 'PLAN') return;
+      if (state.planFocus === 'scrub' && !state.scrubReleased) return;
+      touch();
+      const i = +b.dataset.rung;
+      setWire(STRIKES[i], true);
+      feedback('arm');
+      buzz(8);
+      setPlanFocus('lock');
+    });
   });
 
-  cardShare.addEventListener('click', (e) => {
-    e.preventDefault();
-    copyShareText();
-  });
+  cardShare.addEventListener('click', (e) => { e.preventDefault(); copyShareText(); });
   cardShare.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      copyShareText();
-    }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyShareText(); }
   });
 
   $('btnReplay').addEventListener('click', () => {
     touch();
     killTweens();
     pctx.clearRect(0, 0, 360, 320);
-    // reset price hero x
     priceDot.setAttribute('cx', X0);
     priceHalo.setAttribute('cx', X0);
-    priceLabel.setAttribute('x', X0);
+    priceLabel.setAttribute('x', 78);
+    priceLabel.setAttribute('text-anchor', 'start');
+    priceDot.setAttribute('stroke-dasharray', '4 3');
+    priceDot.setAttribute('fill', '#c8e6d0');
+    priceDot.setAttribute('fill-opacity', '0.42');
+    priceDot.setAttribute('r', '11');
+    wireLine.setAttribute('stroke', '#d97706');
+    syncLandscapeGhost();
     state.touches = 0;
-    state.path = buildPath(SEED_ID, state.pathVariant);
     startBoot();
     feedback('tap');
   });
 
   juiceBtn.addEventListener('click', () => {
-    if (state.reduce) return; // P1-7 locked off while prefers-reduced-motion
+    if (state.reduce) return;
     state.juice = !state.juice;
     syncJuiceChrome();
   });
@@ -2216,35 +2667,26 @@
   syncBenchChrome();
   if (pathBtn) pathBtn.addEventListener('click', () => {
     if (!state.bench) return;
-    if (state.phase !== 'BOOT' && state.phase !== 'PLAN' && state.phase !== 'READ' && state.phase !== 'DEMO') return;
+    if (state.phase !== 'BOOT' && state.phase !== 'PLAN') return;
     state.pathVariant = state.pathVariant === 'spike' ? 'grind' : 'spike';
-    state.path = buildPath(SEED_ID, state.pathVariant);
+    state.path = buildPath(SEED_ID, state.pathVariant, state.entrySpot);
     syncPathPill();
     feedback('tap');
   });
+  if (mastTitle) mastTitle.addEventListener('contextmenu', (e) => e.preventDefault());
 
-  // P1: BENCH only via ?bench=1 (or smoke setBench) — no long-press leak of SPIKE/Δθ
-  // Accidental long-press on the title must not unlock production chrome.
-  if (mastTitle) {
-    mastTitle.addEventListener('contextmenu', (e) => e.preventDefault());
-  }
-
-  // resize particles canvas to board
   function syncCanvas() {
     const rect = $('board').getBoundingClientRect();
-    particles.width = 360;
-    particles.height = 320;
+    particles.width = 360; particles.height = 320;
     particles.style.width = rect.width + 'px';
     particles.style.height = rect.height + 'px';
   }
-  window.addEventListener('resize', syncCanvas);
+  window.addEventListener('resize', () => { syncCanvas(); syncLandscapeGhost(); });
   syncCanvas();
-
-  // Kick off
+  syncLandscapeGhost();
   syncJuiceChrome();
   startBoot();
 
-  // Minimal smoke/bench surface (no brokerage). Used by FIXES-P0 checks.
   window.__strikeSonySmoke = {
     get: () => ({
       phase: state.phase,
@@ -2254,9 +2696,20 @@
       outcomeGood: state.outcomeGood,
       pathVariant: state.pathVariant,
       entrySpot: state.entrySpot,
-      spot: state.spot,
-      previewSpot: state.previewSpot,
+      ghostSpot: state.ghostSpot,
+      spot: state.ghostSpot,
+      previewSpot: state.ghostSpot,
+      daysLeft: state.daysLeft,
+      entryDays: state.entryDays,
+      wireK: state.wireK,
+      wirePlaced: state.wirePlaced,
+      bellyInside: state.bellyInside,
+      planFocus: state.planFocus,
+      scrubReleased: state.scrubReleased,
+      daysTouched: state.daysTouched,
+      locked: state.locked,
       premiumCollected: state.premiumCollected,
+      previewPrem: state.previewPrem,
       armed: state.armed.slice(),
       deepItm: state.deepItm,
       aborted: state.aborted,
@@ -2267,35 +2720,79 @@
       greeksLabel: statGreeksLbl ? statGreeksLbl.textContent : '',
       greeksValue: statGreeks ? statGreeks.textContent : '',
       plainLine: cardPlain ? cardPlain.textContent : '',
+      geometryLine: state.geometryLine,
+      stampSub: stampSub ? stampSub.textContent : '',
+      narrTitle: narrTitle ? narrTitle.textContent : '',
+      narrCopy: narrCopy ? narrCopy.textContent : '',
+      primaryLabel: btnPrimary ? btnPrimary.textContent : '',
+      abortLabel: btnAbort ? btnAbort.textContent : '',
+      abortVisible: btnAbort ? btnAbort.style.display !== 'none' : false,
+      holdLabel: btnHold ? btnHold.textContent : '',
+      sessionN: state.sessionN,
+      trayLabel: trayLbl ? trayLbl.textContent : '',
+      wireCaption: wireCaption ? wireCaption.textContent : '',
+      bodyText: document.body.innerText,
     }),
     setBench: (on) => setBench(!!on),
     setPath: (v) => {
-      // Automated tests reach SPIKE without the player toggle
       state.pathVariant = v === 'spike' ? 'spike' : 'grind';
-      state.path = buildPath(SEED_ID, state.pathVariant);
+      state.path = buildPath(SEED_ID, state.pathVariant, state.entrySpot);
       syncPathPill();
     },
+    setDays: (d) => setDays(d, true),
+    setWire: (k) => setWire(k, true),
+    setGhost: (s) => {
+      state.ghostSpot = s;
+      setGhostVisual(s);
+      setEntryVisual(state.entrySpot);
+      recomputePremium();
+    },
+    releaseScrub: () => {
+      state.scrubReleased = true;
+      setPlanFocus('days');
+    },
+    isInsideBelly: (k, s, d) => isInsideBelly(
+      k != null ? k : state.wireK,
+      s != null ? s : state.entrySpot,
+      d != null ? d : state.daysLeft
+    ),
+    midTenorSigma: (s, d) => midTenorSigma(
+      s != null ? s : state.entrySpot,
+      d != null ? d : state.daysLeft
+    ),
     arm: (flags) => {
       state.armed = [!!flags[0], !!flags[1], !!flags[2]];
-      drawRungs();
-      recomputePremium();
-      updateChrome();
+      const i = state.armed.findIndex(Boolean);
+      if (i >= 0) setWire(STRIKES[i], true);
+      else setWire(24.50, true);
     },
-    preview: (s) => { setSpot(s); },
+    preview: (s) => {
+      state.ghostSpot = s;
+      setGhostVisual(s);
+      recomputePremium();
+    },
     jumpPlan: () => {
       killTweens();
-      setPhase('PLAN');
-      updateChrome();
+      enterPlanCold();
     },
-    lock: () => lockIn(),
-    forceHangDone: () => {
-      state.hangProgress = 1;
-      beginReveal();
+    lock: () => {
+      if (!state.wirePlaced) setWire(state.wireK, true);
+      state.scrubReleased = true;
+      lockIn();
     },
+    forceHangDone: () => { state.hangProgress = 1; beginReveal(); },
     abort: () => abortRun(true),
+    clearSessions: () => {
+      try { localStorage.setItem(LS_SESSION, '0'); } catch (_) {}
+      state.sessionN = 0;
+    },
+    bumpSession: () => { state.sessionN = bumpSession(); return state.sessionN; },
     scoreProcess,
+    premiumAt,
+    conePath,
   };
 })();
+
 </script>
 </body>
 </html>
